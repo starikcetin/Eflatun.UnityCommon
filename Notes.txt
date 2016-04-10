@@ -2,9 +2,9 @@
 ##        Folders        ##
 ###########################
 
-CSharp Expansions: 	For custom types that are not included in .Net and/or Mono. These types should be independent from Unity.
-DotNet Expansions: 	For types that are included in .Net and/or Mono, but not available in Unity currently. These types should be independent from Unity.
-Unity CSharp Utilities: For custom types that are Unity dependent.
+Expansions:		For custom types that are not included in .Net and/or Mono. These types should be independent from Unity.
+Backports: 		For types that are included in .Net and/or Mono, but not available in Unity currently. These types should be independent from Unity.
+Utils:			For custom types that are Unity dependent.
 
 -- Unity dependency: If your type uses any of the namespaces or methods Unity provides, that type is Unity dependant.
 
@@ -14,18 +14,29 @@ Unity CSharp Utilities: For custom types that are Unity dependent.
 ##  Namespace Structure  ##
 ###########################
 
-UnityCSharpCommonLibrary  ("Unity CSharp Common Library" Folder)
+UnityCSharpCommon				("Unity CSharp Common" Folder)
 |
-|----CSharpExpansions	  ("CSharp Expansions" Folder)
+|---Expansions					("Expansions" Folder)
 |
-|----UnityCSharpUtils	  ("Unity CSharp Utilities" Folder)
+|---Utils						("Utils" Folder)
+	|
+	|---ObjectTracking2D		("2D Manual Object Tracking" Folder)
+	|
+	|---Common					("Common Functionalities" Folder)
+	|	|
+	|	|---Serialization		("Serialization" Folder)
+	|
+	|---Pooling					("Object Pooling" Folder)
+	|
+	|---SingletonPattern		("Singleton Pattern" Folder)
 
 
 
 ###########################
 ##         Notes         ##
 ###########################
--> DotNetExpansions folder must not be included in this library's namespace structure. 
+
+-> DotNetExpansions folder must not be included in this library's namespace structure.
    Because they all belong to "System" master namespace.
 
 -> You may prefer using this library as a submodule in your git repository.
