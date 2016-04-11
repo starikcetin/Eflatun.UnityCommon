@@ -1,27 +1,34 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-namespace UnityCSharpCommon.Utils.SingletonPattern
+namespace UnityCSharpCommon.Utils.SingletonPatterns
 {
     /// <summary>
-    /// Be aware this will not prevent a non singleton constructor such as `T myT = new T();`
+    /// <para>Base class for a singleton MonoBehaviour that gets destroyed if current scene changes.</para>
+    /// <para>Be aware this will not prevent a non singleton constructor such as `T myT = new T();`
     /// To prevent that, add `protected T () {}` to your singleton class.
-    /// This type inherits from MonoBehaviour so we can use Coroutines.
+    /// This type inherits from MonoBehaviour so we can use Coroutines.</para>
     /// </summary>
-    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+    public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T _instance;
 
         private static readonly object Lock = new object();
 
-        protected Singleton() { }
+        protected SceneSingleton() { }
 
+        /// <summary>
+        /// Returns the singleton instance of <see cref="T"/> for this scene. Please double check you are in the correct scene before calling this.
+        /// </summary>
         public static T Instance
         {
             get
             {
+                string sceneName = SceneManager.GetActiveScene().name;
+
                 if (_applicationIsQuitting)
                 {
-                    Debug.LogWarning("[Singleton] Instance '" + typeof (T) + "' already destroyed on application quit." +
+                    Debug.LogWarning("[SceneSingleton (" + sceneName + ")] Instance '" + typeof (T) + "' already destroyed on application quit." +
                                      " Won't create again - returning null.");
                     return null;
                 }
@@ -34,7 +41,7 @@ namespace UnityCSharpCommon.Utils.SingletonPattern
 
                         if (FindObjectsOfType(typeof (T)).Length > 1)
                         {
-                            Debug.LogError("[Singleton] Something went really wrong " +
+                            Debug.LogError("[SceneSingleton (" + sceneName + ")] Something went really wrong " +
                                            " - there should never be more than 1 singleton!" +
                                            " Reopening the scene might fix it.");
                             return _instance;
@@ -46,14 +53,12 @@ namespace UnityCSharpCommon.Utils.SingletonPattern
                             _instance = singleton.AddComponent<T>();
                             singleton.name = "(singleton) " + typeof (T);
 
-                            DontDestroyOnLoad(singleton);
-
-                            Debug.Log("[Singleton] An instance of " + typeof (T) + " is needed in the scene, so '" +
-                                      singleton + "' was created with DontDestroyOnLoad.");
+                            Debug.Log("[SceneSingleton (" + sceneName + ")] An instance of " + typeof (T) + " is needed in the scene, so '" +
+                                      singleton + "' was created.");
                         }
                         else
                         {
-                            Debug.Log("[Singleton] Using instance already created: " + _instance.gameObject.name);
+                            Debug.Log("[SceneSingleton (" + sceneName + ")] Using instance already created: " + _instance.gameObject.name);
                         }
                     }
 
@@ -66,10 +71,9 @@ namespace UnityCSharpCommon.Utils.SingletonPattern
 
         /// <summary>
         /// When Unity quits, it destroys objects in a random order.
-        /// In principle, a Singleton is only destroyed when application quits.
-        /// If any script calls Instance after it have been destroyed,
-        ///   it will create a buggy ghost object that will stay on the Editor scene
-        ///   even after stopping playing the Application. Really bad!
+        /// If any script calls Instance after Singleton have been destroyed,
+        /// it will create a buggy ghost object that will stay on the Editor scene
+        /// even after stopping playing the Application. Really bad!
         /// So, this was made to be sure we're not creating that buggy ghost object.
         /// </summary>
         public void OnDestroy()

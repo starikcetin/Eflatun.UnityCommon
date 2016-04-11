@@ -28,7 +28,7 @@ UnityCSharpCommon				("Unity CSharp Common" Folder)
 	|
 	|---Pooling					("Object Pooling" Folder)
 	|
-	|---SingletonPattern		("Singleton Pattern" Folder)
+	|---SingletonPatterns		("Singleton Pattern" Folder)
 
 
 
