@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityCSharpCommon.Expansions;
-using UnityCSharpCommon.Utils.SingletonPattern;
+using UnityCSharpCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
 namespace UnityCSharpCommon.Utils.Pooling
 {
-    public class PoolManager : Singleton<PoolManager>
+    public class PoolManager : SceneSingleton<PoolManager>
     {
         protected PoolManager() {} //prevent initailization
 
