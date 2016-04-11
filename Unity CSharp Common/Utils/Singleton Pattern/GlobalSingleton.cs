@@ -4,6 +4,8 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that stays alive until application death even if current scene changes.</para>
+    /// <para>If you want to use Awake or OnApplicationQuit methods in implementator, use 'new' keyword in method signature
+    /// and call 'base.Awake()' or 'base.OnApplicationQuit()' in the first line of your method.</para>
     /// <para>Be aware this will not prevent a non singleton constructor such as `T myT = new T();`
     /// To prevent that, add `protected T () {}` to your singleton class.
     /// This type inherits from MonoBehaviour so we can use Coroutines.</para>
@@ -25,8 +27,7 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
             {
                 if (_applicationIsQuitting)
                 {
-                    Debug.LogWarning("[GlobalSingleton] Instance '" + typeof(T) + "' already destroyed on application quit." +
-                                     " Won't create again - returning null.");
+                    Debug.LogWarning(string.Format("[GlobalSingleton] Application is quitting! Returning null instead of '{0}'.", typeof(T)));
                     return null;
                 }
 
@@ -38,28 +39,28 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
 
                         if (FindObjectsOfType(typeof(T)).Length > 1)
                         {
-                            Debug.LogError("[GlobalSingleton] Something went really wrong " +
-                                           " - there should never be more than 1 GlobalSingleton!" +
-                                           " Reopening the scene might fix it.");
+                            Debug.LogError(string.Format("[GlobalSingleton] There is more than one {0} in the scene! Reopening the scene might fix it.", typeof(T)));
                             return _instance;
                         }
 
                         if (_instance == null)
                         {
-                            GameObject singletonPersistent = new GameObject();
-                            _instance = singletonPersistent.AddComponent<T>();
-                            singletonPersistent.name = "(GlobalSingleton) " + typeof(T);
+                            GameObject newContainer = new GameObject();
+                            _instance = newContainer.AddComponent<T>();
+                            newContainer.name = "(global singleton) " + typeof(T);
 
-                            DontDestroyOnLoad(singletonPersistent);
+                            DontDestroyOnLoad(newContainer);
 
-                            Debug.Log("[GlobalSingleton] An instance of " + typeof(T) + " is needed, so '" +
-                                      singletonPersistent + "' was created with DontDestroyOnLoad.");
+                            Debug.Log(string.Format("[GlobalSingleton] An instance of {0} is needed in the scene, so '{1}' was created with DontDestroyOnLoad.", typeof(T), newContainer));
                         }
                         else
                         {
-                            Debug.Log("[GlobalSingleton] Using instance already created: " + _instance.gameObject.name);
+                            GameObject container = _instance.gameObject;
+                            DontDestroyOnLoad(container);
+                            Debug.Log(string.Format("[GlobalSingleton] Using instance already created: {0}. DontDestroyOnLoad called for existing container GameObject.", container.name));
                         }
                     }
+
                     return _instance;
                 }
             }
@@ -74,9 +75,27 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
         /// even after stopping playing the Application. Really bad!
         /// So, this was made to be sure we're not creating that buggy ghost object.
         /// </summary>
-        public void OnDestroy()
+        protected void OnApplicationQuit()
         {
             _applicationIsQuitting = true;
+        }
+
+        /// <summary>
+        /// When we load a scene that has a GameObject with our singleton on it as a component, singleton
+        /// gets duplicated because we already have a singleton instance with DontDestroyOnLoad.
+        /// To prevent this, we must destroy the instance that is created while scene load if we
+        /// already have an instance. Lock was not necessary, but feels safe.
+        /// </summary>
+        protected void Awake()
+        {
+            lock (Lock)
+            {
+                if (_instance != null)
+                {
+                    Debug.Log(string.Format("[GlobalSingleton] Destroying duplicate of {0}: '{1}'.", typeof(T), gameObject));
+                    DestroyImmediate(gameObject);
+                }
+            }
         }
     }
 }

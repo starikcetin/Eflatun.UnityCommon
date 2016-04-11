@@ -5,6 +5,8 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that gets destroyed if current scene changes.</para>
+    /// <para>If you want to use Awake or OnApplicationQuit methods in implementator, use 'new' keyword in method signature
+    /// and call 'base.Awake()' or 'base.OnApplicationQuit()' in the first line of your method.</para>
     /// <para>Be aware this will not prevent a non singleton constructor such as `T myT = new T();`
     /// To prevent that, add `protected T () {}` to your singleton class.
     /// This type inherits from MonoBehaviour so we can use Coroutines.</para>
@@ -24,12 +26,9 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
         {
             get
             {
-                string sceneName = SceneManager.GetActiveScene().name;
-
                 if (_applicationIsQuitting)
                 {
-                    Debug.LogWarning("[SceneSingleton (" + sceneName + ")] Instance '" + typeof (T) + "' already destroyed on application quit." +
-                                     " Won't create again - returning null.");
+                    Debug.LogWarning(string.Format("[SceneSingleton ({0})] Application is quitting! Returning null instead of '{1}'.", SceneManager.GetActiveScene().name, typeof (T)));
                     return null;
                 }
 
@@ -41,9 +40,7 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
 
                         if (FindObjectsOfType(typeof (T)).Length > 1)
                         {
-                            Debug.LogError("[SceneSingleton (" + sceneName + ")] Something went really wrong " +
-                                           " - there should never be more than 1 singleton!" +
-                                           " Reopening the scene might fix it.");
+                            Debug.LogError(string.Format("[SceneSingleton ({0})] Something went really wrong - there should never be more than 1 singleton! Reopening the scene might fix it.", SceneManager.GetActiveScene().name));
                             return _instance;
                         }
 
@@ -51,14 +48,13 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
                         {
                             GameObject singleton = new GameObject();
                             _instance = singleton.AddComponent<T>();
-                            singleton.name = "(singleton) " + typeof (T);
+                            singleton.name = "(scene singleton) " + typeof (T);
 
-                            Debug.Log("[SceneSingleton (" + sceneName + ")] An instance of " + typeof (T) + " is needed in the scene, so '" +
-                                      singleton + "' was created.");
+                            Debug.Log(string.Format("[SceneSingleton ({0})] An instance of {1} is needed in the scene, so '{2}' was created.", SceneManager.GetActiveScene().name, typeof (T), singleton));
                         }
                         else
                         {
-                            Debug.Log("[SceneSingleton (" + sceneName + ")] Using instance already created: " + _instance.gameObject.name);
+                            Debug.Log(string.Format("[SceneSingleton ({0})] Using instance already created: {1}", SceneManager.GetActiveScene().name, _instance.gameObject.name));
                         }
                     }
 
@@ -76,9 +72,28 @@ namespace UnityCSharpCommon.Utils.SingletonPatterns
         /// even after stopping playing the Application. Really bad!
         /// So, this was made to be sure we're not creating that buggy ghost object.
         /// </summary>
-        public void OnDestroy()
+        protected void OnApplicationQuit()
         {
             _applicationIsQuitting = true;
+        }
+
+        /// <summary>
+        /// When we load a scene -that has a GameObject with our singleton on it as a component- with
+        /// LoadLevelAdditive, singleton gets duplicated because we already have a singleton instance
+        /// and the current scene objects will not get destroyed since we loaded other scene "additive".
+        /// To prevent this, we must destroy the instance that is created while "additive" scene load
+        /// if we already have an instance. Lock was not necessary, but feels safe.
+        /// </summary>
+        protected void Awake()
+        {
+            lock (Lock)
+            {
+                if (_instance != null)
+                {
+                    Debug.Log(string.Format("[SceneSingleton ({0})] Destroying duplicate of {1}: '{2}'.", SceneManager.GetActiveScene().name, typeof(T), gameObject));
+                    DestroyImmediate(gameObject);
+                }
+            }
         }
     }
 }
