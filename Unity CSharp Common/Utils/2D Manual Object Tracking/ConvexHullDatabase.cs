@@ -1,11 +1,11 @@
 ﻿using UnityCSharpCommon.Expansions;
 using UnityCSharpCommon.Utils.Common;
-using UnityCSharpCommon.Utils.SingletonPattern;
+using UnityCSharpCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
 namespace UnityCSharpCommon.Utils.ObjectTracking2D
 {
-    public class ConvexHullDatabase : Singleton<ConvexHullDatabase>
+    public class ConvexHullDatabase : GlobalSingleton<ConvexHullDatabase>
     {
         protected ConvexHullDatabase() { } //prevent init
 

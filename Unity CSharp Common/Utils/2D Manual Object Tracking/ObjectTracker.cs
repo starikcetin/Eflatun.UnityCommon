@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityCSharpCommon.Utils.Common;
-using UnityCSharpCommon.Utils.SingletonPattern;
+using UnityCSharpCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
 namespace UnityCSharpCommon.Utils.ObjectTracking2D
 {
-    public class ObjectTracker : Singleton<ObjectTracker>
+    public class ObjectTracker : GlobalSingleton<ObjectTracker>
     {
         protected ObjectTracker() { } //prevent init
 
