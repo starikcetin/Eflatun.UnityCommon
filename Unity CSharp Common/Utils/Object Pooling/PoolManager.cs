@@ -28,8 +28,10 @@ namespace UnityCSharpCommon.Utils.Pooling
         #endregion
 
         #region Unity Methods
-        void Awake()
+        new void Awake()
         {
+            base.Awake();
+
             foreach (var item in AllPoolSetups)
             {
                 CreatePool(item.Prefab, item.PrePopulateAmount, item.AutoPopulateAmount);
