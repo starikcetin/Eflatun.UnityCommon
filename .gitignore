@@ -1,3 +1,6 @@
+# Exclude ".meta" files created by Unity
+*.meta
+
 # "Git Excluded" folder. You can use this folder for personal things and experiments.
 /Git Excluded/
 
