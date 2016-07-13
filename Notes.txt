@@ -36,7 +36,7 @@ UnityCSharpCommon				("Unity CSharp Common" Folder)
 ##         Notes         ##
 ###########################
 
--> DotNetExpansions folder must not be included in this library's namespace structure.
+-> Backports must not be included in this library's namespace structure.
    Because they all belong to "System" master namespace.
 
 -> You may prefer using this library as a submodule in your git repository.
