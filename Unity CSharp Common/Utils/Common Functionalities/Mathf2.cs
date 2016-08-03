@@ -28,6 +28,15 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
+        /// Rounds the decimal points of given float to fit the given decimalCount. (I.E.: 1.14f.LimitDecimals(1) -> 1.1f)
+        /// </summary>
+        public static float LimitDecimals(this float value, int decimalCount)
+        {
+            float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
+            return rounded;
+        }
+
+        /// <summary>
         /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
         /// <para>Returns the smallest integer that is greater than or equal to the square root of given integer.</para>
         /// </summary>
