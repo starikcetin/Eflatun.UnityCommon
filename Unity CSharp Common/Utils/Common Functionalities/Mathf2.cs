@@ -110,10 +110,12 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Calculates the shortest rotatation direction from this float to the one given in paranthesis.
-        /// If return value is positive, shortest angle is positive way; if return value is negative shortest angle is negative way.
-        /// If return value is 0, this means angles are equal.
+        /// <para>Calculates the shortest rotation direction from this angle to the one given in paranthesis.</para>
+        /// <para>If return value is positive, shortest angle is positive way; if return value is negative shortest angle is negative way.</para>
+        /// <para>If return value is 0, this means angles are equal.</para>
         /// </summary>
+        /// <param name="from">The angle to start from.</param>
+        /// <param name="to"> The destination angle of rotation.</param>
         public static float CalcShortestRotTo(this float from, float to)
         {
             // If from or to is a negative, we have to recalculate them.
@@ -159,7 +161,7 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Detemrines if given mask includes given layer. Layer parameter must not be bit-shifted, bit-shifting is being done inside this method.
+        /// Determines if given mask includes given layer. Layer parameter must not be bit-shifted, bit-shifting is being done inside this method.
         /// </summary>
         public static bool MaskIncludes(int mask, int layer)
         {
