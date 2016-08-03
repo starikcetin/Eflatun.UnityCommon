@@ -85,13 +85,36 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns the exp'th power of baseF.
+        /// Returns the <paramref name="exp"/>'th power of <paramref name="baseN"/>.
         /// </summary>
-        /// <param name="baseF">Base.</param>
+        /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
-        public static float Pow(this float baseF, float exp)
+        /// <remarks>Float raised to float = float</remarks>
+        public static float Pow(this float baseN, float exp)
         {
-            return Mathf.Pow(baseF, exp);
+            return (float)Math.Pow (baseN, exp);
+        }
+
+        /// <summary>
+        /// Returns the <paramref name="exp"/>'th power of <paramref name="baseN"/>.
+        /// </summary>
+        /// <param name="baseN">Base.</param>
+        /// <param name="exp">Exponent (Power).</param>
+        /// <remarks>Integer raised to float = float</remarks>
+        public static float Pow(this int baseN, float exp)
+        {
+            return (float)Math.Pow (baseN, exp);
+        }
+
+        /// <summary>
+        /// Returns the <paramref name="exp"/>'th power of <paramref name="baseN"/>.
+        /// </summary>
+        /// <param name="baseN">Base.</param>
+        /// <param name="exp">Exponent (Power).</param>
+        /// <remarks>Integer raised to integer = integer</remarks>
+        public static int Pow(this int baseN, int exp)
+        {
+            return (int)Math.Pow(baseN, exp);
         }
 
         /// <summary>
