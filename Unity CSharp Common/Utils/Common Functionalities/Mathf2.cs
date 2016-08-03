@@ -28,7 +28,8 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns the smallest integer that is greater than or equal to the square root of given integer.
+        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>Returns the smallest integer that is greater than or equal to the square root of given integer.</para>
         /// </summary>
         public static int CeiledSquareRoot(this int number)
         {
@@ -38,7 +39,8 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns the smallest integer that is greater than or equal to the square root of given float.
+        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>Returns the smallest integer that is greater than or equal to the square root of given float.</para>
         /// </summary>
         public static int CeiledSquareRoot(this float number)
         {
@@ -48,21 +50,29 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns the biggest integer that is smaller than or equal to the square root of given integer.
+        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>Returns the biggest integer that is smaller than or equal to the square root of given integer.</para>
         /// </summary>
-        /// <remarks>For every value of N: (Ceiled square root of N) - (Floored square root of N) = 1</remarks>
+        /// <remarks>The logic is same with CeiledSquareRoot, but here we also increment the value when we hit the number,
+        /// so when we subtract 1, we get the square root if the number is square root-able.</remarks>
         public static int FlooredSquareRoot (this int number)
         {
-            return number.CeiledSquareRoot() - 1;
+            int i = 0;
+            while (i*i <= number) i++;
+            return i - 1;
         }
 
         /// <summary>
-        /// Returns the biggest integer that is smaller than or equal to the square root of given float.
+        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>Returns the biggest integer that is smaller than or equal to the square root of given float.</para>
         /// </summary>
-        /// <remarks>For every value of N: (Ceiled square root of N) - (Floored square root of N) = 1</remarks>
+        /// <remarks>The logic is same with CeiledSquareRoot, but here we also increment the value when we hit the number,
+        /// so when we subtract 1, we get the square root if the number is square root-able.</remarks>
         public static int FlooredSquareRoot(this float number)
         {
-            return number.CeiledSquareRoot() - 1;
+            int i = 0;
+            while (i*i <= number) i++;
+            return i - 1;
         }
 
         /// <summary>
