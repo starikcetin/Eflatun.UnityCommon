@@ -22,6 +22,8 @@ UnityCSharpCommon				("Unity CSharp Common" Folder)
 	|
 	|---ObjectTracking2D		("2D Manual Object Tracking" Folder)
 	|
+	|---BetterRandom			("Better Random" Folder)
+	|
 	|---Common					("Common Functionalities" Folder)
 	|	|
 	|	|---Serialization		("Serialization" Folder)
