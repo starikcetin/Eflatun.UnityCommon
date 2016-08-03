@@ -32,7 +32,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         public static int CeiledSquareRoot(this int number)
         {
-            int i = 1;
+            int i = 0;
             while (i*i < number) i++;
             return i;
         }
@@ -42,9 +42,27 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         public static int CeiledSquareRoot(this float number)
         {
-            int i = 1;
+            int i = 0;
             while (i*i < number) i++;
             return i;
+        }
+
+        /// <summary>
+        /// Returns the biggest integer that is smaller than or equal to the square root of given integer.
+        /// </summary>
+        /// <remarks>For every value of N: (Ceiled square root of N) - (Floored square root of N) = 1</remarks>
+        public static int FlooredSquareRoot (this int number)
+        {
+            return number.CeiledSquareRoot() - 1;
+        }
+
+        /// <summary>
+        /// Returns the biggest integer that is smaller than or equal to the square root of given float.
+        /// </summary>
+        /// <remarks>For every value of N: (Ceiled square root of N) - (Floored square root of N) = 1</remarks>
+        public static int FlooredSquareRoot(this float number)
+        {
+            return number.CeiledSquareRoot() - 1;
         }
 
         /// <summary>
@@ -147,6 +165,30 @@ namespace UnityCSharpCommon.Utils.Common
             result.x = matrix.m00*point.x + matrix.m01*point.y + matrix.m03;
             result.y = matrix.m10*point.x + matrix.m11*point.y + matrix.m13;
             return result;
+        }
+
+        /// <summary>
+        /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
+        /// </summary>
+        public static int MirrorBy(this int value, int origin)
+        {
+            return origin + (origin - value);
+        }
+
+        /// <summary>
+        /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
+        /// </summary>
+        public static double MirrorBy(this double value, double origin)
+        {
+            return origin + (origin - value);
+        }
+
+        /// <summary>
+        /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
+        /// </summary>
+        public static float MirrorBy(this float value, float origin)
+        {
+            return origin + (origin - value);
         }
     }
 }
