@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace UnityCSharpCommon.Utils.BetterRandom
+namespace UnityCSharpCommon.Utils.BetterRandom.UtilityClasses
 {
     /// <summary>
     /// Integer methods for <see cref="BetterRandom"/> class.
     /// </summary>
-    public class BetterRandomIntMethods
+    public class IntMethods
     {
         private readonly BetterRandom _parent;
 
-        public BetterRandomIntMethods (BetterRandom parent)
+        public IntMethods (BetterRandom parent)
         {
             _parent = parent;
         }
@@ -18,7 +18,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         /// <para> NonNegative range: 0 (inclusive) -> <see cref="int.MaxValue"/> (exclusive) </para>
         /// <para> All range: <see cref="int.MinValue"/> (inclusive) -> <see cref="int.MaxValue"/> (exclusive) </para>
         /// </summary>
-        public int Next (RandomRange rangeType)
+        public int Next (RandomRange rangeType = RandomRange.NonNegative)
         {
             switch (rangeType)
             {
@@ -27,7 +27,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
                     return _parent.Random.Next();
 
                 case RandomRange.All:
-                    return FromRange (int.MinValue, int.MaxValue);
+                    return _parent.Random.Next (int.MinValue, int.MaxValue);
 
                 default:
                     throw new ArgumentOutOfRangeException ("rangeType", rangeType, null);
@@ -43,14 +43,14 @@ namespace UnityCSharpCommon.Utils.BetterRandom
             // Which means, if the "min" is greater than or equal to 0, the return will be NonNegative.
             // Otherwise it can be both negative and positive (or 0), which is what RandomRange.All means.
 
-            return FromRange (min, int.MaxValue);
+            return _parent.Random.Next (min, int.MaxValue);
         }
 
         /// <summary>
         /// <para> NonNegative range: 0 (inclusive) -> <paramref name="max"/> (exclusive) </para>
         /// <para> All range: <see cref="int.MinValue"/> (inclusive) -> <paramref name="max"/> (exclusive) </para>
         /// </summary>
-        public int NextMax (int max, RandomRange rangeType)
+        public int NextMax (int max, RandomRange rangeType = RandomRange.NonNegative)
         {
             switch (rangeType)
             {
@@ -61,10 +61,10 @@ namespace UnityCSharpCommon.Utils.BetterRandom
                     }
 
                     // The System.Random.Next() is NonNegative.
-                    return _parent.Random.Next(max);
+                    return _parent.Random.Next (max);
 
                 case RandomRange.All:
-                    return FromRange (int.MinValue, max);
+                    return _parent.Random.Next (int.MinValue, max);
 
                 default:
                     throw new ArgumentOutOfRangeException ("rangeType", rangeType, null);

@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace UnityCSharpCommon.Utils.BetterRandom
+namespace UnityCSharpCommon.Utils.BetterRandom.UtilityClasses
 {
     /// <summary>
     /// Double methods for <see cref="BetterRandom"/> class.
     /// </summary>
-    public class BetterRandomDoubleMethods
+    public class DoubleMethods
     {
         private readonly BetterRandom _parent;
 
-        public BetterRandomDoubleMethods (BetterRandom parent)
+        public DoubleMethods (BetterRandom parent)
         {
             _parent = parent;
         }
@@ -18,7 +18,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         /// <para> NonNegative range: 0 (inclusive) -> +1 (exclusive) </para>
         /// <para> All range: -1 (exclusive) -> +1 (exclusive) </para>
         /// </summary>
-        public double Next01 (RandomRange rangeType)
+        public double Next01 (RandomRange rangeType = RandomRange.NonNegative)
         {
             switch (rangeType)
             {
@@ -28,7 +28,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
 
                 case RandomRange.All:
                     // We need to randomize the sign, because the System.Random.NextDouble() is NonNegative.
-                    return _parent.Random.NextDouble() * _parent.RandomSign();
+                    return _parent.Random.NextDouble() * 2 -1;
 
                 default:
                     throw new ArgumentOutOfRangeException ("rangeType", rangeType, null);
@@ -56,7 +56,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         /// <para> NonNegative range: 0 (inclusive) -> <paramref name="max"/> (exclusive) </para>
         /// <para> All range: -1 (exclusive) -> <paramref name="max"/> (exclusive) </para>
         /// </summary>
-        public double Next01Max (double max, RandomRange rangeType)
+        public double Next01Max (double max, RandomRange rangeType = RandomRange.NonNegative)
         {
             switch (rangeType)
             {
@@ -89,55 +89,11 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         /// <para> NonNegative range: 0 (inclusive) -> <see cref="double.MaxValue"/> (exclusive) </para>
         /// <para> All range: <see cref="double.MinValue"/> (inclusive) -> <see cref="double.MaxValue"/> (exclusive) </para>
         /// </summary>
-        public double NextUnl (RandomRange rangeType)
+        public double NextUnl (RandomRange rangeType = RandomRange.NonNegative)
         {
-            switch (rangeType)
-            {
-                case RandomRange.NonNegative:
-                    return FromRange (0d, double.MaxValue);
-
-                case RandomRange.All:
-                    return FromRange (double.MinValue, double.MaxValue);
-
-                default:
-                    throw new ArgumentOutOfRangeException ("rangeType", rangeType, null);
-            }
-        }
-
-        /// <summary>
-        /// <para> Range: <paramref name="min"/> (inclusive) -> <see cref="double.MaxValue"/> (exclusive) </para>
-        /// </summary>
-        public double NextUnlMin (double min)
-        {
-            // In this method we don't need to specify the sign type since user decides the "lower boundary".
-            // Which means, if the "min" is greater than or equal to 0, the return will be NonNegative.
-            // Otherwise it can be both negative and positive (or 0), which is what RandomRange.All means.
-
-            return FromRange (min, double.MaxValue);
-        }
-
-        /// <summary>
-        /// <para> NonNegative range: 0 (inclusive) -> <paramref name="max"/> (exclusive) </para>
-        /// <para> All range: <see cref="double.MinValue"/> (inclusive) -> <paramref name="max"/> (exclusive) </para>
-        /// </summary>
-        public double NextUnlMax (double max, RandomRange rangeType)
-        {
-            switch (rangeType)
-            {
-                case RandomRange.NonNegative:
-                    if (max < 0d)
-                    {
-                        throw new ArgumentOutOfRangeException("max", max, "The 'max' parameter cannot be negative when the 'rangeType' parameter is 'NonNegative'.");
-                    }
-
-                    return FromRange (0d, max);
-
-                case RandomRange.All:
-                    return FromRange (double.MinValue, max);
-
-                default:
-                    throw new ArgumentOutOfRangeException ("rangeType", rangeType, null);
-            }
+            double mantissa = (Next01(rangeType) * 2.0d) - 1.0d;
+            double exponent = Math.Pow(2.0d, _parent.Int.FromRange(-126, 128));
+            return (mantissa * exponent);
         }
 
         /// <summary>
@@ -152,7 +108,7 @@ namespace UnityCSharpCommon.Utils.BetterRandom
                 throw new ArgumentOutOfRangeException("min", min, "'min' parameter cannot be greater than 'max' parameter.");
             }
 
-            return Next01 (RandomRange.NonNegative) * (max - min) + min;
+            return Next01() * (max - min) + min;
         }
 
     }

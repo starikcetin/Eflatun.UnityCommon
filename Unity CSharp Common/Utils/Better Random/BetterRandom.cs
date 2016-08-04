@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UnityCSharpCommon.Utils.BetterRandom.UtilityClasses;
+using Random = System.Random;
 
 namespace UnityCSharpCommon.Utils.BetterRandom
 {
@@ -10,11 +11,12 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         public Random Random { get; private set; }
         public int Seed { get; private set; }
 
-        public BetterRandomIntMethods Int { get; private set; }
-        public BetterRandomDoubleMethods Double { get; private set; }
-        public BetterRandomFloatMethods Float { get; private set; }
-        public BetterRandomVector2Methods Vector2 { get; private set; }
-        public BetterRandomVector3Methods Vector3 { get; private set; }
+        public IntMethods Int { get; private set; }
+        public DoubleMethods Double { get; private set; }
+        public FloatMethods Float { get; private set; }
+        public Vector2Methods Vector2 { get; private set; }
+        public Vector3Methods Vector3 { get; private set; }
+        public AngleMethods Angle { get; private set; }
 
         /// <summary>
         /// Initializes the BetterRandom with the seed "0".
@@ -27,11 +29,12 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         public BetterRandom(int seed)
         {
             Initialize (seed);
-            Int = new BetterRandomIntMethods (this);
-            Double = new BetterRandomDoubleMethods (this);
-            Float = new BetterRandomFloatMethods (this);
-            Vector2 = new BetterRandomVector2Methods (this);
-            Vector3 = new BetterRandomVector3Methods (this);
+            Int = new IntMethods (this);
+            Double = new DoubleMethods (this);
+            Float = new FloatMethods (this);
+            Vector2 = new Vector2Methods (this);
+            Vector3 = new Vector3Methods (this);
+            Angle = new AngleMethods(this);
         }
 
         public void Reset()
