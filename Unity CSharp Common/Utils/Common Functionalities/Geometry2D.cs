@@ -10,6 +10,32 @@ namespace UnityCSharpCommon.Utils.Common
     public static class Geometry2D
     {
         /// <summary>
+        /// Converts polar coordinates to cartesian coordinates.
+        /// </summary>
+        /// <param name="radius">Magnitude of position vector.</param>
+        /// <param name="angle">Positive rotation of position vector from +x.</param>
+        /// <returns> Cartesian equivelant of given polar coordinates. </returns>
+        public static Vector2 PolarToCartesian(float radius, float angle)
+        {
+            var x = radius * Mathf.Cos(angle);
+            var y = radius * Mathf.Sin(angle);
+
+            return new Vector2(x, y);
+        }
+
+        /// <summary>
+        /// Converts cartesian coordinates to polar coordinates.
+        /// </summary>
+        /// <param name="cartesian">Carteisan coordinates.</param>
+        /// <param name="radius">Magnitude of position vector.</param>
+        /// <param name="angle">Positive rotation of position vector from +x.</param>
+        public static void CartesianToPolar (this Vector2 cartesian, out float radius, out float angle)
+        {
+            radius = cartesian.magnitude;
+            angle = Mathf.Atan2(cartesian.y, cartesian.x);
+        }
+
+        /// <summary>
         /// Generates a random Vector2 whose length is 1.
         /// </summary>
         public static Vector2 RandomUnitVector2()
