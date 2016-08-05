@@ -37,51 +37,39 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
         /// <para>Returns the smallest integer that is greater than or equal to the square root of given integer.</para>
         /// </summary>
-        public static int CeiledSquareRoot(this int number)
+        public static int CeiledSqrt(this int number)
         {
-            int i = 0;
-            while (i*i < number) i++;
-            return i;
+            return (int)Math.Ceiling (Math.Sqrt (number));
         }
 
         /// <summary>
-        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
         /// <para>Returns the smallest integer that is greater than or equal to the square root of given float.</para>
         /// </summary>
-        public static int CeiledSquareRoot(this float number)
+        public static int CeiledSqrt(this float number)
         {
-            int i = 0;
-            while (i*i < number) i++;
-            return i;
+            return (int)Math.Ceiling(Math.Sqrt(number));
         }
 
         /// <summary>
-        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
         /// <para>Returns the biggest integer that is smaller than or equal to the square root of given integer.</para>
         /// </summary>
-        /// <remarks>The logic is same with CeiledSquareRoot, but here we also increment the value when we hit the number,
-        /// so when we subtract 1, we get the square root if the number is square root-able.</remarks>
-        public static int FlooredSquareRoot (this int number)
+        public static int FlooredSqrt(this int number)
         {
-            int i = 0;
-            while (i*i <= number) i++;
-            return i - 1;
+            return (int)Math.Floor(Math.Sqrt(number));
         }
 
         /// <summary>
-        /// <para>WARNING: Math.Sqrt is up to 200 times faster than this method! Don't use this as an optimization!</para>
+        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
         /// <para>Returns the biggest integer that is smaller than or equal to the square root of given float.</para>
         /// </summary>
-        /// <remarks>The logic is same with CeiledSquareRoot, but here we also increment the value when we hit the number,
-        /// so when we subtract 1, we get the square root if the number is square root-able.</remarks>
-        public static int FlooredSquareRoot(this float number)
+        public static int FlooredSqrt(this float number)
         {
-            int i = 0;
-            while (i*i <= number) i++;
-            return i - 1;
+            return (int)Math.Floor(Math.Sqrt(number));
         }
 
         /// <summary>
