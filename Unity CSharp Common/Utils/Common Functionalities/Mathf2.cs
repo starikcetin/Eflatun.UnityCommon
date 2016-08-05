@@ -37,6 +37,22 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
+        /// Square root.
+        /// </summary>
+        public static float Sqrt(this float number)
+        {
+            return (float)Math.Sqrt (number);
+        }
+
+        /// <summary>
+        /// Square root.
+        /// </summary>
+        public static float Sqrt(this int number)
+        {
+            return (float)Math.Sqrt (number);
+        }
+
+        /// <summary>
         /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
         /// <para>Returns the smallest integer that is greater than or equal to the square root of given integer.</para>
         /// </summary>
