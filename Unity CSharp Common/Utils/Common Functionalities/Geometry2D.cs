@@ -198,7 +198,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para> </para>
         /// <para> This method uses cross product to determine which side of the edge the point is. </para>
         /// </summary>
-        public static bool IsInConvexPoly(Vector2 point, Vector2[] verticesOfPolygon)
+        public static bool IsInConvexPoly(this Vector2 point, Vector2[] verticesOfPolygon)
         {
             //Get shared variables.
             var vertexCount = verticesOfPolygon.Length;
@@ -243,7 +243,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para> Determines if given point is inside given polygon. Polygon can be concave or convex. </para>
         /// <para> This method uses an algorithm that casts an imaginary ray counting amount of sides it intersects until it reaches the point. If the count is even, point is outside; if count is odd point is inside. </para>
         /// </summary>
-        public static bool IsInPoly(Vector2 point, Vector2[] verticesOfPolygon)
+        public static bool IsInPoly(this Vector2 point, Vector2[] verticesOfPolygon)
         {
             // Original raycast algorithm: http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
             // C# conversion:              http://stackoverflow.com/a/16391873/5504706
@@ -276,20 +276,40 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Determines if given points are in the given maximum distance.
+        /// Determines if the distance between given points are lower than <paramref name="maxDistance"/>. (Doesn't use square root.)
         /// </summary>
-        public static bool TestDistance(Vector2 point1, Vector2 point2, float sqrMaxDistance)
+        public static bool TestDistanceMax(this Vector2 point1, Vector2 point2, float maxDistance)
         {
             Vector2 relativePos = (point2 - point1);
             float sqrDistance = (relativePos.x*relativePos.x) + (relativePos.y*relativePos.y); //square magnitude
-            return sqrDistance <= sqrMaxDistance;
+            return sqrDistance < maxDistance * maxDistance;
+        }
+
+        /// <summary>
+        /// Determines if the distance between given points are greater than or equal to <paramref name="minDistance"/>. (Doesn't use square root.)
+        /// </summary>
+        public static bool TestDistanceMin(this Vector2 point1, Vector2 point2, float minDistance)
+        {
+            Vector2 relativePos = (point2 - point1);
+            float sqrDistance = (relativePos.x * relativePos.x) + (relativePos.y * relativePos.y); //square magnitude
+            return sqrDistance >= minDistance * minDistance;
+        }
+
+        /// <summary>
+        /// Determines if the distance between given points are greater than or equal to <paramref name="minDistance"/> and lower than <paramref name="maxDistance"/>. (Doesn't use square root.)
+        /// </summary>
+        public static bool TestDistanceMinMax(this Vector2 point1, Vector2 point2, float minDistance, float maxDistance)
+        {
+            Vector2 relativePos = (point2 - point1);
+            float sqrDistance = (relativePos.x * relativePos.x) + (relativePos.y * relativePos.y); //square magnitude
+            return sqrDistance < maxDistance * maxDistance && sqrDistance >= minDistance * minDistance;
         }
 
         #region Convex Hull Calculations
         /// <summary>
         /// A wrapper around list version. Converts input to list, makes calculations, converts output to array then returns.
         /// </summary>
-        public static Vector2[] MakeConvexHull(Vector2[] points)
+        public static Vector2[] MakeConvexHull(this Vector2[] points)
         {
             return MakeConvexHull(points.ToList()).ToArray();
         }
@@ -297,7 +317,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <summary>
         /// Return the points that make up a polygon's convex hull. This method leaves the points list unchanged.
         /// </summary>
-        public static List<Vector2> MakeConvexHull(List<Vector2> points)
+        public static List<Vector2> MakeConvexHull(this List<Vector2> points)
         {
             // Cull.
             points = HullCull(points);

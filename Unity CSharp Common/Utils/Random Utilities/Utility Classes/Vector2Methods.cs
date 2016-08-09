@@ -2,7 +2,7 @@ using System;
 using UnityCSharpCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.BetterRandom.UtilityClasses
+namespace UnityCSharpCommon.Utils.RandomUtils.UtilityClasses
 {
     /// <summary>
     /// Vector2 methods for <see cref="BetterRandom"/> class.

@@ -1,7 +1,8 @@
-﻿using UnityCSharpCommon.Utils.BetterRandom.UtilityClasses;
+﻿using System.Collections.Generic;
+using UnityCSharpCommon.Utils.RandomUtils.UtilityClasses;
 using Random = System.Random;
 
-namespace UnityCSharpCommon.Utils.BetterRandom
+namespace UnityCSharpCommon.Utils.RandomUtils
 {
     /// <summary>
     /// A better Random class.
@@ -59,6 +60,15 @@ namespace UnityCSharpCommon.Utils.BetterRandom
         public int RandomSign()
         {
             return Int.FromRange(0, 2) * 2 -1; //0*2 -1 = -1 | 1*2 -1 = 1
+        }
+
+        /// <summary>
+        /// Returns a random item from the list.
+        /// </summary>
+        public T RandomItem<T> (IList<T> list)
+        {
+            int randomIndex = Int.FromRange (0, list.Count);
+            return list[randomIndex];
         }
     }
 }

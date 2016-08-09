@@ -477,7 +477,7 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
         private bool TestFor_Distance(TrackedObjectData item, Vector2 center, float sqrRadius)
         {
             Vector2 testCenter = item.AABB.Center;
-            return Geometry2D.TestDistance(testCenter, center, sqrRadius);
+            return Geometry2D.TestDistanceMax(testCenter, center, sqrRadius);
         }
 
         #endregion

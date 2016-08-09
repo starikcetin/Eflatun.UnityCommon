@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityCSharpCommon.Utils.BetterRandom.UtilityClasses
+namespace UnityCSharpCommon.Utils.RandomUtils.UtilityClasses
 {
     /// <summary>
     /// Float methods for <see cref="BetterRandom"/> class.

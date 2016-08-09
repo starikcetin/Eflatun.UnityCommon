@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.BetterRandom.UtilityClasses
+namespace UnityCSharpCommon.Utils.RandomUtils.UtilityClasses
 {
     /// <summary>
     /// Methods related to angles for <see cref="BetterRandom"/> class.

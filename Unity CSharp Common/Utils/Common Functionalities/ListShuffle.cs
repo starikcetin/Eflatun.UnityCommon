@@ -4,13 +4,18 @@ using System.Collections.Generic;
 namespace UnityCSharpCommon.Utils.Common
 {
     /// <summary>
-    /// A class that includes an extension method Shuffle() to shuffle a generic List with a given seed. To seed the class use SetSeed(int) method.
+    /// Includes methods to shuffle lists with seeding, using Fisher-Yates algorithm.
     /// </summary>
-    public static class ListShuffle
+    public class ListShuffle
     {
-        private static Random _random;
+        private Random _random;
 
-        public static void SetSeed(int seed)
+        public ListShuffle(int seed)
+        {
+            _random = new Random(seed);
+        }
+
+        public void ChangeSeed(int seed)
         {
             _random = new Random(seed);
         }
@@ -19,25 +24,10 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para>Returns a shuffled version of given list. Original doesn't change.</para>
         /// <para>(This method clones a new list and does shuffling operation on the clone; then returns the clone.)</para>
         /// </summary>
-        public static List<T> SafeShuffle<T>(this List<T> original)
+        public List<T> SafeShuffle<T>(IList<T> original)
         {
-            if (_random == null)
-            {
-                throw new NullReferenceException("The _random class of ListShuffle class has no seed. Please set the seed with SetSeed(int) method before calling Shuffle() method");
-            }
-
-            List<T> newList = new List<T>(original);
-            int newListCount = newList.Count;
-
-            for (int i = 0; i < newListCount; i++)
-            {
-                int randomIndex = _random.Next(newListCount); //get "_random index"
-
-                var temp = newList[randomIndex]; //save "_random index"
-                newList[randomIndex] = newList[i]; //copy "i" to "_random index"
-                newList[i] = temp; //assign original "_random index" to "i"
-            }
-
+            var newList = new List<T>(original);
+            FisherYatesShuffle(newList);
             return newList;
         }
 
@@ -45,22 +35,19 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para>Shuffles the given list. Original changes.</para>
         /// <para>(This method does shuffling operation on the original list.)</para>
         /// </summary>
-        public static void Shuffle<T>(this List<T> original)
+        public void Shuffle<T>(IList<T> original)
         {
-            if (_random == null)
-            {
-                throw new NullReferenceException("The _random class of ListShuffle class has no seed. Please set the seed with SetSeed(int) method before calling Shuffle() method");
-            }
+            FisherYatesShuffle(original);
+        }
 
-            int count = original.Count;
+        private void FisherYatesShuffle<T>(IList<T> list)
+        {
+            int count = list.Count;
 
             for (int i = 0; i < count; i++)
             {
-                int randomIndex = _random.Next(count); //get "_random index"
-
-                var temp = original[randomIndex]; //save "_random index"
-                original[randomIndex] = original[i]; //copy "i" to "_random index"
-                original[i] = temp; //assign original "_random index" to "i"
+                int randomIndex = _random.Next(count); //Get a random index.
+                list.Swap (i, randomIndex);            //Swap the items at i and random index.
             }
         }
     }
