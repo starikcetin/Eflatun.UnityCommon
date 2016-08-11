@@ -6,7 +6,7 @@ Expansions:		For custom types that are not included in .Net and/or Mono. These t
 Backports: 		For types that are included in .Net and/or Mono, but not available in Unity currently. These types should be independent from Unity.
 Utils:			For custom types that are Unity dependent.
 
--- Unity dependency: If your type uses any of the namespaces or methods Unity provides, that type is Unity dependant.
+-- Unity dependency: If your type uses any of the namespaces, classes, methods (etc.) Unity provides, that type is Unity dependant.
 
 
 
