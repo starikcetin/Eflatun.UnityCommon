@@ -49,4 +49,4 @@ UnityCSharpCommon			("Unity CSharp Common" Folder)
 -> Backports must not be included in this library's namespace structure.
    Because they all belong to "System" master namespace.
 
--> You may prefer using this library as a submodule in your git repository.
+-> You may prefer using this library as a subtree (or submodule) in your git repository.
