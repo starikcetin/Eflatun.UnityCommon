@@ -37,7 +37,7 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|	|
 	|	|---Vector2Sampling		("Vector2 Sampling" Folder)
 	|
-	|---SingletonPatterns		("Singleton Pattern" Folder)
+	|---SingletonPatterns		("Singleton Patterns" Folder)
 
 
 
