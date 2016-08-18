@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.SingletonPatterns
+namespace UnityCSCommon.Utils.SingletonPatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that stays alive until application death even if current scene changes.</para>

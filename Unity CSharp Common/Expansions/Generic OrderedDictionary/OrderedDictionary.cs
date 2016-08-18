@@ -4,7 +4,7 @@ using System.Collections.Generic;
 //using System.Diagnostics.Contracts;
 using System.Linq;
 
-namespace UnityCSharpCommon.Expansions
+namespace UnityCSCommon.Expansions
 {
     /// <summary>
     /// A dictionary that remembers the order that keys were first inserted. If a new entry overwrites an existing entry, the original insertion position is left unchanged. Deleting an entry and reinserting it will move it to the end.

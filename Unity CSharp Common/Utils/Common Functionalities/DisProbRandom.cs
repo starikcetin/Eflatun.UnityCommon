@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// Distributed Probability Random Number Generator (Just like a cheated/weighted dice)
@@ -22,12 +23,12 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         public DisProbRandom(int probs, int seed)
         {
-            this._prob = new List<long>();
-            this._alias = new List<int>();
-            this._total = 0;
-            this._n = probs;
-            this._even = true;
-            this._random = new System.Random(seed);
+            _prob = new List<long>();
+            _alias = new List<int>();
+            _total = 0;
+            _n = probs;
+            _even = true;
+            _random = new Random(seed);
         }
 
         private readonly Random _random;
@@ -37,25 +38,20 @@ namespace UnityCSharpCommon.Utils.Common
         private readonly int _n;
         private readonly bool _even;
 
-        public DisProbRandom(IEnumerable<int> probs, int seed)
+        public DisProbRandom (IEnumerable<int> probs, int seed)
         {
             // Raise an error if null
             if (probs == null) throw new ArgumentNullException("probs");
-            this._prob = new List<long>();
-            this._alias = new List<int>();
-            this._total = 0;
-            this._even = false;
-            this._random = new System.Random(seed);
+            _prob = new List<long>();
+            _alias = new List<int>();
+            _total = 0;
+            _even = false;
+            _random = new Random(seed);
             var small = new List<int>();
             var large = new List<int>();
-            var tmpprobs = new List<long>();
+            var tmpprobs = probs.Select (p => (long)p).ToList();
 
-            foreach (var p in probs)
-            {
-                tmpprobs.Add(p);
-            }
-
-            this._n = tmpprobs.Count;
+            _n = tmpprobs.Count;
 
             // Get the max and min choice and calculate _total
             long mx = -1, mn = -1;
@@ -64,13 +60,13 @@ namespace UnityCSharpCommon.Utils.Common
                 if (p < 0) throw new ArgumentException("probs contains a negative probability.");
                 mx = (mx < 0 || p > mx) ? p : mx;
                 mn = (mn < 0 || p < mn) ? p : mn;
-                this._total += p;
+                _total += p;
             }
 
             // We use a shortcut if all probabilities are equal
             if (mx == mn)
             {
-                this._even = true;
+                _even = true;
                 return;
             }
 
@@ -78,15 +74,15 @@ namespace UnityCSharpCommon.Utils.Common
             // the number of probabilities
             for (var i = 0; i < tmpprobs.Count; i++)
             {
-                tmpprobs[i] *= this._n;
-                this._alias.Add(0);
-                this._prob.Add(0);
+                tmpprobs[i] *= _n;
+                _alias.Add(0);
+                _prob.Add(0);
             }
 
             // Use Michael Vose's _alias method
             for (var i = 0; i < tmpprobs.Count; i++)
             {
-                if (tmpprobs[i] < this._total)
+                if (tmpprobs[i] < _total)
                     small.Add(i); // Smaller than probability sum
                 else
                     large.Add(i); // Probability sum or greater
@@ -99,19 +95,19 @@ namespace UnityCSharpCommon.Utils.Common
                 small.RemoveAt(small.Count - 1);
                 var g = large[large.Count - 1];
                 large.RemoveAt(large.Count - 1);
-                this._prob[l] = tmpprobs[l];
-                this._alias[l] = g;
-                var newprob = (tmpprobs[g] + tmpprobs[l]) - this._total;
+                _prob[l] = tmpprobs[l];
+                _alias[l] = g;
+                var newprob = (tmpprobs[g] + tmpprobs[l]) - _total;
                 tmpprobs[g] = newprob;
-                if (newprob < this._total)
+                if (newprob < _total)
                     small.Add(g);
                 else
                     large.Add(g);
             }
             foreach (var g in large)
-                this._prob[g] = this._total;
+                _prob[g] = _total;
             foreach (var l in small)
-                this._prob[l] = this._total;
+                _prob[l] = _total;
         }
 
         /// <summary>
@@ -119,7 +115,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         public int Count
         {
-            get { return this._n; }
+            get { return _n; }
         }
 
         /// <summary>
@@ -127,8 +123,8 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         public int NextValue()
         {
-            var i = _random.Next(this._n);
-            return (this._even || _random.Next((int) this._total) < this._prob[i]) ? i : this._alias[i];
+            var i = _random.Next(_n);
+            return (_even || _random.Next((int) _total) < _prob[i]) ? i : _alias[i];
         }
     }
 }

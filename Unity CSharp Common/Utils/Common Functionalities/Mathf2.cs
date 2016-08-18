@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// A class that includes standard mathematical functions for types that doesn't included in Unity's Mathf class; such as double and long.
@@ -10,27 +10,30 @@ namespace UnityCSharpCommon.Utils.Common
     public static class Mathf2
     {
         public const int LayerMaskAll = ~0;
+        public const int LayerMaskNone = 0;
 
-        public static double ClampDouble(this double value, double min, double max)
+        public static double ClampDouble (this double value, double min, double max)
         {
             if (value < min) return min;
-            else if (value > max) return max;
-            else return value;
+            if (value > max) return max;
+            return value;
         }
 
         /// <summary>
-        /// Rounds the decimal points of given double to fit the given decimalCount. (I.E.: 1.14d.LimitDecimals(1) -> 1.1d)
+        /// Rounds the decimal points of given double to fit the given <paramref name="decimalCount"/>.
         /// </summary>
-        public static double LimitDecimals(this double value, int decimalCount)
+        /// <example> 1.14d.LimitDecimals(1) --> 1.1d </example>
+        public static double LimitDecimals (this double value, int decimalCount)
         {
             double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
             return rounded;
         }
 
         /// <summary>
-        /// Rounds the decimal points of given float to fit the given decimalCount. (I.E.: 1.14f.LimitDecimals(1) -> 1.1f)
+        /// Rounds the decimal points of given float to fit the given <paramref name="decimalCount"/>.
         /// </summary>
-        public static float LimitDecimals(this float value, int decimalCount)
+        /// <example> 1.14f.LimitDecimals(1) --> 1.1f </example>
+        public static float LimitDecimals (this float value, int decimalCount)
         {
             float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
             return rounded;
@@ -39,7 +42,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <summary>
         /// Square root.
         /// </summary>
-        public static float Sqrt(this float number)
+        public static float Sqrt (this float number)
         {
             return (float)Math.Sqrt (number);
         }
@@ -47,45 +50,9 @@ namespace UnityCSharpCommon.Utils.Common
         /// <summary>
         /// Square root.
         /// </summary>
-        public static float Sqrt(this int number)
+        public static float Sqrt (this int number)
         {
             return (float)Math.Sqrt (number);
-        }
-
-        /// <summary>
-        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
-        /// <para>Returns the smallest integer that is greater than or equal to the square root of given integer.</para>
-        /// </summary>
-        public static int CeiledSqrt(this int number)
-        {
-            return (int)Math.Ceiling (Math.Sqrt (number));
-        }
-
-        /// <summary>
-        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
-        /// <para>Returns the smallest integer that is greater than or equal to the square root of given float.</para>
-        /// </summary>
-        public static int CeiledSqrt(this float number)
-        {
-            return (int)Math.Ceiling(Math.Sqrt(number));
-        }
-
-        /// <summary>
-        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
-        /// <para>Returns the biggest integer that is smaller than or equal to the square root of given integer.</para>
-        /// </summary>
-        public static int FlooredSqrt(this int number)
-        {
-            return (int)Math.Floor(Math.Sqrt(number));
-        }
-
-        /// <summary>
-        /// <para>WARNING: This method uses square root. Don't use this method to optimize square roots.</para>
-        /// <para>Returns the biggest integer that is smaller than or equal to the square root of given float.</para>
-        /// </summary>
-        public static int FlooredSqrt(this float number)
-        {
-            return (int)Math.Floor(Math.Sqrt(number));
         }
 
         /// <summary>
@@ -94,7 +61,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Float raised to float = float</remarks>
-        public static float Pow(this float baseN, float exp)
+        public static float Pow (this float baseN, float exp)
         {
             return (float)Math.Pow (baseN, exp);
         }
@@ -105,7 +72,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Integer raised to float = float</remarks>
-        public static float Pow(this int baseN, float exp)
+        public static float Pow (this int baseN, float exp)
         {
             return (float)Math.Pow (baseN, exp);
         }
@@ -116,15 +83,15 @@ namespace UnityCSharpCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Integer raised to integer = integer</remarks>
-        public static int Pow(this int baseN, int exp)
+        public static int Pow (this int baseN, int exp)
         {
             return (int)Math.Pow(baseN, exp);
         }
 
         /// <summary>
-        /// Normalizes the angle to 0-360 range.
+        /// Normalizes the angle in degrees to 0-360 range.
         /// </summary>
-        public static float NormalizeAngle(this float angle)
+        public static float NormalizeAngle (this float angle)
         {
             angle = (angle + 360)%360;
 
@@ -143,7 +110,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// </summary>
         /// <param name="from">The angle to start from.</param>
         /// <param name="to"> The destination angle of rotation.</param>
-        public static float CalcShortestRotTo(this float from, float to)
+        public static float ShortestRotationTo (this float from, float to)
         {
             // If from or to is a negative, we have to recalculate them.
             // For an example, if from = -45 then from(-45) + 360 = 315.
@@ -188,37 +155,32 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Determines if given mask includes given layer. Layer parameter must not be bit-shifted, bit-shifting is being done inside this method.
+        /// Determines if given mask includes given layer. Layer parameter must NOT be bit-shifted, bit-shifting is being done inside this method.
         /// </summary>
-        public static bool MaskIncludes(int mask, int layer)
+        public static bool MaskIncludes (this int mask, int layer)
         {
             int shifted = 1 << layer;
             return (mask & shifted) == shifted;
         }
 
         /// <summary>
-        /// !!! WARNING: This method is just a reminder on how to use the function. DO PREFER inlining this method, because this method creates a Vector2 which causes stack usage. !!!
+        /// 2D optimized version of <see cref="Matrix4x4.MultiplyPoint3x4"/>.
         /// </summary>
-        public static Vector2 MultiplyPoint2d_3x4(Matrix4x4 matrix, Vector2 point)
+        public static Vector2 MultiplyPoint3x4_2D (this Matrix4x4 matrix, Vector2 point)
         {
-            // ----
             // Formulas used in transforming local to world have been directly taken from assmebly view of Matrix4x4.MultiplyPoint3x4.
             // I deleted everything related to Z axis, and this yielded a much much better performance.
-            // ----
-            // While using, don't even create a new vector, just assign X and Y directly when possible.
-            // Because Vector2..ctor creates a serious impact on performance when used regularly.
-            // ----
 
-            Vector2 result;
-            result.x = matrix.m00*point.x + matrix.m01*point.y + matrix.m03;
-            result.y = matrix.m10*point.x + matrix.m11*point.y + matrix.m13;
-            return result;
+            Vector2 v2;
+            v2.x = matrix.m00* point.x + matrix.m01* point.y + matrix.m03;
+            v2.y = matrix.m10* point.x + matrix.m11* point.y + matrix.m13;
+            return v2;
         }
 
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static int MirrorBy(this int value, int origin)
+        public static int MirrorBy (this int value, int origin)
         {
             return origin + (origin - value);
         }
@@ -226,7 +188,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static double MirrorBy(this double value, double origin)
+        public static double MirrorBy (this double value, double origin)
         {
             return origin + (origin - value);
         }
@@ -234,7 +196,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static float MirrorBy(this float value, float origin)
+        public static float MirrorBy (this float value, float origin)
         {
             return origin + (origin - value);
         }

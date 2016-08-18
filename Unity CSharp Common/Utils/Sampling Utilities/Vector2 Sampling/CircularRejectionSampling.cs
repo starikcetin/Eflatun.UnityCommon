@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityCSharpCommon.Utils.Common;
-using UnityCSharpCommon.Utils.RandomUtils;
+using UnityCSCommon.Utils.Common;
+using UnityCSCommon.Utils.RandomUtils;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
+namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
 {
     /// <summary>
     /// Rejection sampling for a circular area.
@@ -15,8 +15,9 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         private readonly Vector2 _origin;
         private readonly float _radius;
         private readonly int _seed;
-        private readonly BetterRandom _random;
         private readonly List<Vector2> _returnedSamples;
+
+        private BetterRandom _random;
 
         /// <summary>
         /// Generates random Vector2s in a circular area with rejection sampling.
@@ -34,11 +35,19 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         }
 
         /// <summary>
-        /// Clears returned positions.
+        /// Clears returned samples' list.
         /// </summary>
-        public void Reset()
+        public void ResetSampleHistory()
         {
             _returnedSamples.Clear();
+        }
+
+        /// <summary>
+        /// Re-initializes the internal random number generator.
+        /// </summary>
+        public void ResetRNG()
+        {
+            _random = new BetterRandom (_seed);
         }
 
         /// <summary>
@@ -99,6 +108,7 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="minDist">Minimum distance from all previous samples.</param>
+        /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
         public bool TrySampleMinMax(int maxTrials, float minDist, float maxDist, out Vector2 sample)

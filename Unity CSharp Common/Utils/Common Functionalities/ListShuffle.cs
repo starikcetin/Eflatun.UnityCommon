@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// Includes methods to shuffle lists with seeding, using Fisher-Yates algorithm.
@@ -15,7 +15,7 @@ namespace UnityCSharpCommon.Utils.Common
             _random = new Random(seed);
         }
 
-        public void ChangeSeed(int seed)
+        public void ChangeSeed (int seed)
         {
             _random = new Random(seed);
         }
@@ -24,7 +24,7 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para>Returns a shuffled version of given list. Original doesn't change.</para>
         /// <para>(This method clones a new list and does shuffling operation on the clone; then returns the clone.)</para>
         /// </summary>
-        public List<T> SafeShuffle<T>(IList<T> original)
+        public List<T> SafeShuffle<T> (IList<T> original)
         {
             var newList = new List<T>(original);
             FisherYatesShuffle(newList);
@@ -35,12 +35,12 @@ namespace UnityCSharpCommon.Utils.Common
         /// <para>Shuffles the given list. Original changes.</para>
         /// <para>(This method does shuffling operation on the original list.)</para>
         /// </summary>
-        public void Shuffle<T>(IList<T> original)
+        public void Shuffle<T> (IList<T> original)
         {
             FisherYatesShuffle(original);
         }
 
-        private void FisherYatesShuffle<T>(IList<T> list)
+        private void FisherYatesShuffle<T> (IList<T> list)
         {
             int count = list.Count;
 

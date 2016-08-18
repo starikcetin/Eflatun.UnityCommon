@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// A class including optimized debug functions.

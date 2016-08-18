@@ -1,4 +1,4 @@
-﻿namespace UnityCSharpCommon.Utils.RandomUtils
+﻿namespace UnityCSCommon.Utils.RandomUtils
 {
     /// <summary>
     /// Indicates the range of random value.

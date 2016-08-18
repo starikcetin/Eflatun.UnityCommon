@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
-using UnityCSharpCommon.Utils.RandomUtils.UtilityClasses;
+using UnityCSCommon.Utils.RandomUtils.Utility;
 using Random = System.Random;
 
-namespace UnityCSharpCommon.Utils.RandomUtils
+namespace UnityCSCommon.Utils.RandomUtils
 {
     /// <summary>
     /// A better Random class.
     /// </summary>
     public class BetterRandom
     {
-        public Random Random { get; private set; }
+        public System.Random Random { get; private set; }
         public int Seed { get; private set; }
 
         public IntMethods Int { get; private set; }
@@ -20,21 +20,16 @@ namespace UnityCSharpCommon.Utils.RandomUtils
         public AngleMethods Angle { get; private set; }
 
         /// <summary>
-        /// Initializes the BetterRandom with the seed "0".
-        /// </summary>
-        public BetterRandom() : this(0) { }
-
-        /// <summary>
         /// Initialized the BetterRandom with the <see cref="seed"/>.
         /// </summary>
         public BetterRandom(int seed)
         {
             Initialize (seed);
-            Int = new IntMethods (this);
-            Double = new DoubleMethods (this);
-            Float = new FloatMethods (this);
-            Vector2 = new Vector2Methods (this);
-            Vector3 = new Vector3Methods (this);
+            Int = new IntMethods(this);
+            Double = new DoubleMethods(this);
+            Float = new FloatMethods(this);
+            Vector2 = new Vector2Methods(this);
+            Vector3 = new Vector3Methods(this);
             Angle = new AngleMethods(this);
         }
 
@@ -51,7 +46,7 @@ namespace UnityCSharpCommon.Utils.RandomUtils
         private void Initialize (int seed)
         {
             Seed = seed;
-            Random = new Random (seed);
+            Random = new System.Random(seed);
         }
 
         /// <summary>

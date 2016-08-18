@@ -1,45 +1,31 @@
-﻿using UnityCSharpCommon.Expansions;
-using UnityCSharpCommon.Utils.Common;
-using UnityCSharpCommon.Utils.SingletonPatterns;
+﻿using System.Collections.Generic;
+using UnityCSCommon.Expansions;
+using UnityCSCommon.Utils.Common;
+using UnityCSCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.ObjectTracking2D
+namespace UnityCSCommon.Utils.ManualTracking2D
 {
     public class ConvexHullDatabase : GlobalSingleton<ConvexHullDatabase>
     {
         protected ConvexHullDatabase() { } //prevent init
 
-        private readonly OrderedDictionary<GameObject, Vector2[]> _localConvexHullDictionary = new OrderedDictionary<GameObject, Vector2[]>();
+        private readonly OrderedDictionary<GameObject, IList<Vector2>> _localConvexHullDictionary = new OrderedDictionary<GameObject, IList<Vector2>>();
 
         /// <summary>
         /// Gets the local convex hull of the given Prefab.
         /// </summary>
-        public Vector2[] GetLocalConvexHull(GameObject prefab)
+        public IList<Vector2> GetLocalConvexHull (GameObject prefab)
         {
-            Vector2[] foundValue;
-            bool isRecordedBefore = _localConvexHullDictionary.TryGetValue(prefab, out foundValue);
-
-            if (isRecordedBefore)
+            IList<Vector2> foundValue;
+            if (_localConvexHullDictionary.TryGetValue(prefab, out foundValue))
             {
                 return foundValue;
             }
-            else
-            {
-                //get renderer
-                var renderer = prefab.GetComponent<SpriteRenderer>();
 
-                //get local vertices
-                var localVertices = renderer.sprite.vertices;
-
-                //calculate convex hull
-                var localConvexHull = Geometry2D.MakeConvexHull(localVertices);
-
-                //add to dictionary
-                _localConvexHullDictionary.Add(prefab, localConvexHull);
-
-                //return value
-                return localConvexHull;
-            }
+            var localConvexHull = prefab.GetComponent<SpriteRenderer>().sprite.vertices.MakeConvexHull();
+            _localConvexHullDictionary.Add(prefab, localConvexHull);
+            return localConvexHull;
         }
     }
 }

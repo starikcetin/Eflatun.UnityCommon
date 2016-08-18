@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// Utilities for Networking.
@@ -8,18 +8,17 @@ namespace UnityCSharpCommon.Utils.Common
     public static class NetworkUtilities
     {
         /// <summary>
-        /// Tries to open a web client to http://www.example.com; if no errors or exceptions arises, returns true.
+        /// Tries to open a web client to "http://www.example.com", if no errors or exceptions arises, returns true.
         /// </summary>
+        /// <remarks> The "http://www.example.com" is an example domain provided by IANA. </remarks>
         public static bool CheckForInternetConnection()
         {
             try
             {
                 using (var client = new WebClient())
+                using (client.OpenRead ("http://www.example.com"))
                 {
-                    using (client.OpenRead("http://www.example.com"))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             catch

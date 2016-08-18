@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UnityCSharpCommon.Expansions
+namespace UnityCSCommon.Expansions
 {
     /// <summary>
     /// A dictionary type which allows bi-directional lookups.

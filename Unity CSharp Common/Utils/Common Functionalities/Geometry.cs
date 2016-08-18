@@ -1,40 +1,70 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
+    /// <summary>
+    /// Includes 3D Geometry functions.
+    /// </summary>
     public static class Geometry
     {
         /// <summary>
-        /// Finds the closest Transform in allTargets.
+        /// Finds the closest <see cref="Vector3"/> in <paramref name="allTargets"/>.
         /// </summary>
-        public static Transform FindClosest(this Transform origin, Transform[] allTargets)
+        public static Vector3 FindClosest (this Vector3 origin, IList<Vector3> allTargets)
         {
-            if (!origin)
+            if (allTargets == null)
             {
-                throw new System.ArgumentNullException("origin");
+                throw new ArgumentNullException("allTargets");
             }
 
-            int targetCount = allTargets.Count();
-            if (targetCount == 0)
+            switch (allTargets.Count)
             {
-                return null;
-            }
-            else if (targetCount == 1)
-            {
-                return allTargets[0];
+                case 0: return Vector3.zero;
+                case 1: return allTargets[0];
             }
 
-            Vector2 originPos = origin.Position2D();
+            float closestDistance = Mathf.Infinity;
+            Vector3 closest = Vector3.zero;
+
+            foreach (var iteratingTarget in allTargets)
+            {
+                float distanceSqr = (iteratingTarget - origin).sqrMagnitude;
+
+                if (distanceSqr < closestDistance)
+                {
+                    closestDistance = distanceSqr;
+                    closest = iteratingTarget;
+                }
+            }
+
+            return closest;
+        }
+
+        /// <summary>
+        /// Finds the closest <see cref="Transform"/> in <paramref name="allTargets"/>.
+        /// </summary>
+        public static Transform FindClosest (this Vector3 origin, IList<Transform> allTargets)
+        {
+            if (allTargets == null)
+            {
+                throw new ArgumentNullException("allTargets");
+            }
+
+            switch (allTargets.Count)
+            {
+                case 0: return null;
+                case 1: return allTargets[0];
+            }
 
             float closestDistance = Mathf.Infinity;
             Transform closest = null;
 
             foreach (var iteratingTarget in allTargets)
             {
-                Vector2 relPosVector = iteratingTarget.Position2D() - originPos;
-                float distanceSqr = relPosVector.sqrMagnitude;
+                float distanceSqr = (iteratingTarget.position - origin).sqrMagnitude;
 
                 if (distanceSqr < closestDistance)
                 {
@@ -47,34 +77,27 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// Finds the closest GameObject in allTargets.
+        /// Finds the closest <see cref="GameObject"/> in <paramref name="allTargets"/>.
         /// </summary>
-        public static GameObject FindClosest(this GameObject origin, GameObject[] allTargets)
+        public static GameObject FindClosest (this Vector3 origin, IList<GameObject> allTargets)
         {
-            if (!origin)
+            if (allTargets == null)
             {
-                throw new System.ArgumentNullException("origin");
+                throw new ArgumentNullException("allTargets");
             }
 
-            int targetCount = allTargets.Count();
-            if (targetCount == 0)
+            switch (allTargets.Count)
             {
-                return null;
+                case 0: return null;
+                case 1: return allTargets[0];
             }
-            else if (targetCount == 1)
-            {
-                return allTargets[0];
-            }
-
-            Vector2 originPos = origin.transform.Position2D();
 
             float closestDistance = Mathf.Infinity;
             GameObject closest = null;
 
             foreach (var iteratingTarget in allTargets)
             {
-                Vector2 relPosVector = iteratingTarget.transform.Position2D() - originPos;
-                float distanceSqr = relPosVector.sqrMagnitude;
+                float distanceSqr = (iteratingTarget.transform.position - origin).sqrMagnitude;
 
                 if (distanceSqr < closestDistance)
                 {
@@ -87,85 +110,81 @@ namespace UnityCSharpCommon.Utils.Common
         }
 
         /// <summary>
-        /// <para>Returns the weighted center of all the points given.</para>
-        /// <para>If weighted is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
+        /// <para>Returns the 3D center of all the points given.</para>
+        /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
         /// </summary>
-        public static Vector3 FindCenter(this List<Vector3> points, bool weighted)
+        public static Vector3 FindCenter (this IList<Vector3> points, bool weighted)
         {
-            if (points.Count == 0)
+            switch (points.Count)
             {
-                return Vector3.zero;
-            }
-            else if (points.Count == 1)
-            {
-                return points[0];
+                case 0: return Vector3.zero;
+                case 1: return points[0];
             }
 
             if (weighted)
             {
-                Vector3 center = Vector3.zero;
-
-                foreach (var point in points)
-                {
-                    center += point;
-                }
-
-                center /= points.Count;
-                return center;
+                return points.Aggregate (Vector3.zero, (current, point) => current + point) / points.Count;
             }
-            else
+
+            Bounds bound = new Bounds { center = points[0] };
+            foreach (var point in points)
             {
-                Bounds bound = new Bounds();
-                bound.center = points[0];
-
-                foreach (var point in points)
-                {
-                    bound.Encapsulate(point);
-                }
-
-                return bound.center;
+                bound.Encapsulate (point);
             }
+
+            return bound.center;
         }
 
         /// <summary>
-        /// <para>Returns the weighted center of all the points given.</para>
-        /// <para>If weighted is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
+        /// <para>Returns the 3D center of all the points given.</para>
+        /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
         /// </summary>
-        public static Vector3 FindCenter(this List<GameObject> gameObjects, bool weighted)
+        public static Vector3 FindCenter (this IList<GameObject> gameObjects, bool weighted)
         {
-            if (gameObjects.Count == 0)
+            switch (gameObjects.Count)
             {
-                return Vector3.zero;
-            }
-            else if (gameObjects.Count == 1)
-            {
-                return gameObjects[0].transform.position;
+                case 0: return Vector3.zero;
+                case 1: return gameObjects[0].transform.position;
             }
 
             if (weighted)
             {
-                Vector3 center = Vector3.zero;
-
-                foreach (var gameObject in gameObjects)
-                {
-                    center += gameObject.transform.position;
-                }
-
-                center /= gameObjects.Count;
-                return center;
+                return gameObjects.Aggregate (Vector3.zero, (current, gameObject) => current + gameObject.transform.position) / gameObjects.Count;
             }
-            else
+
+            Bounds bound = new Bounds { center = gameObjects[0].transform.position };
+            foreach (var gameObject in gameObjects)
             {
-                Bounds bound = new Bounds();
-                bound.center = gameObjects[0].transform.position;
-
-                foreach (var gameObject in gameObjects)
-                {
-                    bound.Encapsulate(gameObject.transform.position);
-                }
-
-                return bound.center;
+                bound.Encapsulate (gameObject.transform.position);
             }
+
+            return bound.center;
+        }
+
+        /// <summary>
+        /// <para>Returns the 3D center of all the points given.</para>
+        /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
+        /// </summary>
+        public static Vector3 FindCenter (this IList<Transform> transforms, bool weighted)
+        {
+            switch (transforms.Count)
+            {
+                case 0: return Vector3.zero;
+                case 1: return transforms[0].position;
+            }
+
+            if (weighted)
+            {
+                return transforms.Aggregate (Vector3.zero, (current, transform) => current + transform.position) / transforms.Count;
+            }
+
+            Bounds bound = new Bounds { center = transforms[0].position };
+            foreach (var transform in transforms)
+            {
+                bound.Encapsulate (transform.position);
+            }
+
+            return bound.center;
         }
     }
 }

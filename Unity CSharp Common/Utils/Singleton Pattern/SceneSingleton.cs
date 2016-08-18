@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UnityCSharpCommon.Utils.SingletonPatterns
+namespace UnityCSCommon.Utils.SingletonPatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that gets destroyed if current scene changes.</para>

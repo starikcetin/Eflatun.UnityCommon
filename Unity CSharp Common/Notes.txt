@@ -13,29 +13,29 @@ Utils:			For custom types that are Unity dependent.
 ##  Namespace Structure  ##
 ###########################
 
-UnityCSharpCommon			("Unity CSharp Common" Folder)
+UnityCSCommon					("Unity CS Common" Folder)
 |
-|---Expansions				("Expansions" Folder)
+|---Expansions					("Expansions" Folder)
 |
-|---Utils				("Utils" Folder)
+|---Utils						("Utils" Folder)
 	|
-	|---ObjectTracking2D		("2D Manual Object Tracking" Folder)
+	|---ManualTracking2D		("2D Manual Object Tracking" Folder)
 	|
-	|---RandomUtils			("Random Utilities" Folder)
+	|---RandomUtils				("Random Utilities" Folder)
 	|	|
-	|	|---UtilityClasses	("Utility Classes" Folder)
+	|	|---Utility				("Utility Classes" Folder)
 	|
-	|---Common			("Common Functionalities" Folder)
+	|---Common					("Common Functionalities" Folder)
 	|	|
-	|	|---Serialization	("Serialization" Folder)
+	|	|---Serialization		("Serialization" Folder)
 	|
-	|---GridBuilding		("Grid Building" Folder)
+	|---GridBuilding			("Grid Building" Folder)
 	|
-	|---Pooling			("Object Pooling" Folder)
+	|---Pooling					("Object Pooling" Folder)
 	|
-	|---Sampling			("Sampling Utilities" Folder)
+	|---Sampling				("Sampling Utilities" Folder)
 	|	|
-	|	|---Vector2Sampling	("Vector2 Sampling" Folder)
+	|	|---Vector2Sampling		("Vector2 Sampling" Folder)
 	|
 	|---SingletonPatterns		("Singleton Pattern" Folder)
 

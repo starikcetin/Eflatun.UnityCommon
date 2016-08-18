@@ -1,8 +1,8 @@
 using System;
-using UnityCSharpCommon.Utils.Common;
+using UnityCSCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.RandomUtils.UtilityClasses
+namespace UnityCSCommon.Utils.RandomUtils.Utility
 {
     /// <summary>
     /// Vector2 methods for <see cref="BetterRandom"/> class.

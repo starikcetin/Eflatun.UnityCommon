@@ -1,14 +1,14 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace UnityCSharpCommon.Utils.Common.Serialization
+namespace UnityCSCommon.Utils.Common.Serialization
 {
     /// <summary>
-    /// Utilities for serializing to byte and deserializing from byte.
+    /// Utilities for serializing to byte array and deserializing from byte array.
     /// </summary>
-    public static class ByteSerializeTools
+    public static class ByteArraySerializer
     {
-        public static byte[] ToByte_Serialize<T>(ref T input)
+        public static byte[] Serialize<T>(ref T input)
         {
             if (input == null)
             {
@@ -17,13 +17,12 @@ namespace UnityCSharpCommon.Utils.Common.Serialization
 
             using (MemoryStream ms = new MemoryStream())
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(ms, input);
+                new BinaryFormatter().Serialize(ms, input);
                 return ms.ToArray();
             }
         }
 
-        public static T FromByte_Deserialize<T>(byte[] input)
+        public static T Deserialize<T>(byte[] input)
         {
             using (MemoryStream ms = new MemoryStream())
             {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Pooling
+namespace UnityCSCommon.Utils.Pooling
 {
     /// <summary>
     /// Inspector representative for PrefabPool class.

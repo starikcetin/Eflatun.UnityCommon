@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// A job counter for jobs that has limits per frame.

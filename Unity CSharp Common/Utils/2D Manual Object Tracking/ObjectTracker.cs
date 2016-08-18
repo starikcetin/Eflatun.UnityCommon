@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using UnityCSharpCommon.Utils.Common;
-using UnityCSharpCommon.Utils.SingletonPatterns;
+using UnityCSCommon.Utils.Common;
+using UnityCSCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.ObjectTracking2D
+namespace UnityCSCommon.Utils.ManualTracking2D
 {
     public class ObjectTracker : GlobalSingleton<ObjectTracker>
     {
@@ -455,29 +455,29 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
 
         #region Tests
 
-        private bool TestFor_Layer(TrackedObjectData item, int layerMask)
+        private static bool TestFor_Layer(TrackedObjectData item, int layerMask)
         {
             int layerToTest = item.GameObject.layer;
-            return Mathf2.MaskIncludes(layerMask, layerToTest);
+            return layerMask.MaskIncludes(layerToTest);
         }
 
-        private bool TestFor_AABB(TrackedObjectData item, Vector2 min, Vector2 max)
+        private static bool TestFor_AABB(TrackedObjectData item, Vector2 min, Vector2 max)
         {
             Vector2 itemMin = item.AABB.Min;
             Vector2 itemMax = item.AABB.Max;
-            return Geometry2D.TestOverlap(itemMin, itemMax, min, max);
+            return Geometry2D.IsOverlapping(itemMin, itemMax, min, max);
         }
 
-        private bool TestFor_PIP(TrackedObjectData item, Vector2 point)
+        private static bool TestFor_PIP(TrackedObjectData item, Vector2 point)
         {
-            Vector2[] hullPoints = item.WorldConvexHull;
-            return Geometry2D.IsInPoly(point, hullPoints);
+            IList<Vector2> hullPoints = item.WorldConvexHull;
+            return point.IsInPoly(hullPoints);
         }
 
-        private bool TestFor_Distance(TrackedObjectData item, Vector2 center, float sqrRadius)
+        private static bool TestFor_Distance(TrackedObjectData item, Vector2 center, float sqrRadius)
         {
             Vector2 testCenter = item.AABB.Center;
-            return Geometry2D.TestDistanceMax(testCenter, center, sqrRadius);
+            return testCenter.TestDistanceMax(center, sqrRadius);
         }
 
         #endregion

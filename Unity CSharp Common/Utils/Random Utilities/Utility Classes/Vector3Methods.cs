@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.RandomUtils.UtilityClasses
+namespace UnityCSCommon.Utils.RandomUtils.Utility
 {
     /// <summary>
     /// Vector3 methods for <see cref="BetterRandom"/> class.

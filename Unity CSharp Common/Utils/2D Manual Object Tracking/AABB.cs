@@ -1,7 +1,7 @@
-using UnityCSharpCommon.Utils.Common;
+using UnityCSCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.ObjectTracking2D
+namespace UnityCSCommon.Utils.ManualTracking2D
 {
     /// <summary>
     /// Contains info about the AABB of a TrackedObjectData.
@@ -22,7 +22,7 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
             get { return Center - Extents; }
         }
 
-        public void Update(Bounds bounds)
+        public void Update (Bounds bounds)
         {
             Center = bounds.center.ToVector2();
             Extents = bounds.extents.ToVector2();

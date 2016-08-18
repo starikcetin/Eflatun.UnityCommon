@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common
+namespace UnityCSCommon.Utils.Common
 {
     /// <summary>
     /// Provides fastest methods to convert a Vector3 to Vector2 and a Vector2 to Vector3

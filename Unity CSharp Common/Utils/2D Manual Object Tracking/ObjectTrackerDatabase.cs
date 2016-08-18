@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.ObjectTracking2D
+namespace UnityCSCommon.Utils.ManualTracking2D
 {
     /// <summary>
     /// Keeps records of all TrackedObjectDatas and their referances.

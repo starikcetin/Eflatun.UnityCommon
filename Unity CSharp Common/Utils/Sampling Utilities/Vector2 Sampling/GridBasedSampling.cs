@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityCSharpCommon.Utils.Common;
+using UnityCSCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
+namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
 {
     /// <summary>
     /// Grid based sampling of Vector2s.
@@ -20,21 +20,26 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="grid">The grid to make sampling on.</param>
         /// <param name="seed">Seed.</param>
-        public GridBasedSampling(List<Vector2> grid, int seed)
+        public GridBasedSampling(IList<Vector2> grid, int seed)
         {
             _listShuffler = new ListShuffle(seed);
 
             _allNodes = new List<Vector2> (grid);
-            _listShuffler.Shuffle(_allNodes);
+            _listShuffler.Shuffle (_allNodes);
 
             _availableNodes = new List<Vector2>(_allNodes);
         }
 
         /// <summary>
-        /// Makes all nodes available again.
+        /// Makes all nodes available again. If <paramref name="reShuffle"/> is true, also reshuffles the nodes.
         /// </summary>
-        public void Reset()
+        public void ResetSampleHistory (bool reShuffle)
         {
+            if (reShuffle)
+            {
+                _listShuffler.Shuffle (_allNodes);
+            }
+
             _availableNodes = new List<Vector2>(_allNodes);
         }
 
@@ -43,7 +48,7 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="sample">The sample node.</param>
         /// <returns>True if a node is found, returns false otherwise.</returns>
-        public bool TrySample(out Vector2 sample)
+        public bool TrySample (out Vector2 sample)
         {
             if (_availableNodes.Count == 0)
             {
@@ -62,7 +67,7 @@ namespace UnityCSharpCommon.Utils.Sampling.Vector2Sampling
         public Vector2 Sample()
         {
             Vector2 sample;
-            if (TrySample(out sample))
+            if (TrySample (out sample))
             {
                 return sample;
             }

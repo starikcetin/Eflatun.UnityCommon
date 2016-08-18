@@ -1,7 +1,9 @@
-using UnityCSharpCommon.Utils.Common;
+using System.Collections.Generic;
+using System.Linq;
+using UnityCSCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.ObjectTracking2D
+namespace UnityCSCommon.Utils.ManualTracking2D
 {
     /// <summary>
     /// Contains position and AABB data of a tracked GameObject.
@@ -12,14 +14,14 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
 
         public SpriteRenderer Renderer { get; private set; }
 
-        private readonly Vector2[] _localConvexHull;
-        public Vector2[] LocalConvexHull
+        private readonly IList<Vector2> _localConvexHull;
+        public IList<Vector2> LocalConvexHull
         {
             get { return _localConvexHull; }
         }
 
-        private readonly Vector2[] _worldConvexHull;
-        public Vector2[] WorldConvexHull
+        private readonly IList<Vector2> _worldConvexHull;
+        public IList<Vector2> WorldConvexHull
         {
             get { return _worldConvexHull; }
         }
@@ -29,12 +31,12 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
         private Vector2 _lastPosition;
         private Quaternion _lastRotation;
 
-        public TrackedObjectData(GameObject toTrack, SpriteRenderer renderer, Vector2[] localConvexHull)
+        public TrackedObjectData(GameObject toTrack, SpriteRenderer renderer, IList<Vector2> localConvexHull)
         {
             GameObject = toTrack;
             Renderer = renderer;
             _localConvexHull = localConvexHull;
-            _worldConvexHull = _localConvexHull.Clone() as Vector2[];
+            _worldConvexHull = localConvexHull.ToList();
 
             AABB = new AABB();
 
@@ -64,15 +66,15 @@ namespace UnityCSharpCommon.Utils.ObjectTracking2D
             // Formulas used in transforming local to world have been directly taken from assmebly view of Matrix4x4.MultiplyPoint3x4.
             // I deleted everything related to Z axis, and this yielded a much more better performance.
 
-            int count = _worldConvexHull.Length;
+            int count = _worldConvexHull.Count;
             for (int i = 0; i < count; i++)
             {
-                //get local
                 Vector2 local = _localConvexHull[i];
 
-                //assign
-                _worldConvexHull[i].x = toWorld.m00*local.x + toWorld.m01*local.y + toWorld.m03;
-                _worldConvexHull[i].y = toWorld.m10*local.x + toWorld.m11*local.y + toWorld.m13;
+                var x = toWorld.m00*local.x + toWorld.m01*local.y + toWorld.m03;
+                var y = toWorld.m10*local.x + toWorld.m11*local.y + toWorld.m13;
+
+                _worldConvexHull[i].Set(x, y);
             }
         }
     }

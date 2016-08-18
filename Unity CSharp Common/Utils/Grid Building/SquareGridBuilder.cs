@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using UnityCSharpCommon.Utils.Common;
+using UnityCSCommon.Utils.Common;
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.GridBuilding
+namespace UnityCSCommon.Utils.GridBuilding
 {
     /// <summary>
     /// Methods for generating symmetrical square grids.

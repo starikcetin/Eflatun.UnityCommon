@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityCSharpCommon.Utils.Common.Serialization
+namespace UnityCSCommon.Utils.Common.Serialization
 {
     /// <summary>
     /// Serialization helper class for Vector3 type.

@@ -1,4 +1,4 @@
-namespace UnityCSharpCommon.Utils.Pooling
+namespace UnityCSCommon.Utils.Pooling
 {
     /// <summary>
     /// Includes essential methods for objects that will be pooled.
