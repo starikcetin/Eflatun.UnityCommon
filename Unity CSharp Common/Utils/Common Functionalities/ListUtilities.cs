@@ -28,5 +28,35 @@ namespace UnityCSCommon.Utils.Common
             list[i1] = list[i2];    //copy the item at i2 to i1
             list[i2] = temp;        //copy the temp to i2
         }
+
+        /// <summary>
+        /// Adds item to <paramref name="collection"/> if it doesn't contain the <paramref name="item"/> already.
+        /// Returns true if <paramref name="item"/> is added, false otherwise.
+        /// </summary>
+        public static bool AddIfNotContains<T> (this ICollection<T> collection, T item)
+        {
+            if (collection.Contains (item))
+            {
+                return false;
+            }
+
+            collection.Add (item);
+            return true;
+        }
+
+        /// <summary>
+        /// Adds the <paramref name="key"/>-<paramref name="value"/> pair to <paramref name="dictionary"/> if it doesn't contain the <paramref name="key"/> already.
+        /// Returns true if pair is added, false otherwise.
+        /// </summary>
+        public static bool AddIfNotContains<TKey, TValue> (this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey (key))
+            {
+                return false;
+            }
+
+            dictionary.Add (key, value);
+            return true;
+        }
     }
 }
