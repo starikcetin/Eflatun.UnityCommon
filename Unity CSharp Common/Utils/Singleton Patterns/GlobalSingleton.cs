@@ -46,24 +46,18 @@ namespace UnityCSCommon.Utils.SingletonPatterns
                     if (FindObjectsOfType(typeof(T)).Length > 1)
                     {
                         Debug.LogError(string.Format("[GlobalSingleton] There is more than one {0} in the scene! Reopening the scene might fix it.", typeof(T)));
-                        return _instance;
                     }
-
-                    if (_instance == null)
+                    else if (_instance == null)
                     {
                         GameObject newContainer = new GameObject();
                         _instance = newContainer.AddComponent<T>();
                         newContainer.name = string.Format ("(global singleton) {0}", typeof(T));
 
-                        DontDestroyOnLoad(newContainer);
-
-                        Debug.Log(string.Format("[GlobalSingleton] An instance of {0} is needed in the scene, so '{1}' was created with DontDestroyOnLoad.", typeof(T), newContainer));
+                        Debug.Log(string.Format("[GlobalSingleton] An instance of {0} is needed in the scene, so '{1}' was created.", typeof(T), newContainer));
                     }
                     else
                     {
-                        GameObject container = _instance.gameObject;
-                        DontDestroyOnLoad(container);
-                        Debug.Log(string.Format("[GlobalSingleton] Using instance already created: '{0}' on '{1}'. DontDestroyOnLoad called for existing container GameObject.", typeof(T), container.name));
+                        Debug.Log(string.Format("[GlobalSingleton] Using instance already created: '{0}' on '{1}'.", typeof(T), _instance.gameObject));
                     }
                 }
 
@@ -97,14 +91,13 @@ namespace UnityCSCommon.Utils.SingletonPatterns
             {
                 if (_instance != null)
                 {
-                    Debug.LogWarning(string.Format("[GlobalSingleton] Destroying duplicate of '{0}': '{1}'.", typeof(T), gameObject));
-                    Destroy(this);
+                    Debug.LogWarning(string.Format("[GlobalSingleton] Destroying duplicate of '{0}' on '{1}'.", typeof(T), gameObject));
+                    DestroyImmediate(this, false);
+                    return;
                 }
 
-                // If we change the scene without calling Instance, the singleton will also
-                // get destroyed because DontDestroyOnLoad gets called the first time we
-                // call Instance. So here we call it on Awake to ensure everything is OK.
-                Instance_Get();
+                DontDestroyOnLoad (Instance_Get());
+                Debug.Log(string.Format("[GlobalSingleton] DontDestroyOnLoad called for '{0}' on '{1}'.", typeof(T), gameObject));
             }
         }
     }
