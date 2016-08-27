@@ -40,6 +40,10 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|---SingletonPatterns		("Singleton Patterns" Folder)
 	|
 	|---UI						("UI" Folder)
+	|	|
+	|	|---Custom				("Custom" Folder)
+	|	|	|
+	|	|	|---PropertyDrawers	("Property Drawers" Folder)
 
 
 

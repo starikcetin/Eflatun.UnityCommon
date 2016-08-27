@@ -26,40 +26,45 @@ namespace UnityCSCommon.Utils.SingletonPatterns
         {
             get
             {
-                if (_applicationIsQuitting)
-                {
-                    Debug.LogWarning(string.Format("[SceneSingleton ({0})] Application is quitting! Returning null instead of '{1}'.", SceneManager.GetActiveScene().name, typeof (T)));
-                    return null;
-                }
+                return Instance_Get();
+            }
+        }
 
-                lock (Lock)
+        private static T Instance_Get()
+        {
+            if (_applicationIsQuitting)
+            {
+                Debug.LogWarning(string.Format("[SceneSingleton ({0})] Application is quitting! Returning null instead of '{1}'.", SceneManager.GetActiveScene().name, typeof(T)));
+                return null;
+            }
+
+            lock (Lock)
+            {
+                if (_instance == null)
                 {
-                    if (_instance == null)
+                    _instance = (T)FindObjectOfType(typeof(T));
+
+                    if (FindObjectsOfType(typeof(T)).Length > 1)
                     {
-                        _instance = (T) FindObjectOfType(typeof (T));
-
-                        if (FindObjectsOfType(typeof (T)).Length > 1)
-                        {
-                            Debug.LogError(string.Format("[SceneSingleton ({0})] Something went really wrong - there should never be more than 1 singleton! Reopening the scene might fix it.", SceneManager.GetActiveScene().name));
-                            return _instance;
-                        }
-
-                        if (_instance == null)
-                        {
-                            GameObject singleton = new GameObject();
-                            _instance = singleton.AddComponent<T>();
-                            singleton.name = "(scene singleton) " + typeof (T);
-
-                            Debug.Log(string.Format("[SceneSingleton ({0})] An instance of {1} is needed in the scene, so '{2}' was created.", SceneManager.GetActiveScene().name, typeof (T), singleton));
-                        }
-                        else
-                        {
-                            Debug.Log(string.Format("[SceneSingleton ({0})] Using instance already created: {1}", SceneManager.GetActiveScene().name, _instance.gameObject.name));
-                        }
+                        Debug.LogError(string.Format("[SceneSingleton ({0})] Something went really wrong - there should never be more than 1 singleton! Reopening the scene might fix it.", SceneManager.GetActiveScene().name));
+                        return _instance;
                     }
 
-                    return _instance;
+                    if (_instance == null)
+                    {
+                        GameObject container = new GameObject();
+                        _instance = container.AddComponent<T>();
+                        container.name = string.Format ("(scene singleton) {0}", typeof(T));
+
+                        Debug.Log(string.Format("[SceneSingleton ({0})] An instance of {1} is needed in the scene, so '{2}' was created.", SceneManager.GetActiveScene().name, typeof(T), container));
+                    }
+                    else
+                    {
+                        Debug.Log(string.Format("[SceneSingleton ({0})] Using instance already created: {1}", SceneManager.GetActiveScene().name, _instance.gameObject.name));
+                    }
                 }
+
+                return _instance;
             }
         }
 
@@ -90,10 +95,13 @@ namespace UnityCSCommon.Utils.SingletonPatterns
             {
                 if (_instance != null)
                 {
-                    Debug.Log(string.Format("[SceneSingleton ({0})] Destroying duplicate of {1}: '{2}'.", SceneManager.GetActiveScene().name, typeof(T), gameObject));
-                    DestroyImmediate(gameObject);
+                    Debug.LogWarning(string.Format("[SceneSingleton ({0})] Destroying duplicate of '{1}': '{2}'.", SceneManager.GetActiveScene().name, typeof(T), gameObject));
+                    Destroy(this);
                 }
             }
+
+            // To make sure everything goes OK, we initialize the singleton here.
+            Instance_Get();
         }
     }
 }

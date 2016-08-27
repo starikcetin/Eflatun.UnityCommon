@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -20,13 +21,47 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Swaps the indexes of items at <see cref="i1"/> and <see cref="i2"/>.
+        /// Swaps the indexes of items at <paramref name="i1"/> and <paramref name="i2"/> in <paramref name="list"/>.
         /// </summary>
         public static void Swap<T> (this IList<T> list, int i1, int i2)
         {
+            if (list.Count < i1 + 1 || i1 < 0)
+            {
+                throw new ArgumentOutOfRangeException ("i1", i1, "i1 is out of range of the list.");
+            }
+            else if (list.Count < i2 + 1 || i2 < 0)
+            {
+                throw new ArgumentOutOfRangeException ("i2", i2, "i2 is out of range of the list.");
+            }
+
             var temp = list[i1];    //save the item at i1 to temp
             list[i1] = list[i2];    //copy the item at i2 to i1
             list[i2] = temp;        //copy the temp to i2
+        }
+
+        /// <summary>
+        /// Swaps the indexes of <paramref name="item1"/> and <paramref name="item2"/> in <paramref name="list"/>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <param name="item1"></param>
+        /// <param name="item2"></param>
+        public static void Swap<T> (this IList<T> list, T item1, T item2)
+        {
+            if (!list.Contains (item1))
+            {
+                throw new ArgumentOutOfRangeException ("item1", item1, "List does not contain item1.");
+            }
+            else if (!list.Contains (item2))
+            {
+                throw new ArgumentOutOfRangeException ("item2", item2, "List does not contain item2.");
+            }
+
+            var i1 = list.IndexOf(item1);
+            var i2 = list.IndexOf(item2);
+
+            list[i1] = item2;
+            list[i2] = item1;
         }
 
         /// <summary>

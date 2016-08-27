@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UnityCSCommon.Utils.UI
 {
@@ -7,13 +8,21 @@ namespace UnityCSCommon.Utils.UI
     /// </summary>
     public class PanelNavigationButton : ButtonBase
     {
-        [SerializeField] private Panel _hideOnClick;
-        [SerializeField] private Panel _showOnClick;
+        [SerializeField] private List<Panel> _hideOnClick;
+        [Space]
+        [SerializeField] private List<Panel> _showOnClick;
 
         protected override void OnClick()
         {
-            if (_hideOnClick) _hideOnClick.Hide();
-            if (_showOnClick) _showOnClick.Show();
+            foreach (Panel panel in _hideOnClick)
+            {
+                panel.Hide();
+            }
+
+            foreach (Panel panel in _showOnClick)
+            {
+                panel.Show();
+            }
         }
     }
 }
