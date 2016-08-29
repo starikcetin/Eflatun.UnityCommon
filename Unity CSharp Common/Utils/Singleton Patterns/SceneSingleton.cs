@@ -5,8 +5,8 @@ namespace UnityCSCommon.Utils.SingletonPatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that gets destroyed if current scene changes.</para>
-    /// <para>If you want to use Awake or OnApplicationQuit methods in implementator, use 'new' keyword in method signature
-    /// and call 'base.Awake()' or 'base.OnApplicationQuit()' in the first line of your method.</para>
+    /// <para>If you want to use OnApplicationQuit method in implementator, use 'new' keyword in method signature
+    /// and call 'base.OnApplicationQuit()' in the first line of your method.</para>
     /// <para>Be aware this will not prevent a non singleton constructor such as `T myT = new T();`
     /// To prevent that, add `protected T () {}` to your singleton class.
     /// This type inherits from MonoBehaviour so we can use Coroutines.</para>
@@ -75,23 +75,7 @@ namespace UnityCSCommon.Utils.SingletonPatterns
             _applicationIsQuitting = true;
         }
 
-        /// <summary>
-        /// When we load a scene -that has a GameObject with our singleton on it as a component- with
-        /// LoadLevelAdditive, singleton gets duplicated because we already have a singleton instance
-        /// and the current scene objects will not get destroyed since we loaded other scene "additive".
-        /// To prevent this, we must destroy the instance that is created while "additive" scene load
-        /// if we already have an instance. Lock was not necessary, but feels safe.
-        /// </summary>
-        protected void Awake()
-        {
-            lock (Lock)
-            {
-                if (_instance != null)
-                {
-                    Debug.LogWarning(string.Format("[SceneSingleton ({0})] Destroying duplicate of '{1}' on '{2}'.", SceneManager.GetActiveScene().name, typeof(T), gameObject.name));
-                    DestroyImmediate(this, false);
-                }
-            }
-        }
+        // NOTE: Duplicate checking in Awake() is not necessary for SceneSingletons, since
+        // they don't have DontDestroyOnLoad, they won't get duplicated on scene load.
     }
 }

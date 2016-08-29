@@ -26,10 +26,8 @@ namespace UnityCSCommon.Utils.Pooling
             get { return _allPools; }
         }
 
-        new void Awake()
+        void Awake()
         {
-            base.Awake();
-
             foreach (var item in _allPoolSetups)
             {
                 CreatePool (item.Prefab, item.PrePopulateAmount, item.AutoPopulateAmount);

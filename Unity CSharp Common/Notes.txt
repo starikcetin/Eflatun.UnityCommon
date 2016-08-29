@@ -17,6 +17,10 @@ UnityCSCommon					("Unity CS Common" Folder)
 |
 |---Expansions					("Expansions" Folder)
 |
+|---Inspector					("Inspector" Folder)
+|	|
+|	|---PropertyAttributes		("Property Attributes" Folder)
+|
 |---Utils						("Utils" Folder)
 	|
 	|---ManualTracking2D		("2D Manual Object Tracking" Folder)
@@ -31,6 +35,8 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|
 	|---GridBuilding			("Grid Building" Folder)
 	|
+	|---InspectorWrappers		("Inspector Functionality Wrappers" Folder)
+	|
 	|---Pooling					("Object Pooling" Folder)
 	|
 	|---Sampling				("Sampling Utilities" Folder)
@@ -40,10 +46,6 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|---SingletonPatterns		("Singleton Patterns" Folder)
 	|
 	|---UI						("UI" Folder)
-	|	|
-	|	|---Custom				("Custom" Folder)
-	|	|	|
-	|	|	|---PropertyDrawers	("Property Drawers" Folder)
 
 
 
@@ -52,3 +54,7 @@ UnityCSCommon					("Unity CS Common" Folder)
 ###########################
 
 -> You may prefer using this library as a subtree (or submodule) in your git repository.
+
+-> "Editor" folders are special folders that Unity use to identify editor-only scripts.
+   So all "Editor" folders in this framework are intended for that purpose.
+   Thus, do not use "Editor" as a custom folder name, consider using "Inspector" instead.

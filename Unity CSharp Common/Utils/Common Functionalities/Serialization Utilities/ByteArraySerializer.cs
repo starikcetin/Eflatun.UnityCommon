@@ -4,11 +4,14 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace UnityCSCommon.Utils.Common.Serialization
 {
     /// <summary>
-    /// Utilities for serializing to byte array and deserializing from byte array.
+    /// Utilities for serializing to byte arrays and deserializing from byte arrays.
     /// </summary>
     public static class ByteArraySerializer
     {
-        public static byte[] Serialize<T>(ref T input)
+        /// <summary>
+        /// Serializes given <paramref name="input"/> to a byte array.
+        /// </summary>
+        public static byte[] SerializeToByteArray<T> (this T input)
         {
             if (input == null)
             {
@@ -22,11 +25,14 @@ namespace UnityCSCommon.Utils.Common.Serialization
             }
         }
 
-        public static T Deserialize<T>(byte[] input)
+        /// <summary>
+        /// Deserializes given <paramref name="byteArray"/> as the type <typeparamref name="T"/>.
+        /// </summary>
+        public static T Deserialize<T> (this byte[] byteArray)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                ms.Write(input, 0, input.Length);
+                ms.Write(byteArray, 0, byteArray.Length);
                 ms.Seek(0, SeekOrigin.Begin);
                 return (T) new BinaryFormatter().Deserialize(ms);
             }

@@ -1,9 +1,11 @@
-﻿namespace UnityCSCommon.Utils.UI.Custom.PropertyDrawers
-{
-#if UNITY_EDITOR
-    using UnityEditor;
-    using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 
+namespace UnityCSCommon.Inspector.PropertyAttributes
+{
+    /// <summary>
+    /// Property drawer for <see cref="NoEdit"/> attribute.
+    /// </summary>
     [CustomPropertyDrawer(typeof(NoEdit))]
     public class NoEditDrawer : PropertyDrawer
     {
@@ -76,5 +78,4 @@
             //}
         }
     }
-#endif
 }
