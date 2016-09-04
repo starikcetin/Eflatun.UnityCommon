@@ -45,6 +45,8 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|
 	|---SingletonPatterns		("Singleton Patterns" Folder)
 	|
+	|---TrajectoryUtilities		("Trajectory Utilities" Folder)
+	|
 	|---UI						("UI" Folder)
 
 
