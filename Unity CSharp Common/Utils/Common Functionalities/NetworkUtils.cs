@@ -5,7 +5,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// Utilities for Networking.
     /// </summary>
-    public static class NetworkUtilities
+    public static class NetworkUtils
     {
         /// <summary>
         /// Tries to open a web client to "http://www.example.com", if no errors or exceptions arises, returns true.

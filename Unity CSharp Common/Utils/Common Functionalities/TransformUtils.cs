@@ -7,7 +7,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// Utilities and extension methods for <see cref="Transform"/>s.
     /// </summary>
-    public static class TransformUtilities
+    public static class TransformUtils
     {
         /// <summary>
         /// Returns all children of <paramref name="transform"/>

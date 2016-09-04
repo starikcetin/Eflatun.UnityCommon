@@ -6,7 +6,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// Utilities for <see cref="Enum"/>.
     /// </summary>
-    public static class EnumUtilities
+    public static class EnumUtils
     {
         /// <summary>
         /// Returns an <see cref="IEnumerator{T}"/> containing all values of <typeparamref name="T"/>.

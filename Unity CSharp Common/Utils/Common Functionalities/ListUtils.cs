@@ -7,7 +7,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// Utilities for C# Generic Lists.
     /// </summary>
-    public static class ListUtilities
+    public static class ListUtils
     {
         /// <summary>
         /// Returns the circular next index, this means it will return 0 if you call it for last index of list.

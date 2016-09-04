@@ -5,7 +5,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// Utilities and extension methods for <see cref="GameObject"/>s.
     /// </summary>
-    public static class GameObjectUtilities
+    public static class GameObjectUtils
     {
         /// <summary>
         /// Sets the active state of this <paramref name="gameObject"/> and it's first level parent.

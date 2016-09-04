@@ -3,9 +3,10 @@
 ###########################
 
 Expansions:		For custom types that are not included in .Net and/or Mono. These types should be independent from Unity.
+Inspector:		For custom Editor and Inspector types that are Unity dependent.
 Utils:			For custom types that are Unity dependent.
 
--- Unity dependency: If your type uses any of the namespaces, classes, methods (etc.) Unity provides, that type is Unity dependant.
+-- Unity dependency: If your type uses any of the namespaces, classes, methods (etc.) Unity provides, that type is Unity dependent.
 
 
 

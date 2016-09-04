@@ -5,7 +5,7 @@ namespace UnityCSCommon.Utils.Common
     /// <summary>
     /// 2D physics utilities.
     /// </summary>
-    public static class Physics2DUtilities
+    public static class Physics2DUtils
     {
         /// <summary>
         /// Calculates the initial velocity for given values.
