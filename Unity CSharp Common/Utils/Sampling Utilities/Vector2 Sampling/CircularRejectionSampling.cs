@@ -64,7 +64,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
             {
                 var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
 
-                if (_returnedSamples.TrueForAll(a => a.TestDistanceMin(rndVector2, minDist)))
+                if (_returnedSamples.Count == 0 || _returnedSamples.TrueForAll(a => a.TestDistanceMin(rndVector2, minDist)))
                 {
                     sample = rndVector2;
                     _returnedSamples.Add (sample);
@@ -90,7 +90,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
             {
                 var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
 
-                if (_returnedSamples.Any(a => a.TestDistanceMax(rndVector2, maxDist)))
+                if (_returnedSamples.Count == 0 || _returnedSamples.Any(a => a.TestDistanceMax(rndVector2, maxDist)))
                 {
                     sample = rndVector2;
                     _returnedSamples.Add(sample);
@@ -116,6 +116,13 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
             for (var trials = 0; trials < maxTrials; trials++)
             {
                 var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
+
+                if (_returnedSamples.Count == 0)
+                {
+                    sample = rndVector2;
+                    _returnedSamples.Add (sample);
+                    return true;
+                }
 
                 if (_returnedSamples.Any(a => a.TestDistanceMax(rndVector2, maxDist))) //max
                 {
