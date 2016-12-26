@@ -35,7 +35,7 @@ namespace UnityCSCommon.Utils.Common
                 {
                     return (T)Enum.Parse (wantedType, input);
                 }
-                catch (Exception)
+                catch
                 {
                     //We cannot parse to wanted Enum directly, try to cast to Integer and get the value from array of values.
                     int intInput;
