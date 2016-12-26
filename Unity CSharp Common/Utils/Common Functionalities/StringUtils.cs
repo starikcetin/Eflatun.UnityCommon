@@ -59,5 +59,14 @@ namespace UnityCSCommon.Utils.Common
                 return (T)(object)input;
             }
         }
+
+        /// <summary>
+        /// Splits <see cref="input"/> by "space" char. <para/>
+        /// This method calls <code>input.Split(' ');</code> internally.
+        /// </summary>
+        public static string[] SplitBySpace (this string input)
+        {
+            return input.Split(' ');
+        }
     }
 }
