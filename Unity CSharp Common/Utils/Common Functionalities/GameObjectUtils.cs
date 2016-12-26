@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 namespace UnityCSCommon.Utils.Common
 {
@@ -46,46 +48,24 @@ namespace UnityCSCommon.Utils.Common
 
         /// <summary>
         /// Sets the active state of this <paramref name="gameObject"/> and all of it's children hierarchy (children, grandchildren, children of grandchildren... etc).
-        /// <para>This method uses recursive calls, so be careful about *very* big hierarchies.</para>
         /// </summary>
         /// <remarks>
-        /// This method tries to reduce the amount of recursive calls, by eliminating them for single-child hierarchies.
-        /// But it is still dangerous for *very* big hierarchies.
-        /// Test Result: 7-9 total calls for 20-30 gameObject (no single child hierarchy).
+        /// This method keeps a list of all children hierarchy as it loops through, thus eliminating recursive calls.
         /// </remarks>
         public static void SetActiveWithDescendants (this GameObject gameObject, bool value)
         {
-            Transform level1 = SetActiveRTSCH (gameObject.transform, value);
-            if (level1.childCount == 0) return;
+            Transform firstLevel = SetActiveRTSCH (gameObject.transform, value);
+            if (firstLevel.childCount == 0) return;
 
-            for (int i = 0; i < level1.childCount; i++)
+            var queue = new List<Transform> { firstLevel };
+            while (queue.Count > 0)
             {
-                Transform level2 = SetActiveRTSCH (level1.GetChild (i), value);
-                if (level2.childCount == 0) continue;
-
-                for (int j = 0; j < level2.childCount; j++)
+                for (int i = queue.Count - 1; i >= 0; i--)
                 {
-                    Transform level3 = SetActiveRTSCH (level2.GetChild (j), value);
-                    if (level3.childCount == 0) continue;
+                    Transform t = SetActiveRTSCH (queue[i], value);
+                    queue.RemoveAt (i);
 
-                    foreach (Transform level4 in level3)
-                    {
-                        switch (level4.childCount)
-                        {
-                            case 0:
-                                level4.gameObject.SetActive (value);
-                                break;
-
-                            case 1:
-                                level4.gameObject.SetActive (value);
-                                level4.GetChild (0).gameObject.SetActiveWithDescendants (value);
-                                break;
-
-                            default:
-                                level3.gameObject.SetActiveWithDescendants (value);
-                                break;
-                        }
-                    }
+                    if (t.childCount > 0) queue.AddRange (t.Cast<Transform>());
                 }
             }
         }
