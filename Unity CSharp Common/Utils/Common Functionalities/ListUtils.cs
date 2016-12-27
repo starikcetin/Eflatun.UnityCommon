@@ -42,10 +42,6 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Swaps the indexes of <paramref name="item1"/> and <paramref name="item2"/> in <paramref name="list"/>.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="item1"></param>
-        /// <param name="item2"></param>
         public static void Swap<T> (this IList<T> list, T item1, T item2)
         {
             if (!list.Contains (item1))
