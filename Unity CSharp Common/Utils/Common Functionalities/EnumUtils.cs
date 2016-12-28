@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace UnityCSCommon.Utils.Common
 {
@@ -9,9 +8,9 @@ namespace UnityCSCommon.Utils.Common
     public static class EnumUtils
     {
         /// <summary>
-        /// Returns an <see cref="IEnumerator{T}"/> containing all values of <typeparamref name="T"/>.
+        /// Returns an array containing all values of <typeparamref name="T"/>.
         /// </summary>
-        public static IEnumerable<T> GetValues<T>() where T : struct, IComparable, IConvertible, IFormattable
+        public static T[] GetValues<T>() where T : struct, IComparable, IConvertible, IFormattable
         {
             return (T[]) Enum.GetValues(typeof(T));
         }
