@@ -89,5 +89,21 @@ namespace UnityCSCommon.Utils.Common
             dictionary.Add (key, value);
             return true;
         }
+
+        /// <summary>
+        /// If <paramref name="dictionary"/> contains <paramref name="key"/>, sets the value to <paramref name="value"/>; otherwise adds a new <paramref name="key"/>-<paramref name="value"/> pair to it.
+        /// Returns true if pair is added, false otherwise.
+        /// </summary>
+        public static bool AddOrSet<TKey, TValue> (this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
+        {
+            if (dictionary.ContainsKey (key))
+            {
+                dictionary[key] = value;
+                return false;
+            }
+
+            dictionary.Add (key, value);
+            return true;
+        }
     }
 }
