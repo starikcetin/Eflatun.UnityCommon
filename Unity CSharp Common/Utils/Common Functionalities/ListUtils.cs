@@ -23,7 +23,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Swaps the indexes of items at <paramref name="i1"/> and <paramref name="i2"/> in <paramref name="list"/>.
         /// </summary>
-        public static void Swap<T> (this IList<T> list, int i1, int i2)
+        public static void Swap (this IList list, int i1, int i2)
         {
             if (list.Count < i1 + 1 || i1 < 0)
             {
