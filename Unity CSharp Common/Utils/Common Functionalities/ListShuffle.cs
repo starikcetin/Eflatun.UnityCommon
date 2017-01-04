@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace UnityCSCommon.Utils.Common
@@ -35,12 +36,12 @@ namespace UnityCSCommon.Utils.Common
         /// <para>Shuffles the given list. Original changes.</para>
         /// <para>(This method does shuffling operation on the original list.)</para>
         /// </summary>
-        public void Shuffle<T> (IList<T> original)
+        public void Shuffle (IList original)
         {
             FisherYatesShuffle(original);
         }
 
-        private void FisherYatesShuffle<T> (IList<T> list)
+        private void FisherYatesShuffle (IList list)
         {
             int count = list.Count;
 
