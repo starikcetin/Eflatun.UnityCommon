@@ -218,10 +218,10 @@ namespace UnityCSCommon.Expansions
        /// </summary>
        public bool Remove(TKey key)
        {
-           bool wasInDictionary = _fDictionary.Remove(key);
-//           bool wasInKeys = fKeys.Remove(key);
-//           Contract.Assume(wasInDictionary == wasInKeys);
-           return wasInDictionary;
+            bool wasInDictionary = _fDictionary.Remove(key);
+            /*bool wasInKeys =*/ _fKeys.Remove(key);
+            //Contract.Assume(wasInDictionary == wasInKeys);
+            return wasInDictionary;
        }
 
        /// <summary>
