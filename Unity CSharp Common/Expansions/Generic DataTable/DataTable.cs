@@ -48,8 +48,8 @@ namespace UnityCSCommon.Expansions
         }
 
         /// <summary>
-        /// Returns the intersection of <paramref name="row"/> and <paramref name="col"/>.
-        /// Returns default value of <typeparamref name="TCell"/> if no entry is found.
+        /// Returns the intersection of <paramref name="row"/> and <paramref name="col"/>. <para/>
+        /// Throws a <see cref="KeyNotFoundException"/> if no such cell exists (i.e. it has never set).
         /// </summary>
         public TCell Get (TRow row, TCol col)
         {
@@ -62,7 +62,29 @@ namespace UnityCSCommon.Expansions
             }
             else
             {
-                return DefaultCellValue;
+                throw new KeyNotFoundException ("This cell is never set.");
+            }
+        }
+
+        /// <summary>
+        /// Tries to get the intersection of <paramref name="row"/> and <paramref name="col"/> and assigns it to <paramref name="cell"/>. <para/>
+        /// Returns true if a cell is found, false otherwise (i.e. it has never set). <para/>
+        /// Note: If return is false, the value of <paramref name="cell"/> will be the default value of <typeparamref name="TCell"/>.
+        /// </summary>
+        public bool TryGet (TRow row, TCol col, out TCell cell)
+        {
+            long key = CalculateKey(row, col);
+            DataTableEntry<TRow, TCol, TCell> value;
+
+            if (_entries.TryGetValue (key, out value))
+            {
+                cell = value.Cell;
+                return true;
+            }
+            else
+            {
+                cell = DefaultCellValue;
+                return false;
             }
         }
 
