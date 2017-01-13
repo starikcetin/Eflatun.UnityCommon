@@ -73,6 +73,11 @@ namespace UnityCSCommon.Expansions
             var a = row.GetHashCode();
             var b = col.GetHashCode();
 
+            return CantorPairing (a, b);
+        }
+
+        private static int CantorPairing (int a, int b)
+        {
             // Cantor Pairing Function
             return (a + b)*(a + b + 1)/2 + b;
         }
