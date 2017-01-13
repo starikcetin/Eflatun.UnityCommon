@@ -14,11 +14,15 @@ namespace UnityCSCommon.Expansions
     /// In this type, we treat all references as values and use integers as keys to access them.
     /// The way this is possible is:
     ///     1- We get hash codes of both row and column.
-    ///     2- We use Cantor Pairing Function to generate a unique number out of two hash codes.
+    ///     2- We use a pairing function to generate a unique number out of two hash codes.
     ///     3- We use the unique number as the key for the entry.
     ///
     /// So, if user didn't make something stupid like overriding the GetHashCode() method with a constant,
     /// we will get the same unique number for the same row and column every time. Thus, the same entry.
+    ///
+    /// I was using Cantor Pairing at first, but then I discovered Szudzik's Elegant Pairing,
+    /// which has better coverage. So I switched to it, but I still keep Cantor Pairing in
+    /// it's own method in case I need it.
     /// </remarks>
     public class DataTable<TRow, TCol, TCell> : IEnumerable<DataTableEntry<TRow, TCol, TCell>>
     {
@@ -73,9 +77,17 @@ namespace UnityCSCommon.Expansions
             var a = row.GetHashCode();
             var b = col.GetHashCode();
 
-            return CantorPairing (a, b);
+            return SzudzikPairing (a, b);
         }
 
+        private static int SzudzikPairing (int a, int b)
+        {
+            // Szudzik's Elegant Pairing Function
+            return a >= b ? a*a + a + b : b*b + a;
+        }
+
+        // Cantor Pairing is no longer in use since Szudzik's Pairing gives better coverage.
+        // But I am still keeping it in case we need it later.
         private static int CantorPairing (int a, int b)
         {
             // Cantor Pairing Function
