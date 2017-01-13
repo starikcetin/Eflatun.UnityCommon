@@ -74,24 +74,24 @@ namespace UnityCSCommon.Expansions
 
         private long CalculateKey (TRow row, TCol col)
         {
-            int a = row.GetHashCode();
-            int b = col.GetHashCode();
+            int rowHash = row.GetHashCode();
+            int colHash = col.GetHashCode();
 
-            return SzudzikPairing (a, b);
+            return SzudzikPairing (rowHash, colHash);
         }
 
-        private static long SzudzikPairing (int a, int b)
+        private static long SzudzikPairing (int x, int y)
         {
             // Szudzik's Elegant Pairing Function
-            return a >= b ? a*a + a + b : b*b + a;
+            return x >= y ? x*x + x + y : y*y + x;
         }
 
         // Cantor Pairing is no longer in use since Szudzik's Pairing gives better coverage.
         // But I am still keeping it in case we need it later.
-        private static long CantorPairing (int a, int b)
+        private static long CantorPairing (int x, int y)
         {
             // Cantor Pairing Function
-            return (a + b)*(a + b + 1)/2 + b;
+            return (x + y)*(x + y + 1)/2 + y;
         }
 
         private static DataTableEntry<TRow, TCol, TCell> CreateEntry (TRow row, TCol col, TCell cell)
