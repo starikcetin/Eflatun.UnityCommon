@@ -27,14 +27,14 @@ namespace UnityCSCommon.Expansions
     public class DataTable<TRow, TCol, TCell> : IEnumerable<DataTableEntry<TRow, TCol, TCell>>
     {
         private static readonly TCell DefaultCellValue = default(TCell);
-        private readonly Dictionary<int, DataTableEntry<TRow, TCol, TCell>> _entries = new Dictionary<int, DataTableEntry<TRow, TCol, TCell>>();
+        private readonly Dictionary<long, DataTableEntry<TRow, TCol, TCell>> _entries = new Dictionary<long, DataTableEntry<TRow, TCol, TCell>>();
 
         /// <summary>
         /// Sets the intersection of <paramref name="row"/> and <paramref name="col"/> to <paramref name="newCell"/>.
         /// </summary>
         public void Set (TRow row, TCol col, TCell newCell)
         {
-            var key = CalculateKey (row, col);
+            long key = CalculateKey (row, col);
             var newEntry = CreateEntry (row, col, newCell);
 
             if (_entries.ContainsKey (key))
@@ -53,7 +53,7 @@ namespace UnityCSCommon.Expansions
         /// </summary>
         public TCell Get (TRow row, TCol col)
         {
-            var key = CalculateKey (row, col);
+            long key = CalculateKey (row, col);
             DataTableEntry<TRow, TCol, TCell> value;
 
             if (_entries.TryGetValue (key, out value))
@@ -72,15 +72,15 @@ namespace UnityCSCommon.Expansions
             set { Set (row, col, value); }
         }
 
-        private int CalculateKey (TRow row, TCol col)
+        private long CalculateKey (TRow row, TCol col)
         {
-            var a = row.GetHashCode();
-            var b = col.GetHashCode();
+            int a = row.GetHashCode();
+            int b = col.GetHashCode();
 
             return SzudzikPairing (a, b);
         }
 
-        private static int SzudzikPairing (int a, int b)
+        private static long SzudzikPairing (int a, int b)
         {
             // Szudzik's Elegant Pairing Function
             return a >= b ? a*a + a + b : b*b + a;
@@ -88,7 +88,7 @@ namespace UnityCSCommon.Expansions
 
         // Cantor Pairing is no longer in use since Szudzik's Pairing gives better coverage.
         // But I am still keeping it in case we need it later.
-        private static int CantorPairing (int a, int b)
+        private static long CantorPairing (int a, int b)
         {
             // Cantor Pairing Function
             return (a + b)*(a + b + 1)/2 + b;
