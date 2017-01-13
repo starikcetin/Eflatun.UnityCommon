@@ -72,12 +72,17 @@ namespace UnityCSCommon.Expansions
             set { Set (row, col, value); }
         }
 
-        private long CalculateKey (TRow row, TCol col)
+        protected virtual long CalculateKey (TRow row, TCol col)
         {
             int rowHash = row.GetHashCode();
             int colHash = col.GetHashCode();
 
-            return SzudzikPairing (rowHash, colHash);
+            return Pair (rowHash, colHash);
+        }
+
+        protected static long Pair (int x, int y)
+        {
+            return SzudzikPairing (x, y);
         }
 
         private static long SzudzikPairing (int x, int y)
