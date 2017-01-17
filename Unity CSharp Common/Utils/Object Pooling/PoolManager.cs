@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityCSCommon.Expansions;
-using UnityCSCommon.Utils.SingletonPatterns;
+using UnityCSCommon.Utils.CodePatterns;
 using UnityEngine;
 
 namespace UnityCSCommon.Utils.Pooling

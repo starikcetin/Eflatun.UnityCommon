@@ -44,7 +44,7 @@ UnityCSCommon					("Unity CS Common" Folder)
 	|	|
 	|	|---Vector2Sampling		("Vector2 Sampling" Folder)
 	|
-	|---SingletonPatterns		("Singleton Patterns" Folder)
+	|---CodePatterns			("Code Patterns" Folder)
 	|
 	|---TrajectoryUtilities		("Trajectory Utilities" Folder)
 	|

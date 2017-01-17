@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityCSCommon.Utils.CodePatterns;
 using UnityCSCommon.Utils.Common;
-using UnityCSCommon.Utils.SingletonPatterns;
 using UnityEngine;
 
 namespace UnityCSCommon.Utils.ManualTracking2D
