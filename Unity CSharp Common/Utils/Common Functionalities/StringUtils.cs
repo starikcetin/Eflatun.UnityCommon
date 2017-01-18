@@ -8,7 +8,7 @@ namespace UnityCSCommon.Utils.Common
     public static class StringUtils
     {
         /// <summary>
-        /// Casts <see cref="input"/> to <see cref="T"/> type. <para/>
+        /// Casts <paramref name="input"/> to <typeparamref name="T"/> type. <para/>
         /// Please note that this is not guaranteed for types other than primitives and enums.
         /// </summary>
         public static T Cast<T> (this string input)
@@ -17,7 +17,7 @@ namespace UnityCSCommon.Utils.Common
 
             if (wantedType.IsPrimitive)
             {
-                //If the wanted type is Boolean but the input is in Integer form, we need to cast to Integer first.
+                // If the wanted type is Boolean but the input is in Integer form, we need to cast to Integer first.
                 if (wantedType == typeof (bool))
                 {
                     int intInput;
@@ -37,7 +37,7 @@ namespace UnityCSCommon.Utils.Common
                 }
                 catch
                 {
-                    //We cannot parse to wanted Enum directly, try to cast to Integer and get the value from array of values.
+                    // We cannot parse to wanted Enum directly, try to cast to Integer and get the value from array of values.
                     int intInput;
                     if (int.TryParse (input, out intInput))
                     {
@@ -61,7 +61,7 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Splits <see cref="input"/> by "space" char. <para/>
+        /// Splits <paramref name="input"/> by "space" char. <para/>
         /// This method calls <code>input.Split(' ');</code> internally.
         /// </summary>
         public static string[] SplitBySpace (this string input)
