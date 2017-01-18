@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityCSCommon.Utils.CodePatterns;
 
 namespace UnityCSCommon.Utils.Common
 {
@@ -57,6 +58,33 @@ namespace UnityCSCommon.Utils.Common
             else
             {
                 return (T)(object)input;
+            }
+        }
+
+        /// <summary>
+        /// Casts <paramref name="input"/> to Static-Object-Enum <typeparamref name="T"/> type.
+        /// </summary>
+        public static T CastSOE<T> (this string input) where T : StaticObjectEnum<T>
+        {
+            try
+            {
+                return StaticObjectEnum<T>.Parse (input);
+            }
+            catch
+            {
+                // We cannot parse to wanted Static-Object-Enum directly, try to cast to Integer and get the value from list of instances.
+                int intInput;
+                if (int.TryParse (input, out intInput))
+                {
+                    if (intInput < 0 || intInput > StaticObjectEnum<T>.All.Count - 1)
+                    {
+                        throw new IndexOutOfRangeException ("The 'input' is out of the range of the target Static-Object-Enum's list of instances.");
+                    }
+
+                    return StaticObjectEnum<T>.All[intInput];
+                }
+
+                throw;
             }
         }
 
