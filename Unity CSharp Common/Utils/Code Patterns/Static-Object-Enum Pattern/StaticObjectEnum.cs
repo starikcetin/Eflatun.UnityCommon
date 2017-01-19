@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace UnityCSCommon.Utils.CodePatterns
 {
@@ -41,6 +42,25 @@ namespace UnityCSCommon.Utils.CodePatterns
         /// Name of this instance.
         /// </summary>
         public string Name { get; private set; }
+
+        /// <remarks>
+        /// Here we have some magic going on. As a nature of static fields, they don't get initialized until the type is referenced.
+        /// This is usually not a problem, but when you access the class via a generic base class with the type parameter, the type
+        /// itself doesn't get referenced directly, so the static fields don't get initialized.
+        ///
+        /// In our case, the <see cref="UnityCSCommon.Utils.Common.StringUtils.CastSOE"/> method takes a type parameter to cast to.
+        /// And in there we call the Parse method via the generic base class using the type parameter. But since the type itself has
+        /// not yet referenced, none of the static fields was being initialized at the time we call Parse method. So the
+        /// <see cref="_all"/> list had no members in it.
+        ///
+        /// But here, we manually run the static constructor on the implementor type itself in the static constructor of base class.
+        /// So the fields of implementor type will get initialized when we reference the base generic type as if we are referencing
+        /// the implementor type itself.
+        /// </remarks>
+        static StaticObjectEnum()
+        {
+            RuntimeHelpers.RunClassConstructor (typeof (T).TypeHandle);
+        }
 
         protected StaticObjectEnum (string name)
         {
