@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,9 @@ namespace UnityCSCommon.Utils.UI
     /// </summary>
     public class TabView : MonoBehaviour
     {
+        [SerializeField] private bool _selectFirstTabAtStart;
+        [SerializeField] private bool _handlesHasLayoutGroup;
+
         [Header ("Highlighter")]
         [SerializeField] private Graphic _highlighter;
         [SerializeField] private bool _highlighterX, _highlighterY;
@@ -36,12 +40,19 @@ namespace UnityCSCommon.Utils.UI
             get { return _tabs; }
         }
 
-        void Start()
+        IEnumerator Start()
         {
             // Do not convert this statement into a foreach loop. Variable capturing does not work properly for a foreach loop.
             _tabs.ForEach (tab => tab.Handle.onClick.AddListener (() => ChangeTab (tab)));
 
-            ChangeTab (_tabs[0]);
+            if (_selectFirstTabAtStart)
+            {
+                // Here we wait next frame before selecting first tab if handles has a layout group.
+                // Because LayoutGroups calculate correct positions "after" start methods.
+                if (_handlesHasLayoutGroup) yield return null;
+
+                ChangeTab (_tabs[0]);
+            }
         }
 
         public void ChangeTab (TabViewTab toShow)
