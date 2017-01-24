@@ -12,7 +12,7 @@ namespace UnityCSCommon.Utils.UI
         [Space]
         [SerializeField] private List<Panel> _showOnClick;
 
-        protected override void OnClick()
+        protected override void OnClickListener()
         {
             foreach (Panel panel in _hideOnClick)
             {

@@ -1,5 +1,4 @@
-﻿using UnityCSCommon.Utils.Common;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UnityCSCommon.Utils.UI
 {
@@ -9,32 +8,43 @@ namespace UnityCSCommon.Utils.UI
     public class Panel : MonoBehaviour
     {
         /// <summary>
-        /// Activates the panel <see cref="GameObject"/> and all of it's ancestors.
+        /// Activates the panel <see cref="GameObject"/>.
         /// </summary>
         public void Show()
         {
             OnBeforeShow();
-            gameObject.SetActiveWithAncestors (true);
+            gameObject.SetActive (true);
+            OnAfterShow();
         }
 
         /// <summary>
         /// Deactivates the panel <see cref="GameObject"/>.
-        /// (Only the panel, does nothing with ancestors.)
         /// </summary>
         public void Hide()
         {
             OnBeforeHide();
             gameObject.SetActive (false);
+            OnAfterHide();
         }
 
         /// <summary>
         /// Called just before showing panel.
         /// </summary>
-        protected virtual void OnBeforeShow () {}
+        protected virtual void OnBeforeShow() {}
+
+        /// <summary>
+        /// Called just after showing panel.
+        /// </summary>
+        protected virtual void OnAfterShow() {}
 
         /// <summary>
         /// Called just before hiding panel.
         /// </summary>
-        protected virtual void OnBeforeHide () {}
+        protected virtual void OnBeforeHide() {}
+
+        /// <summary>
+        /// Called just after hiding panel.
+        /// </summary>
+        protected virtual void OnAfterHide() {}
     }
 }

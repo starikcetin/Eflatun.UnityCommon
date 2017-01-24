@@ -7,7 +7,7 @@ namespace UnityCSCommon.Utils.UI
     /// </summary>
     public class ApplicationQuitButton : ButtonBase
     {
-        protected override void OnClick()
+        protected override void OnClickListener()
         {
             Application.Quit();
         }

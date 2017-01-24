@@ -1,65 +1,91 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace UnityCSCommon.Utils.UI
 {
     /// <summary>
-    /// Manager for a tabbed UI view, with tabs being <see cref="TabViewTab"/> components.
+    /// Manager for a tabbed UI view.
     /// </summary>
     public class TabView : MonoBehaviour
     {
-        [SerializeField] private bool _selectFirstTabAtStart;
-        [SerializeField] private bool _handlesHasLayoutGroup;
-
         [Header ("Highlighter")]
-        [SerializeField] private Graphic _highlighter;
-        [SerializeField] private bool _highlighterX, _highlighterY;
+        [SerializeField] private RectTransform _highlighter;
+        [SerializeField] private bool _highlightOnX, _highlightOnY;
 
         [Header ("Tabs")]
-        [SerializeField] private List<TabViewTab> _tabs;
+        [SerializeField] private List<HandleTabPair> _handleTabPairs;
 
-        public Graphic Highlighter
+        void Awake()
         {
-            get { return _highlighter; }
-        }
-
-        public bool HighlighterX
-        {
-            get { return _highlighterX; }
-        }
-
-        public bool HighlighterY
-        {
-            get { return _highlighterY; }
-        }
-
-        public List<TabViewTab> Tabs
-        {
-            get { return _tabs; }
-        }
-
-        IEnumerator Start()
-        {
-            // Do not convert this statement into a foreach loop. Variable capturing does not work properly for a foreach loop.
-            _tabs.ForEach (tab => tab.Handle.onClick.AddListener (() => ChangeTab (tab)));
-
-            if (_selectFirstTabAtStart)
+            foreach (var pair in _handleTabPairs)
             {
-                // Here we wait next frame before selecting first tab if handles has a layout group.
-                // Because LayoutGroups calculate correct positions "after" start methods.
-                if (_handlesHasLayoutGroup) yield return null;
-
-                ChangeTab (_tabs[0]);
+                pair.BindHandle (SwitchTab);
             }
         }
 
-        public void ChangeTab (TabViewTab toShow)
+        /// <summary>
+        /// Registers a new tab to this instance.
+        /// Also binds handle to tab.
+        /// </summary>
+        public void Register (Panel tab, EventButton handle)
         {
-            _tabs.ForEach (a => a.Hide());
-            toShow.Show();
-            if (_highlighter) toShow.Highlight (_highlighter, _highlighterX, _highlighterY);
+            var newPair = new HandleTabPair (tab, handle);
+            newPair.BindHandle (SwitchTab);
+            _handleTabPairs.Add (newPair);
+        }
+
+        /// <summary>
+        /// Unregisters a tab from this instance.
+        /// Also unbinds handle from tab.
+        /// </summary>
+        public void Unregister (Panel tab)
+        {
+            var pair = _handleTabPairs.Single (a => a.Tab == tab);
+            pair.UnbindHandle();
+            _handleTabPairs.Remove (pair);
+        }
+
+        /// <summary>
+        /// Switches the active tab.
+        /// </summary>
+        public void SwitchTab (Panel switchTo)
+        {
+            foreach (var pair in _handleTabPairs)
+            {
+                var tab = pair.Tab;
+
+                if (tab == switchTo)
+                {
+                    tab.Show();
+
+                    if (_highlightOnX || _highlightOnY)
+                    {
+                        Highlight (pair.Handle);
+                    }
+                }
+                else
+                {
+                    tab.Hide();
+                }
+            }
+        }
+
+        private void Highlight (EventButton handle)
+        {
+            var position = new Vector2();
+
+            if (_highlightOnX)
+            {
+                position.x = handle.transform.position.x;
+            }
+
+            if (_highlightOnY)
+            {
+                position.y = handle.transform.position.y;
+            }
+
+            _highlighter.position = position;
         }
     }
 }

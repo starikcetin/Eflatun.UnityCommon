@@ -9,11 +9,14 @@ namespace UnityCSCommon.Utils.UI
     [RequireComponent (typeof (Button))]
     public abstract class ButtonBase : MonoBehaviour
     {
-        void Start()
+        void Awake()
         {
-            GetComponent<Button>().onClick.AddListener (OnClick);
+            GetComponent<Button>().onClick.AddListener (OnClickListener);
         }
 
-        protected abstract void OnClick();
+        /// <summary>
+        /// This will get invoked when button is clicked.
+        /// </summary>
+        protected abstract void OnClickListener();
     }
 }
