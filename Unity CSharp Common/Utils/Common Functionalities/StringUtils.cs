@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityCSCommon.Utils.CodePatterns;
+using UnityEngine;
 
 namespace UnityCSCommon.Utils.Common
 {
@@ -95,6 +96,18 @@ namespace UnityCSCommon.Utils.Common
         public static string[] SplitBySpace (this string input)
         {
             return input.Split(' ');
+        }
+
+        /// <summary>
+        /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags <para/>
+        /// This method does NOT change <paramref name="input"/>, it returns a new string instead.
+        /// </summary>
+        /// <remarks>
+        /// The <see cref="Color"/>'s range is (0 - 1), but <see cref="ColorUtility.ToHtmlStringRGBA"/> converts it to (00 - ff) range.
+        /// </remarks>
+        public static string Colored (this string input, Color color)
+        {
+            return string.Format ("<color=#{0}>{1}</color>", ColorUtility.ToHtmlStringRGBA (color), input);
         }
     }
 }
