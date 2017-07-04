@@ -14,10 +14,8 @@ namespace UnityCSCommon.Utils.Common
         /// </summary>
         public static int GetNextIndexCircular (this IList list, int currentIndex)
         {
-            int realCapacity = list.Count;
-            int realCurrentIndex = currentIndex + 1;
-
-            return realCapacity == 0 ? 0 : (realCurrentIndex % realCapacity);
+            var count = list.Count;
+            return count == 0 ? 0 : (currentIndex + 1) % count;
         }
 
         /// <summary>
@@ -91,6 +89,8 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
+        /// ---- NOTE: Dictionary indexer has this feature already. If you don't need the return bool, use the indexer instead. ---- <para/>
+        /// <para> </para>
         /// If <paramref name="dictionary"/> contains <paramref name="key"/>, sets the value to <paramref name="value"/>; otherwise adds a new <paramref name="key"/>-<paramref name="value"/> pair to it.
         /// Returns true if pair is added, false otherwise.
         /// </summary>
