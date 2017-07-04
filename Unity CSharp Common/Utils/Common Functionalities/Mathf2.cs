@@ -113,7 +113,7 @@ namespace UnityCSCommon.Utils.Common
 
         /// <summary>
         /// <para>Calculates the shortest rotation direction from this angle to the one given in paranthesis.</para>
-        /// <para>If return value is positive, shortest angle is positive way; if return value is negative shortest angle is negative way.</para>
+        /// <para>If return value is positive, shortest angle is positive way (counter-clockwise); if return value is negative shortest angle is negative way (clockwise).</para>
         /// <para>If return value is 0, this means angles are equal.</para>
         /// </summary>
         /// <param name="from">The angle to start from.</param>
@@ -159,7 +159,7 @@ namespace UnityCSCommon.Utils.Common
             }
 
             // Determine the shortest direction.
-            return ((left <= right) ? left : (right*-1));
+            return (left <= right) ? left : (right*-1);
         }
 
         /// <summary>
