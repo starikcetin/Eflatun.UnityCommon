@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -165,7 +165,7 @@ namespace UnityCSCommon.Utils.Common
         /// Converts polar coordinates to cartesian coordinates.
         /// </summary>
         /// <param name="radius">Magnitude of position vector.</param>
-        /// <param name="angle">Positive rotation of position vector from +x.</param>
+        /// <param name="angle">Positive rotation of position vector from +x (in radians).</param>
         /// <returns> Cartesian equivelant of given polar coordinates. </returns>
         public static Vector2 PolarToCartesian (float radius, float angle)
         {
@@ -196,12 +196,12 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Rotates the Vector2 by given angle.
+        /// Rotates the Vector2 by given angle (in radians).
         /// </summary>
         public static Vector2 Rotate (this Vector2 v, float degrees)
         {
-            float sin = Mathf.Sin(degrees*Mathf.Deg2Rad);
-            float cos = Mathf.Cos(degrees*Mathf.Deg2Rad);
+            float sin = Mathf.Sin(degrees);
+            float cos = Mathf.Cos(degrees);
 
             float tx = v.x;
             float ty = v.y;
@@ -229,7 +229,7 @@ namespace UnityCSCommon.Utils.Common
         {
             // Original raycast algorithm: http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
             // C# conversion:              http://stackoverflow.com/a/16391873/5504706
-            // Reformatted by:             S. Tarýk Çetin - cetinsamedtarik[at]gmail.com
+            // Reformatted by:             S. TarÄ±k Ã‡etin - cetinsamedtarik[at]gmail[dot]com
 
             //Get shared variables.
             var vertexCount = verticesOfPolygon.Count;
