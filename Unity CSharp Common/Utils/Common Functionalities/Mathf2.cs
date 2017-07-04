@@ -20,23 +20,31 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Rounds the decimal points of given double to fit the given <paramref name="decimalCount"/>.
+        /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14d.LimitDecimals(1) --> 1.1d </example>
         public static double LimitDecimals (this double value, int decimalCount)
         {
-            double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
-            return rounded;
+            var rate = Math.Pow (10, decimalCount);
+            return Math.Truncate (value * rate) / rate;
+
+            // This below uses the rounding option, which is not precise:
+            //double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
+            //return rounded;
         }
 
         /// <summary>
-        /// Rounds the decimal points of given float to fit the given <paramref name="decimalCount"/>.
+        /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14f.LimitDecimals(1) --> 1.1f </example>
         public static float LimitDecimals (this float value, int decimalCount)
         {
-            float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
-            return rounded;
+            var rate = Math.Pow (10, decimalCount);
+            return (float) (Math.Truncate (value * rate) / rate);
+
+            // This below uses the rounding option, which is not precise:
+            //float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
+            //return rounded;
         }
 
         /// <summary>
