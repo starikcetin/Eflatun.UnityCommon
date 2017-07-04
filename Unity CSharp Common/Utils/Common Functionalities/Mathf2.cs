@@ -172,20 +172,6 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// 2D optimized version of <see cref="Matrix4x4.MultiplyPoint3x4"/>.
-        /// </summary>
-        public static Vector2 MultiplyPoint3x4_2D (this Matrix4x4 matrix, Vector2 point)
-        {
-            // Formulas used in transforming local to world have been directly taken from assmebly view of Matrix4x4.MultiplyPoint3x4.
-            // I deleted everything related to Z axis, and this yielded a much much better performance.
-
-            Vector2 v2;
-            v2.x = matrix.m00* point.x + matrix.m01* point.y + matrix.m03;
-            v2.y = matrix.m10* point.x + matrix.m11* point.y + matrix.m13;
-            return v2;
-        }
-
-        /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
         public static int MirrorBy (this int value, int origin)
