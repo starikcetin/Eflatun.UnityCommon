@@ -90,15 +90,6 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Splits <paramref name="input"/> by "space" char. <para/>
-        /// This method calls <code>input.Split(' ');</code> internally.
-        /// </summary>
-        public static string[] SplitBySpace (this string input)
-        {
-            return input.Split(' ');
-        }
-
-        /// <summary>
         /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags <para/>
         /// This method does NOT change <paramref name="input"/>, it returns a new string instead.
         /// </summary>
