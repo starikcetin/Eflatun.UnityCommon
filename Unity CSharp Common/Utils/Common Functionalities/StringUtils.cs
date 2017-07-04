@@ -11,7 +11,7 @@ namespace UnityCSCommon.Utils.Common
     {
         /// <summary>
         /// Casts <paramref name="input"/> to <typeparamref name="T"/> type. <para/>
-        /// Please note that this is not guaranteed for types other than primitives and enums.
+        /// This method only supports primitive types and Enums.
         /// </summary>
         public static T Cast<T> (this string input)
         {
@@ -56,10 +56,8 @@ namespace UnityCSCommon.Utils.Common
                     throw;
                 }
             }
-            else
-            {
-                return (T)(object)input;
-            }
+
+            throw new NotSupportedException ("This method only supports primitive types and Enums.");
         }
 
         /// <summary>
