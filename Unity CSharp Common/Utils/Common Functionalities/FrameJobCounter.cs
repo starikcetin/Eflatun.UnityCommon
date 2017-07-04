@@ -7,15 +7,26 @@ namespace UnityCSCommon.Utils.Common
     /// </summary>
     public class FrameJobCounter
     {
+        /// <summary>
+        /// The last frame <see cref="JobCountThisFrame"/> was called.
+        /// </summary>
         private int _lastFrame;
 
-        public int JobLimit { get; private set; }
-        public int JobCount { get; private set; }
+        /// <summary>
+        /// Frame agnostic current job count. <para/>
+        /// If you want to know job count for *this* frame, use <see cref="JobCountThisFrame"/> instead.
+        /// </summary>
+        private int _jobCounter;
 
         /// <summary>
-        /// Indicates if job limit is 'not' reached for this frame.
+        /// Maximum job count which can be done in a single frame.
         /// </summary>
-        public bool CanWork
+        public int JobLimitPerFrame { get; private set; }
+
+        /// <summary>
+        /// Count of jobs done this frame.
+        /// </summary>
+        public int JobCountThisFrame
         {
             get
             {
@@ -26,21 +37,34 @@ namespace UnityCSCommon.Utils.Common
                 if (_lastFrame != currentFrame)
                 {
                     // Reset the job counter.
-                    JobCount = 0;
+                    _jobCounter = 0;
 
                     // Save the frame number.
                     _lastFrame = currentFrame;
                 }
 
-                // Return if job limit is *not* reached.
-                return JobCount < JobLimit;
+                return _jobCounter;
+            }
+
+            set { _jobCounter = value; }
+        }
+
+        /// <summary>
+        /// <c>true</c> if job limit is 'not' reached for this frame; <c>false</c> otherwise.
+        /// </summary>
+        public bool CanWork
+        {
+            get
+            {
+                // Return whether the job limit is *not* reached.
+                return JobCountThisFrame < JobLimitPerFrame;
             }
         }
 
-        public FrameJobCounter(int jobLimit)
+        public FrameJobCounter(int jobLimitPerFrame)
         {
-            JobLimit = jobLimit;
-            JobCount = 0;
+            JobLimitPerFrame = jobLimitPerFrame;
+            JobCountThisFrame = 0;
         }
 
         /// <summary>
@@ -48,7 +72,7 @@ namespace UnityCSCommon.Utils.Common
         /// </summary>
         public void JobDone()
         {
-            JobCount++;
+            JobCountThisFrame++;
         }
     }
 }
