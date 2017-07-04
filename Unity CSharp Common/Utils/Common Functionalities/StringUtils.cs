@@ -90,7 +90,7 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags <para/>
+        /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags (in Unity format). <para/>
         /// This method does NOT change <paramref name="input"/>, it returns a new string instead.
         /// </summary>
         /// <remarks>
