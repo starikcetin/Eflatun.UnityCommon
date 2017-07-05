@@ -18,14 +18,6 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Returns all children of <paramref name="transform"/> except the ones in <paramref name="except"/>.
-        /// </summary>
-        public static IEnumerable<Transform> GetChildren (this Transform transform, IEnumerable<Transform> except)
-        {
-            return transform.Cast<Transform>().Except (except);
-        }
-
-        /// <summary>
         /// Returns the 2D position of given transform on XY plane. Uses manual conversion.
         /// </summary>
         public static Vector2 Position2D (this Transform transform)

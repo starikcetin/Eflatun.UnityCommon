@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -165,7 +165,7 @@ namespace UnityCSCommon.Utils.Common
         /// Converts polar coordinates to cartesian coordinates.
         /// </summary>
         /// <param name="radius">Magnitude of position vector.</param>
-        /// <param name="angle">Positive rotation of position vector from +x.</param>
+        /// <param name="angle">Positive rotation of position vector from +x (in radians).</param>
         /// <returns> Cartesian equivelant of given polar coordinates. </returns>
         public static Vector2 PolarToCartesian (float radius, float angle)
         {
@@ -196,12 +196,12 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Rotates the Vector2 by given angle.
+        /// Rotates the Vector2 by given angle (in radians).
         /// </summary>
         public static Vector2 Rotate (this Vector2 v, float degrees)
         {
-            float sin = Mathf.Sin(degrees*Mathf.Deg2Rad);
-            float cos = Mathf.Cos(degrees*Mathf.Deg2Rad);
+            float sin = Mathf.Sin(degrees);
+            float cos = Mathf.Cos(degrees);
 
             float tx = v.x;
             float ty = v.y;
@@ -229,7 +229,7 @@ namespace UnityCSCommon.Utils.Common
         {
             // Original raycast algorithm: http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
             // C# conversion:              http://stackoverflow.com/a/16391873/5504706
-            // Reformatted by:             S. Tarýk Çetin - cetinsamedtarik[at]gmail.com
+            // Reformatted by:             S. TarÄ±k Ã‡etin - cetinsamedtarik[at]gmail[dot]com
 
             //Get shared variables.
             var vertexCount = verticesOfPolygon.Count;
@@ -261,26 +261,100 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Determines if the distance between given points are lower than <paramref name="maxDistance"/>. (Doesn't use square root.)
         /// </summary>
-        public static bool TestDistanceMax (this Vector2 point1, Vector2 point2, float maxDistance)
+        /// <param name="point1">The first point.</param>
+        /// <param name="point2">The second point.</param>
+        /// <param name="maxDistance">The maximum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
+        /// <param name="includeMax">Should allow distance to be equal <paramref name="maxDistance"/>?</param>
+        public static bool TestDistanceLowerThan (this Vector2 point1, Vector2 point2, float maxDistance, bool includeMax)
         {
-            return (point2 - point1).sqrMagnitude < maxDistance * maxDistance;
+            if (maxDistance < 0)
+            {
+                // Distance between two points can never be less than 0.
+                // If maxDistance is less than zero any distance will be greater.
+                // So, the condition will never be met.
+                return false;
+            }
+
+            float sqrDist = (point2 - point1).sqrMagnitude;
+            float maxDistSqr = maxDistance * maxDistance;
+
+            return includeMax
+                ? sqrDist <= maxDistSqr
+                : sqrDist < maxDistSqr;
         }
 
         /// <summary>
-        /// Determines if the distance between given points are greater than or equal to <paramref name="minDistance"/>. (Doesn't use square root.)
+        /// Determines if the distance between given points are greater than <paramref name="minDistance"/>. (Doesn't use square root.)
         /// </summary>
-        public static bool TestDistanceMin (this Vector2 point1, Vector2 point2, float minDistance)
+        /// <param name="point1">The first point.</param>
+        /// <param name="point2">The second point.</param>
+        /// <param name="minDistance">The minimum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
+        /// <param name="includeMin">Should allow distance to be equal <paramref name="minDistance"/>?</param>
+        public static bool TestDistanceGreaterThan (this Vector2 point1, Vector2 point2, float minDistance, bool includeMin)
         {
-            return (point2 - point1).sqrMagnitude >= minDistance * minDistance;
+            if (minDistance < 0)
+            {
+                // Distance between two points can never be less than 0.
+                // If minDistance is less than zero any distance will be greater.
+                // So, the condition will always be met.
+                return true;
+            }
+
+            float sqrDist = (point2 - point1).sqrMagnitude;
+            float minDistSqr = minDistance * minDistance;
+
+            return includeMin
+                ? sqrDist >= minDistSqr
+                : sqrDist > minDistSqr;
         }
 
         /// <summary>
-        /// Determines if the distance between given points are greater than or equal to <paramref name="minDistance"/> and lower than <paramref name="maxDistance"/>. (Doesn't use square root.)
+        /// Determines if the distance between given points are between <paramref name="minDistance"/> and <paramref name="maxDistance"/>. (Doesn't use square root.)
         /// </summary>
-        public static bool TestDistanceMinMax (this Vector2 point1, Vector2 point2, float minDistance, float maxDistance)
+        /// <param name="point1">The first point.</param>
+        /// <param name="point2">The second point.</param>
+        /// <param name="minDistance">The minimum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
+        /// <param name="maxDistance">The maximum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
+        /// <param name="includeMax">Should allow distance to be equal <paramref name="maxDistance"/>?</param>
+        /// <param name="includeMin">Should allow distance to be equal <paramref name="minDistance"/>?</param>
+        public static bool TestDistanceInBetween (this Vector2 point1, Vector2 point2, float minDistance, float maxDistance, bool includeMin, bool includeMax)
         {
-            float sqrDistance = (point2 - point1).sqrMagnitude;
-            return sqrDistance < maxDistance * maxDistance && sqrDistance >= minDistance * minDistance;
+            if (maxDistance < 0)
+            {
+                // Distance between two points can never be less than 0.
+                // If maxDistance is less than zero any distance will be greater.
+                // In this case, since the max condition will never be met, we don't need to test min.
+                return false;
+            }
+
+            if (minDistance < 0)
+            {
+                // Distance between two points can never be less than 0.
+                // If minDistance is less than zero any distance will be greater.
+                // In this case, the min condition will always be met, we just need to test the max.
+                return TestDistanceLowerThan (point1, point2, maxDistance, includeMax);
+            }
+
+            float sqrDist = (point2 - point1).sqrMagnitude;
+            float minDistSqr = minDistance * minDistance;
+            float maxDistSqr = maxDistance * maxDistance;
+
+            if (includeMin)
+            {
+                bool minFit = sqrDist >= minDistSqr;
+
+                return includeMax
+                    ? minFit && sqrDist <= maxDistSqr
+                    : minFit && sqrDist < maxDistSqr;
+            }
+            else
+            {
+                bool minFit = sqrDist > minDistSqr;
+
+                return includeMax
+                    ? minFit && sqrDist <= maxDistSqr
+                    : minFit && sqrDist < maxDistSqr;
+            }
         }
     }
 }

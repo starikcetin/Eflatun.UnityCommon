@@ -11,6 +11,11 @@ namespace UnityCSCommon.Utils.Common
     {
         private Random _random;
 
+        public ListShuffle()
+        {
+            _random = new Random();
+        }
+
         public ListShuffle(int seed)
         {
             _random = new Random(seed);

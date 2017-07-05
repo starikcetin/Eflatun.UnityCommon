@@ -6,10 +6,15 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
     /// <summary>
     /// Methods for 2D trajectory calculations and sampling on XY plane.
     /// </summary>
+    /// 
+    /// <remarks>
+    /// All results will be relative to origin, in other words: all methods in this class assumes movement starts from origin (0, 0).
+    /// </remarks>
     public static class TrajectoryUtils2D
     {
         /// <summary>
-        /// Samples trajectory positions for a given flight time.
+        /// Samples trajectory positions for a given flight time. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="sampleTimePeriod">The flight time in seconds to sample positions from. The last sample will be the position at this time.</param>
         /// <param name="resolution">The amount of samples.</param>
@@ -37,7 +42,8 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         }
 
         /// <summary>
-        /// Returns the position of object at the given time.
+        /// Returns the position of object at the given time. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVel">Initial velocity of the object.</param>
@@ -50,7 +56,8 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         }
 
         /// <summary>
-        /// Returns the position of object when it is at maximum height.
+        /// Returns the position of object when it is at maximum height. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVel">Initial velocity of the object.</param>
@@ -64,7 +71,8 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         }
 
         /// <summary>
-        /// Returns the X position of object at the given time.
+        /// Returns the X position of object at the given time. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="initVelX">X component of initial velocity of object.</param>
         /// <param name="time">The time.</param>
@@ -74,7 +82,8 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         }
 
         /// <summary>
-        /// Returns the Y position of object at the given time.
+        /// Returns the Y position of object at the given time. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVelY">Y component of initial velocity of object.</param>
@@ -85,13 +94,14 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         }
 
         /// <summary>
-        /// Returns the maximum height object can reach.
+        /// Returns the maximum height object can reach. <para/>
+        /// Relative to origin - in other words: assumes movement starts from origin.
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVelY">Y component of initial velocity of object.</param>
         public static float MaxHeight (float gravity, float initVelY)
         {
-            return initVelY*initVelY/2*gravity;
+            return initVelY*initVelY / 2*gravity;
         }
 
         /// <summary>

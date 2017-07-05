@@ -14,19 +14,19 @@ namespace UnityCSCommon.Utils.Common
         /// </summary>
         public static void SetActiveWithParent (this GameObject gameObject, bool value)
         {
-            gameObject.SetActive(value);
-            gameObject.transform.parent.gameObject.SetActive(value);
+            gameObject.SetActive (value);
+            gameObject.transform.parent.gameObject.SetActive (value);
         }
 
         /// <summary>
         /// Sets the active state of this <paramref name="gameObject"/> and it's first level children.
         /// </summary>
-        public static void SetActiveWithChildren(this GameObject gameObject, bool value)
+        public static void SetActiveWithChildren (this GameObject gameObject, bool value)
         {
-            gameObject.SetActive(value);
+            gameObject.SetActive (value);
             foreach (Transform child in gameObject.transform)
             {
-                child.gameObject.SetActive(value);
+                child.gameObject.SetActive (value);
             }
         }
 
@@ -54,7 +54,7 @@ namespace UnityCSCommon.Utils.Common
         /// </remarks>
         public static void SetActiveWithDescendants (this GameObject gameObject, bool value)
         {
-            Transform firstLevel = SetActiveRTSCH (gameObject.transform, value);
+            Transform firstLevel = SetActiveTSCH (gameObject.transform, value);
             if (firstLevel.childCount == 0) return;
 
             var queue = new List<Transform> { firstLevel };
@@ -62,7 +62,7 @@ namespace UnityCSCommon.Utils.Common
             {
                 for (int i = queue.Count - 1; i >= 0; i--)
                 {
-                    Transform t = SetActiveRTSCH (queue[i], value);
+                    Transform t = SetActiveTSCH (queue[i], value);
                     queue.RemoveAt (i);
 
                     if (t.childCount > 0) queue.AddRange (t.Cast<Transform>());
@@ -71,20 +71,20 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// <para>SetActive Recursively Through Single Child Hierarchy</para>
-        /// <para>'SetActive's transform; if transform has only one child, switches to child; repeats the process.
-        /// Continues until switching a transform with no child or more than one child.
-        /// Returns the transform it stopped.</para>
+        /// SetActive Through Single Child Hierarchy <para/>
+        /// 'SetActive's transform; if transform has only one child, switches to child; repeats the process. <para/>
+        /// Continues until switching to a transform with no child or more than one child. <para/>
+        /// Returns the transform it stopped.
         /// </summary>
-        private static Transform SetActiveRTSCH (Transform beginWith, bool value)
+        private static Transform SetActiveTSCH (Transform beginWith, bool value)
         {
             Transform t = beginWith;
-            t.gameObject.SetActive(value);
+            t.gameObject.SetActive (value);
 
             while (t.childCount == 1)
             {
-                t = t.GetChild(0);
-                t.gameObject.SetActive(value);
+                t = t.GetChild (0);
+                t.gameObject.SetActive (value);
             }
 
             return t;

@@ -11,7 +11,7 @@ namespace UnityCSCommon.Utils.Common
     {
         /// <summary>
         /// Casts <paramref name="input"/> to <typeparamref name="T"/> type. <para/>
-        /// Please note that this is not guaranteed for types other than primitives and enums.
+        /// This method only supports primitive types and Enums.
         /// </summary>
         public static T Cast<T> (this string input)
         {
@@ -56,10 +56,8 @@ namespace UnityCSCommon.Utils.Common
                     throw;
                 }
             }
-            else
-            {
-                return (T)(object)input;
-            }
+
+            throw new NotSupportedException ("This method only supports primitive types and Enums.");
         }
 
         /// <summary>
@@ -90,16 +88,7 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Splits <paramref name="input"/> by "space" char. <para/>
-        /// This method calls <code>input.Split(' ');</code> internally.
-        /// </summary>
-        public static string[] SplitBySpace (this string input)
-        {
-            return input.Split(' ');
-        }
-
-        /// <summary>
-        /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags <para/>
+        /// Returns a new string which is <paramref name="input"/> string wrapped with HTML color tags (in Unity format). <para/>
         /// This method does NOT change <paramref name="input"/>, it returns a new string instead.
         /// </summary>
         /// <remarks>

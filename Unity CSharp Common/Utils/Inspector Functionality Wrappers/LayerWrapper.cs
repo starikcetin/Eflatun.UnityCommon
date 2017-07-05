@@ -4,8 +4,8 @@ using UnityEngine;
 namespace UnityCSCommon.Utils.InspectorWrappers
 {
     /// <summary>
-    /// Wraps around an integer field to represent a Unity Layer.
-    /// <para>NOTE: This has nothing to do with creating new Layers.</para>
+    /// Wraps around an integer field to represent an EXISTING Unity Layer. <para/>
+    /// The property drawer draws a drop-down list of all available layers to choose from.
     /// </summary>
     [System.Serializable]
     public struct LayerWrapper
@@ -45,10 +45,10 @@ namespace UnityCSCommon.Utils.InspectorWrappers
         }
 
         /// <summary>
-        /// Creates a new <see cref="LayerWrapper"/> that represents <paramref name="layerIndex"/>.
-        /// <para>NOTE: This has nothing to do with creating new Layers.</para>
+        /// Wraps around an integer field to represent an EXISTING Unity Layer. <para/>
+        /// The property drawer draws a drop-down list of available layers to choose from.
         /// </summary>
-        public LayerWrapper(int layerIndex)
+        public LayerWrapper (int layerIndex)
         {
             _layerIndex = layerIndex;
         }

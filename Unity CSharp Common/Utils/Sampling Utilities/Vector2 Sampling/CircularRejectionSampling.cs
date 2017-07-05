@@ -25,12 +25,12 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="origin">Origin of the circle.</param>
         /// <param name="radius">Radius of the circle.</param>
         /// <param name="seed">Seed.</param>
-        public CircularRejectionSampling(Vector2 origin, float radius, int seed)
+        public CircularRejectionSampling (Vector2 origin, float radius, int seed)
         {
             _origin = origin;
             _radius = radius;
             _seed = seed;
-            _random = new BetterRandom(seed);
+            _random = new BetterRandom (seed);
             _returnedSamples = new List<Vector2>();
         }
 
@@ -58,13 +58,13 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="minDist">Minimum distance from all previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMin(int maxTrials, float minDist, out Vector2 sample)
+        public bool TrySampleMin (int maxTrials, float minDist, out Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
-                var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
+                var rndVector2 = _random.Vector2.InCircle (_radius) + _origin;
 
-                if (_returnedSamples.Count == 0 || _returnedSamples.TrueForAll(a => a.TestDistanceMin(rndVector2, minDist)))
+                if (_returnedSamples.Count == 0 || _returnedSamples.TrueForAll (a => a.TestDistanceGreaterThan (rndVector2, minDist, true)))
                 {
                     sample = rndVector2;
                     _returnedSamples.Add (sample);
@@ -84,16 +84,16 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMax(int maxTrials, float maxDist, out Vector2 sample)
+        public bool TrySampleMax (int maxTrials, float maxDist, out Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
-                var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
+                var rndVector2 = _random.Vector2.InCircle (_radius) + _origin;
 
-                if (_returnedSamples.Count == 0 || _returnedSamples.Any(a => a.TestDistanceMax(rndVector2, maxDist)))
+                if (_returnedSamples.Count == 0 || _returnedSamples.Any (a => a.TestDistanceLowerThan (rndVector2, maxDist, true)))
                 {
                     sample = rndVector2;
-                    _returnedSamples.Add(sample);
+                    _returnedSamples.Add (sample);
                     return true;
                 }
             }
@@ -111,11 +111,11 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMinMax(int maxTrials, float minDist, float maxDist, out Vector2 sample)
+        public bool TrySampleMinMax (int maxTrials, float minDist, float maxDist, out Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
-                var rndVector2 = _random.Vector2.InCircle(_radius) + _origin;
+                var rndVector2 = _random.Vector2.InCircle (_radius) + _origin;
 
                 if (_returnedSamples.Count == 0)
                 {
@@ -124,12 +124,12 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                     return true;
                 }
 
-                if (_returnedSamples.Any(a => a.TestDistanceMax(rndVector2, maxDist))) //max
+                if (_returnedSamples.Any (a => a.TestDistanceLowerThan (rndVector2, maxDist, true))) //max
                 {
-                    if (_returnedSamples.TrueForAll(a => a.TestDistanceMin(rndVector2, minDist))) //min
+                    if (_returnedSamples.TrueForAll (a => a.TestDistanceGreaterThan (rndVector2, minDist, true))) //min
                     {
                         sample = rndVector2;
-                        _returnedSamples.Add(sample);
+                        _returnedSamples.Add (sample);
                         return true;
                     }
                 }
@@ -145,16 +145,16 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="minDist">Minimum distance from all previous samples.</param>
-        public Vector2 SampleMin(int maxTrials, float minDist)
+        public Vector2 SampleMin (int maxTrials, float minDist)
         {
             Vector2 sample;
-            if (TrySampleMin(maxTrials, minDist, out sample))
+            if (TrySampleMin (maxTrials, minDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMin method.
                 return sample;
             }
 
-            throw new Exception("None of the sample trials were meeting conditions.");
+            throw new Exception ("None of the sample trials were meeting conditions.");
         }
 
         /// <summary>
@@ -163,16 +163,16 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
-        public Vector2 SampleMax(int maxTrials, float maxDist)
+        public Vector2 SampleMax (int maxTrials, float maxDist)
         {
             Vector2 sample;
-            if (TrySampleMax(maxTrials, maxDist, out sample))
+            if (TrySampleMax (maxTrials, maxDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMax method.
                 return sample;
             }
 
-            throw new Exception("None of the sample trials were meeting conditions.");
+            throw new Exception ("None of the sample trials were meeting conditions.");
         }
 
         /// <summary>
@@ -182,16 +182,16 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="minDist">Minimum distance from all previous samples.</param>
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
-        public Vector2 SampleMinMax(int maxTrials, float minDist, float maxDist)
+        public Vector2 SampleMinMax (int maxTrials, float minDist, float maxDist)
         {
             Vector2 sample;
-            if (TrySampleMinMax(maxTrials, minDist, maxDist, out sample))
+            if (TrySampleMinMax (maxTrials, minDist, maxDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMinMax method.
                 return sample;
             }
 
-            throw new Exception("None of the sample trials were meeting conditions.");
+            throw new Exception ("None of the sample trials were meeting conditions.");
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 }
             }
 
-            _returnedSamples.AddRange(samples);
+            _returnedSamples.AddRange (samples);
             return samples;
         }
     }

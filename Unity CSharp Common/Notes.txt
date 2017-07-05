@@ -24,8 +24,6 @@ UnityCSCommon					("Unity CS Common" Folder)
 |
 |---Utils						("Utils" Folder)
 	|
-	|---ManualTracking2D		("2D Manual Object Tracking" Folder)
-	|
 	|---RandomUtils				("Random Utilities" Folder)
 	|	|
 	|	|---Utility				("Utility Classes" Folder)

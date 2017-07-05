@@ -20,23 +20,31 @@ namespace UnityCSCommon.Utils.Common
         }
 
         /// <summary>
-        /// Rounds the decimal points of given double to fit the given <paramref name="decimalCount"/>.
+        /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14d.LimitDecimals(1) --> 1.1d </example>
         public static double LimitDecimals (this double value, int decimalCount)
         {
-            double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
-            return rounded;
+            var rate = Math.Pow (10, decimalCount);
+            return Math.Truncate (value * rate) / rate;
+
+            // This below uses the rounding option, which is not precise:
+            //double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
+            //return rounded;
         }
 
         /// <summary>
-        /// Rounds the decimal points of given float to fit the given <paramref name="decimalCount"/>.
+        /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14f.LimitDecimals(1) --> 1.1f </example>
         public static float LimitDecimals (this float value, int decimalCount)
         {
-            float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
-            return rounded;
+            var rate = Math.Pow (10, decimalCount);
+            return (float) (Math.Truncate (value * rate) / rate);
+
+            // This below uses the rounding option, which is not precise:
+            //float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
+            //return rounded;
         }
 
         /// <summary>
@@ -105,7 +113,7 @@ namespace UnityCSCommon.Utils.Common
 
         /// <summary>
         /// <para>Calculates the shortest rotation direction from this angle to the one given in paranthesis.</para>
-        /// <para>If return value is positive, shortest angle is positive way; if return value is negative shortest angle is negative way.</para>
+        /// <para>If return value is positive, shortest angle is positive way (counter-clockwise); if return value is negative shortest angle is negative way (clockwise).</para>
         /// <para>If return value is 0, this means angles are equal.</para>
         /// </summary>
         /// <param name="from">The angle to start from.</param>
@@ -151,7 +159,7 @@ namespace UnityCSCommon.Utils.Common
             }
 
             // Determine the shortest direction.
-            return ((left <= right) ? left : (right*-1));
+            return (left <= right) ? left : (right*-1);
         }
 
         /// <summary>
@@ -161,20 +169,6 @@ namespace UnityCSCommon.Utils.Common
         {
             int shifted = 1 << layer;
             return (mask & shifted) == shifted;
-        }
-
-        /// <summary>
-        /// 2D optimized version of <see cref="Matrix4x4.MultiplyPoint3x4"/>.
-        /// </summary>
-        public static Vector2 MultiplyPoint3x4_2D (this Matrix4x4 matrix, Vector2 point)
-        {
-            // Formulas used in transforming local to world have been directly taken from assmebly view of Matrix4x4.MultiplyPoint3x4.
-            // I deleted everything related to Z axis, and this yielded a much much better performance.
-
-            Vector2 v2;
-            v2.x = matrix.m00* point.x + matrix.m01* point.y + matrix.m03;
-            v2.y = matrix.m10* point.x + matrix.m11* point.y + matrix.m13;
-            return v2;
         }
 
         /// <summary>
