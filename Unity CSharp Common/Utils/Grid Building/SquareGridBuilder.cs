@@ -14,64 +14,62 @@ namespace UnityCSCommon.Utils.GridBuilding
         /// </summary>
         /// <param name="origin">Origin of circle.</param>
         /// <param name="radius">Radius of circle.</param>
-        /// <param name="nodeDistance">Distance between nodes.</param>
-        public static List<Vector2> BuildGridInCircle (Vector2 origin, float radius, float nodeDistance)
+        /// <param name="cellSize">Distance between nodes.</param>
+        public static IEnumerable<Vector2> BuildGridInCircle (Vector2 origin, float radius, float cellSize)
         {
-            float offset = radius % nodeDistance;
+            float halfCellSize = cellSize / 2;
 
-            Vector2 min = new Vector2(origin.x - radius, origin.y - radius);
-            Vector2 max = new Vector2(origin.x + radius, origin.y + radius);
+            float offset = radius % cellSize;
 
-            var x = min.x + offset;
-            var y = min.y + offset;
+            Vector2 min = new Vector2 (origin.x - radius, origin.y - radius);
+            Vector2 max = new Vector2 (origin.x + radius, origin.y + radius);
 
-            List<Vector2> allNodes = new List<Vector2>();
-            while (x <= max.x)
+            var xBegin = min.x + offset;
+            var yBegin = min.y + offset;
+
+            float xLimit = max.x;
+            float yLimit = max.y;
+            float radiusLimit = radius - halfCellSize;
+
+            for (float x = xBegin; x <= xLimit; x += cellSize)
             {
-                while (y <= max.y)
+                for (float y = yBegin; y <= yLimit; y += cellSize)
                 {
-                    var candidate = new Vector2(x, y);
-                    if (candidate.TestDistanceMax(origin, radius))
+                    var candidate = new Vector2 (x, y);
+                    if (candidate.TestDistanceLowerThan (origin, radiusLimit, true))
                     {
-                        allNodes.Add(candidate);
+                        yield return new Vector2 (x, y);
                     }
-
-                    y += nodeDistance;
                 }
-                y = min.y + offset;
-                x += nodeDistance;
             }
-
-            return allNodes;
         }
 
         /// <summary>
         /// Generates a grid inside a rectangle.
         /// </summary>
-        /// <param name="min">Minumun point of rectangle.</param>
+        /// <param name="min">Minimum point of rectangle.</param>
         /// <param name="max">Maximum point of rectangle.</param>
-        /// <param name="nodeDistance">Distance between nodes.</param>
-        public static List<Vector2> BuildGridInRectangle (Vector2 min, Vector2 max, float nodeDistance)
+        /// <param name="cellSize">Distance between nodes.</param>
+        public static IEnumerable<Vector2> BuildGridInRectangle (Vector2 min, Vector2 max, float cellSize)
         {
-            float xOffset = ((max.x - min.x) / 2) % nodeDistance;
-            float yOffset = ((max.y - min.y) / 2) % nodeDistance;
+            float halfCellSize = cellSize / 2;
 
-            var x = min.x + xOffset;
-            var y = min.y + yOffset;
+            float xOffset = ((max.x - min.x) / 2) % cellSize;
+            float yOffset = ((max.y - min.y) / 2) % cellSize;
 
-            List<Vector2> allNodes = new List<Vector2>();
-            while (x <= max.x)
+            float xBegin = min.x + halfCellSize + xOffset;
+            float yBegin = min.y + halfCellSize + yOffset;
+
+            float xLimit = max.x - halfCellSize;
+            float yLimit = max.y - halfCellSize;
+
+            for (float x = xBegin; x <= xLimit; x += cellSize)
             {
-                while (y <= max.y)
+                for (float y = yBegin; y <= yLimit; y += cellSize)
                 {
-                    allNodes.Add(new Vector2(x, y));
-                    y += nodeDistance;
+                    yield return new Vector2 (x, y);
                 }
-                y = min.y + yOffset;
-                x += nodeDistance;
             }
-
-            return allNodes;
         }
     }
 }
