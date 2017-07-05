@@ -4,7 +4,8 @@ using UnityEngine;
 namespace UnityCSCommon.Utils.InspectorWrappers
 {
     /// <summary>
-    /// Property drawer for <see cref="LayerWrapper"/> class.
+    /// Property drawer for <see cref="LayerWrapper"/> class. <para />
+    /// Draws a drop-down list of all available layers to choose from.
     /// </summary>
     [CustomPropertyDrawer (typeof (LayerWrapper))]
     public class LayerWrapperPropertyDrawer : PropertyDrawer
