@@ -20,14 +20,14 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="grid">The grid to make sampling on.</param>
         /// <param name="seed">Seed.</param>
-        public GridBasedSampling(IList<Vector2> grid, int seed)
+        public GridBasedSampling (IList<Vector2> grid, int seed)
         {
-            _listShuffler = new ListShuffle(seed);
+            _listShuffler = new ListShuffle (seed);
 
             _allNodes = new List<Vector2> (grid);
             _listShuffler.Shuffle (_allNodes);
 
-            _availableNodes = new List<Vector2>(_allNodes);
+            _availableNodes = new List<Vector2> (_allNodes);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 _listShuffler.Shuffle (_allNodes);
             }
 
-            _availableNodes = new List<Vector2>(_allNodes);
+            _availableNodes = new List<Vector2> (_allNodes);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
             }
 
             sample = _availableNodes[0];
-            _availableNodes.RemoveAt(0);
+            _availableNodes.RemoveAt (0);
             return true;
         }
 
@@ -72,16 +72,16 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 return sample;
             }
 
-            throw new Exception("No avaliable nodes left!");
+            throw new Exception ("No avaliable nodes left!");
         }
 
         /// <summary>
         /// Tries to sample an amount of nodes. The result may be lower than <paramref name="amount"/>.
         /// </summary>
         /// <param name="amount">The amount of samples. The result may be lower.</param>
-        public List<Vector2> Sample(int amount)
+        public List<Vector2> Sample (int amount)
         {
-            List<Vector2> nodes = _availableNodes.Take(amount).ToList();
+            List<Vector2> nodes = _availableNodes.Take (amount).ToList();
             _availableNodes.RemoveAll (nodes.Contains);
             return nodes;
         }
