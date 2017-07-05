@@ -6,7 +6,7 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
     /// <summary>
     /// A component for drawing 2D trajectories on XY plane using <see cref="LineRenderer"/>.
     /// </summary>
-    [RequireComponent (typeof (LineRenderer))]
+    [RequireComponent (typeof(LineRenderer))]
     public class TrajectoryDrawer2D : MonoBehaviour
     {
         protected TrajectoryDrawer2D() {}
@@ -23,7 +23,11 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
             _lineRenderer = gameObject.GetComponent<LineRenderer>();
 
             _lineRenderer.useWorldSpace = true;
-            _lineRenderer.SetWidth (_width, _width);
+
+            //_lineRenderer.SetWidth (_width, _width); // This became obsolete. So I implemented these following 2 lines:
+            _lineRenderer.startWidth = _width;
+            _lineRenderer.endWidth = _width;
+
             _lineRenderer.sortingOrder = _sortingOrder;
         }
 
@@ -59,10 +63,13 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
 
         private void DrawLine (IList<Vector2> points)
         {
+            //_lineRenderer.SetVertexCount (points.Count); // This became obsolete. So I wrote this following line:
+            _lineRenderer.positionCount = points.Count;
+
             for (int i = 0; i < points.Count; i++)
             {
                 Vector2 vector2 = points[i];
-                _lineRenderer.SetVertexCount (points.Count);
+
                 _lineRenderer.SetPosition (i, vector2);
             }
         }
