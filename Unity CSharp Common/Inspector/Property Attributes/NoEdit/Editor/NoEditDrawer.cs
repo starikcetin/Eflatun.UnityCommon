@@ -6,17 +6,17 @@ namespace UnityCSCommon.Inspector.PropertyAttributes
     /// <summary>
     /// Property drawer for <see cref="NoEdit"/> attribute.
     /// </summary>
-    [CustomPropertyDrawer(typeof(NoEdit))]
+    [CustomPropertyDrawer (typeof(NoEdit))]
     public class NoEditDrawer : PropertyDrawer
     {
         /// <summary>
         /// Display attribute and his value in inspector depending on the type
         /// Fill attribute needed
         /// </summary>
-        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        public override void OnGUI (Rect position, SerializedProperty property, GUIContent label)
         {
             GUI.enabled = false;
-            EditorGUI.PropertyField(position, property, label, true);
+            EditorGUI.PropertyField (position, property, label, true);
             GUI.enabled = true;
 
             //switch (property.propertyType)
