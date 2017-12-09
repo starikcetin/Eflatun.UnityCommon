@@ -98,5 +98,13 @@ namespace UnityCSCommon.Utils.Common
         {
             return string.Format ("<color=#{0}>{1}</color>", ColorUtility.ToHtmlStringRGBA (color), input);
         }
+
+        /// <summary>
+        /// Returns <c>true</c> if <paramref name="value"/> is <c>null</c> or and empty string; <c>false</c> otherwise.
+        /// </summary>
+        public static bool IsNullOrEmpty(this string value)
+        {
+            return string.IsNullOrEmpty(value);
+        }
     }
 }
