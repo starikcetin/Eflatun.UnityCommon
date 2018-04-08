@@ -1,4 +1,4 @@
-# Unity C# Common Library #
+# Unity CSharp Common Library #
 
 This library includes methods and custom types that can be shared across all Unity projects.
 
