@@ -21,15 +21,15 @@ namespace UnityCSCommon.Utils.UI
             get { return _handle; }
         }
 
-        public HandleTabPair (Panel tab, EventButton handle)
+        public HandleTabPair(Panel tab, EventButton handle)
         {
             _tab = tab;
             _handle = handle;
         }
 
-        public void BindHandle (Action<Panel> tabSwitcher)
+        public void BindHandle(Action<Panel> tabSwitcher)
         {
-            _bindingAction = () => tabSwitcher (_tab);
+            _bindingAction = () => tabSwitcher(_tab);
             _handle.OnClick += _bindingAction;
         }
 

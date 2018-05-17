@@ -14,10 +14,12 @@ namespace UnityCSCommon.Utils.UI
         public event Action OnClick;
 
         #region Overrides of ButtonBase
+
         protected override void OnClickListener()
         {
             OnClick.InvokeSafe();
         }
+
         #endregion
     }
 }

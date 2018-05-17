@@ -13,7 +13,7 @@ namespace UnityCSCommon.Utils.UI
         public void Show()
         {
             OnBeforeShow();
-            gameObject.SetActive (true);
+            gameObject.SetActive(true);
             OnAfterShow();
         }
 
@@ -23,28 +23,36 @@ namespace UnityCSCommon.Utils.UI
         public void Hide()
         {
             OnBeforeHide();
-            gameObject.SetActive (false);
+            gameObject.SetActive(false);
             OnAfterHide();
         }
 
         /// <summary>
         /// Called just before showing panel.
         /// </summary>
-        protected virtual void OnBeforeShow() {}
+        protected virtual void OnBeforeShow()
+        {
+        }
 
         /// <summary>
         /// Called just after showing panel.
         /// </summary>
-        protected virtual void OnAfterShow() {}
+        protected virtual void OnAfterShow()
+        {
+        }
 
         /// <summary>
         /// Called just before hiding panel.
         /// </summary>
-        protected virtual void OnBeforeHide() {}
+        protected virtual void OnBeforeHide()
+        {
+        }
 
         /// <summary>
         /// Called just after hiding panel.
         /// </summary>
-        protected virtual void OnAfterHide() {}
+        protected virtual void OnAfterHide()
+        {
+        }
     }
 }
