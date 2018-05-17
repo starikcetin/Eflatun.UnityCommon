@@ -8,7 +8,10 @@ namespace UnityCSCommon.Utils.Pooling
 {
     public class PoolManager : SceneSingleton<PoolManager>
     {
-        protected PoolManager() {} //prevent initailization
+        //prevent initialization
+        protected PoolManager()
+        {
+        }
 
         [SerializeField] private PrefabPool_Inspector[] _allPoolSetups;
 
@@ -30,33 +33,33 @@ namespace UnityCSCommon.Utils.Pooling
         {
             foreach (var item in _allPoolSetups)
             {
-                CreatePool (item.Prefab, item.PrePopulateAmount, item.AutoPopulateAmount);
+                CreatePool(item.Prefab, item.PrePopulateAmount, item.AutoPopulateAmount);
             }
         }
 
         /// <summary>
         /// Creates and registers (to <see cref="AllPools"/>) a new <see cref="PrefabPool"/> and returns it.
         /// </summary>
-        public PrefabPool CreatePool (GameObject prefab, int prePopulateAmount, int autoPopulateAmount)
+        public PrefabPool CreatePool(GameObject prefab, int prePopulateAmount, int autoPopulateAmount)
         {
-            var newPrefabPool = new PrefabPool (prefab, prePopulateAmount, autoPopulateAmount);
-            _allPools.Add (prefab, newPrefabPool);
+            var newPrefabPool = new PrefabPool(prefab, prePopulateAmount, autoPopulateAmount);
+            _allPools.Add(prefab, newPrefabPool);
             return newPrefabPool;
         }
 
         /// <summary>
         /// If <paramref name="prefab"/> has a pool, spawns a pooled object and returns it; otherwise instantiates a new instance and returns it.
         /// </summary>
-        public GameObject Spawn (GameObject prefab, Vector3 position, Quaternion rotation)
+        public GameObject Spawn(GameObject prefab, Vector3 position, Quaternion rotation)
         {
-            if (_allPools.ContainsKey (prefab))
+            if (_allPools.ContainsKey(prefab))
             {
                 PrefabPool pool = _allPools[prefab];
-                return pool.Spawn (position, rotation);
+                return pool.Spawn(position, rotation);
             }
             else
             {
-                GameObject newObject = Instantiate (prefab, position, rotation) as GameObject;
+                GameObject newObject = Instantiate(prefab, position, rotation) as GameObject;
                 return newObject;
             }
         }
@@ -64,18 +67,19 @@ namespace UnityCSCommon.Utils.Pooling
         /// <summary>
         /// If <paramref name="toDespawn"/> is a pooled object, despawns it; otherwise destroys it.
         /// </summary>
-        public void Despawn (GameObject toDespawn)
+        public void Despawn(GameObject toDespawn)
         {
-            KeyValuePair<GameObject, PrefabPool> foundEntry = _allPools.SingleOrDefault (a => a.Value.ActiveObjects.Contains (gameObject));
+            KeyValuePair<GameObject, PrefabPool> foundEntry =
+                _allPools.SingleOrDefault(a => a.Value.ActiveObjects.Contains(gameObject));
 
             if (foundEntry.Key != null)
             {
                 PrefabPool pool = foundEntry.Value;
-                pool.Despawn (gameObject);
+                pool.Despawn(gameObject);
             }
             else
             {
-                Destroy (gameObject);
+                Destroy(gameObject);
             }
         }
     }
