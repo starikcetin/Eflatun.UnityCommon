@@ -13,7 +13,7 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="force">The force.</param>
         /// <param name="mass">The mass of object.</param>
         /// <param name="applyDuration">The duration force applies to object.</param>
-        public static Vector2 CalculateInitialVelocity (Vector2 force, float mass, float applyDuration)
+        public static Vector2 CalculateInitialVelocity(Vector2 force, float mass, float applyDuration)
         {
             return (force / mass) * applyDuration;
         }
