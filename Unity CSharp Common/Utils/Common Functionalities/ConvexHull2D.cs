@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace UnityCSCommon.Utils.Common
 {
+    //
+    // Original source: http://csharphelper.com/blog/2014/07/find-the-convex-hull-of-a-set-of-points-in-c/
+    // Formatted a little bit for eye-candy, otherwise the algorithm is exactly the same as the original.
+    //
+    // Note:
+    // The original author mentions this algorithm is not efficient. Implement and use QuickHull algorithm if
+    // performance is a major concern.
+    //
+
     /// <summary>
     /// Utilities for making 2D convex hulls.
     /// </summary>
@@ -12,10 +21,10 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Returns the points that make up a polygon's convex hull. This method leaves the <paramref name="points"/> list unchanged.
         /// </summary>
-        public static IList<Vector2> MakeConvexHull (this IList<Vector2> points)
+        public static IList<Vector2> MakeConvexHull(this IList<Vector2> points)
         {
             // Cull.
-            var culledPoints = HullCull(points);
+            IList<Vector2> culledPoints = HullCull(points);
 
             // Find the remaining point with the smallest y value.
             // If there's a tie, take the one with the smaller x value.
@@ -29,7 +38,7 @@ namespace UnityCSCommon.Utils.Common
             }
 
             // Move this point to the convex hull.
-            List<Vector2> hull = new List<Vector2>();
+            var hull = new List<Vector2>();
             hull.Add(bestPt);
             culledPoints.Remove(bestPt);
 
@@ -80,7 +89,8 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Find the points nearest the upper left, upper right, lower left, and lower right corners.
         /// </summary>
-        private static void GetMinMaxCorners (IList<Vector2> points, out Vector2 ul, out Vector2 ur, out Vector2 ll, out Vector2 lr)
+        private static void GetMinMaxCorners(IList<Vector2> points, out Vector2 ul, out Vector2 ur, out Vector2 ll,
+            out Vector2 lr)
         {
             // Start with the first point as the solution.
             ul = points[0];
@@ -101,7 +111,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Find a box that fits inside the MinMax quadrilateral.
         /// </summary>
-        private static Rect GetMinMaxBox (IList<Vector2> points)
+        private static Rect GetMinMaxBox(IList<Vector2> points)
         {
             // Find the MinMax quadrilateral.
             Vector2 ul, ur, ll, lr;
@@ -126,16 +136,18 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Cull points out of the convex hull that lie inside the trapezoid defined by the vertices with smallest and largest x and y coordinates. Return the points that are not culled.
         /// </summary>
-        private static IList<Vector2> HullCull (IList<Vector2> points)
+        private static IList<Vector2> HullCull(IList<Vector2> points)
         {
             Rect cullingBox = GetMinMaxBox(points);
-            return points.Where(pt => pt.x <= cullingBox.xMin || pt.x >= cullingBox.xMax || pt.y <= cullingBox.yMin || pt.y >= cullingBox.yMax).ToList();
+            return points.Where(pt =>
+                pt.x <= cullingBox.xMin || pt.x >= cullingBox.xMax || pt.y <= cullingBox.yMin ||
+                pt.y >= cullingBox.yMax).ToList();
         }
 
         /// <summary>
         /// Return a number that gives the ordering of angles WRST horizontal from the point (x1, y1) to (x2, y2).
         /// </summary>
-        private static float AngleValue (float x1, float y1, float x2, float y2)
+        private static float AngleValue(float x1, float y1, float x2, float y2)
         {
             float t;
 
