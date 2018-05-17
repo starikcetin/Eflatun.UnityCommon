@@ -15,14 +15,14 @@ namespace UnityCSCommon.Utils.GridBuilding
         /// <param name="origin">Origin of circle.</param>
         /// <param name="radius">Radius of circle.</param>
         /// <param name="cellSize">Distance between nodes.</param>
-        public static IEnumerable<Vector2> BuildGridInCircle (Vector2 origin, float radius, float cellSize)
+        public static IEnumerable<Vector2> BuildGridInCircle(Vector2 origin, float radius, float cellSize)
         {
             float halfCellSize = cellSize / 2;
 
             float offset = radius % cellSize;
 
-            Vector2 min = new Vector2 (origin.x - radius, origin.y - radius);
-            Vector2 max = new Vector2 (origin.x + radius, origin.y + radius);
+            Vector2 min = new Vector2(origin.x - radius, origin.y - radius);
+            Vector2 max = new Vector2(origin.x + radius, origin.y + radius);
 
             var xBegin = min.x + offset;
             var yBegin = min.y + offset;
@@ -35,10 +35,10 @@ namespace UnityCSCommon.Utils.GridBuilding
             {
                 for (float y = yBegin; y <= yLimit; y += cellSize)
                 {
-                    var candidate = new Vector2 (x, y);
-                    if (candidate.TestDistanceLowerThan (origin, radiusLimit, true))
+                    var candidate = new Vector2(x, y);
+                    if (candidate.TestDistanceLowerThan(origin, radiusLimit, true))
                     {
-                        yield return new Vector2 (x, y);
+                        yield return new Vector2(x, y);
                     }
                 }
             }
@@ -50,7 +50,7 @@ namespace UnityCSCommon.Utils.GridBuilding
         /// <param name="min">Minimum point of rectangle.</param>
         /// <param name="max">Maximum point of rectangle.</param>
         /// <param name="cellSize">Distance between nodes.</param>
-        public static IEnumerable<Vector2> BuildGridInRectangle (Vector2 min, Vector2 max, float cellSize)
+        public static IEnumerable<Vector2> BuildGridInRectangle(Vector2 min, Vector2 max, float cellSize)
         {
             float halfCellSize = cellSize / 2;
 
@@ -67,7 +67,7 @@ namespace UnityCSCommon.Utils.GridBuilding
             {
                 for (float y = yBegin; y <= yLimit; y += cellSize)
                 {
-                    yield return new Vector2 (x, y);
+                    yield return new Vector2(x, y);
                 }
             }
         }
