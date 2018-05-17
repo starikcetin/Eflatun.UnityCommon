@@ -11,7 +11,7 @@ namespace UnityCSCommon.Utils.RandomUtils
         /// <summary>
         /// The internal <see cref="System.Random"/> class (in <see cref="System"/> namespace) that this instance uses.
         /// </summary>
-        public System.Random Random { get; set; }
+        public System.Random Random { get; private set; }
 
         public int Seed { get; private set; }
 
