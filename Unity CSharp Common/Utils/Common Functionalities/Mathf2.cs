@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 namespace UnityCSCommon.Utils.Common
 {
@@ -12,7 +11,7 @@ namespace UnityCSCommon.Utils.Common
         public const int LayerMaskAll = ~0;
         public const int LayerMaskNone = 0;
 
-        public static double ClampDouble (this double value, double min, double max)
+        public static double ClampDouble(this double value, double min, double max)
         {
             if (value < min) return min;
             if (value > max) return max;
@@ -23,10 +22,10 @@ namespace UnityCSCommon.Utils.Common
         /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14d.LimitDecimals(1) --> 1.1d </example>
-        public static double LimitDecimals (this double value, int decimalCount)
+        public static double LimitDecimals(this double value, int decimalCount)
         {
-            var rate = Math.Pow (10, decimalCount);
-            return Math.Truncate (value * rate) / rate;
+            var rate = Math.Pow(10, decimalCount);
+            return Math.Truncate(value * rate) / rate;
 
             // This below uses the rounding option, which is not precise:
             //double rounded = Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
@@ -37,10 +36,10 @@ namespace UnityCSCommon.Utils.Common
         /// Truncates the decimal places of <paramref name="value"/> to fit <paramref name="decimalCount"/>.
         /// </summary>
         /// <example> 1.14f.LimitDecimals(1) --> 1.1f </example>
-        public static float LimitDecimals (this float value, int decimalCount)
+        public static float LimitDecimals(this float value, int decimalCount)
         {
-            var rate = Math.Pow (10, decimalCount);
-            return (float) (Math.Truncate (value * rate) / rate);
+            var rate = Math.Pow(10, decimalCount);
+            return (float) (Math.Truncate(value * rate) / rate);
 
             // This below uses the rounding option, which is not precise:
             //float rounded = (float)Math.Round(value, decimalCount, MidpointRounding.AwayFromZero);
@@ -50,17 +49,17 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Square root.
         /// </summary>
-        public static float Sqrt (this float number)
+        public static float Sqrt(this float number)
         {
-            return (float)Math.Sqrt (number);
+            return (float) Math.Sqrt(number);
         }
 
         /// <summary>
         /// Square root.
         /// </summary>
-        public static float Sqrt (this int number)
+        public static float Sqrt(this int number)
         {
-            return (float)Math.Sqrt (number);
+            return (float) Math.Sqrt(number);
         }
 
         /// <summary>
@@ -69,9 +68,9 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Float raised to float = float</remarks>
-        public static float Pow (this float baseN, float exp)
+        public static float Pow(this float baseN, float exp)
         {
-            return (float)Math.Pow (baseN, exp);
+            return (float) Math.Pow(baseN, exp);
         }
 
         /// <summary>
@@ -80,9 +79,9 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Integer raised to float = float</remarks>
-        public static float Pow (this int baseN, float exp)
+        public static float Pow(this int baseN, float exp)
         {
-            return (float)Math.Pow (baseN, exp);
+            return (float) Math.Pow(baseN, exp);
         }
 
         /// <summary>
@@ -91,17 +90,17 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="baseN">Base.</param>
         /// <param name="exp">Exponent (Power).</param>
         /// <remarks>Integer raised to integer = integer</remarks>
-        public static int Pow (this int baseN, int exp)
+        public static int Pow(this int baseN, int exp)
         {
-            return (int)Math.Pow(baseN, exp);
+            return (int) Math.Pow(baseN, exp);
         }
 
         /// <summary>
         /// Normalizes the angle in degrees to 0-360 range.
         /// </summary>
-        public static float NormalizeAngle (this float angle)
+        public static float NormalizeAngle(this float angle)
         {
-            angle = (angle + 360)%360;
+            angle = (angle + 360) % 360;
 
             if (angle < 0)
             {
@@ -118,8 +117,13 @@ namespace UnityCSCommon.Utils.Common
         /// </summary>
         /// <param name="from">The angle to start from.</param>
         /// <param name="to"> The destination angle of rotation.</param>
-        public static float ShortestRotationTo (this float from, float to)
+        public static float ShortestRotationTo(this float from, float to)
         {
+            //
+            // Orginal Source: http://answers.unity.com/answers/556633/view.html
+            // Modified and reformatted.
+            //
+
             // If from or to is a negative, we have to recalculate them.
             // For an example, if from = -45 then from(-45) + 360 = 315.
             if (from < 0)
@@ -143,6 +147,7 @@ namespace UnityCSCommon.Utils.Common
             // Pre-calculate left and right.
             float left = (360 - from) + to;
             float right = from - to;
+
             // If from < to, re-calculate left and right.
             if (from < to)
             {
@@ -159,13 +164,13 @@ namespace UnityCSCommon.Utils.Common
             }
 
             // Determine the shortest direction.
-            return (left <= right) ? left : (right*-1);
+            return (left <= right) ? left : (right * -1);
         }
 
         /// <summary>
         /// Determines if given mask includes given layer. Layer parameter must NOT be bit-shifted, bit-shifting is being done inside this method.
         /// </summary>
-        public static bool MaskIncludes (this int mask, int layer)
+        public static bool MaskIncludes(this int mask, int layer)
         {
             int shifted = 1 << layer;
             return (mask & shifted) == shifted;
@@ -174,7 +179,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static int MirrorBy (this int value, int origin)
+        public static int MirrorBy(this int value, int origin)
         {
             return origin + (origin - value);
         }
@@ -182,7 +187,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static double MirrorBy (this double value, double origin)
+        public static double MirrorBy(this double value, double origin)
         {
             return origin + (origin - value);
         }
@@ -190,7 +195,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Mirrors the <paramref name="value"/> by <paramref name="origin"/>.
         /// </summary>
-        public static float MirrorBy (this float value, float origin)
+        public static float MirrorBy(this float value, float origin)
         {
             return origin + (origin - value);
         }
