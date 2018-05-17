@@ -4,9 +4,9 @@ This library includes methods and custom types that can be shared across all Uni
 
 For details and contirubution refer to *Notes.txt* file in the "Unity CSharp Common" folder.
 
-Licence
+License
 ---
-MIT license. Refer to the [LICENCE](https://github.com/starikcetin/Unity-CSharp-Common-Library/blob/master/LICENSE) file.
+MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Unity-CSharp-Common-Library/blob/master/LICENSE) file.
 
 Copyright (c) 2018 S. Tarık Çetin
 
