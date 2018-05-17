@@ -15,6 +15,13 @@ namespace UnityCSCommon.Expansions
     /// <typeparam name="TValue">The type of values.</typeparam>
     public sealed class OrderedDictionary<TKey, TValue> : IOrderedDictionary<TKey, TValue>
     {
+        //
+        // I took this code somewhere on the internet and edited it, but I can't remember the original source.
+        // That being said, here are two of the possible candidates:
+        // https://gist.github.com/hickford/5137384
+        // https://stackoverflow.com/a/9844528/6301627
+        //
+
         /// <summary>
         /// An unordered dictionary of key pairs.
         /// </summary>
@@ -35,7 +42,7 @@ namespace UnityCSCommon.Expansions
             //TODO: This check should become a code contract after Unity gets the .Net update.
             if (typeof(TKey) == typeof(int))
             {
-                throw new NotSupportedException (
+                throw new NotSupportedException(
                     "Integer-like type is not appropriate for keys in an ordered dictionary - accessing values by key or index would be confusing.");
             }
 
@@ -48,16 +55,16 @@ namespace UnityCSCommon.Expansions
         /// If a new entry overwrites an existing entry, the original insertion position is left unchanged. <para/>
         /// Deleting an entry and reinserting it will move it to the end.
         /// </summary>
-        public OrderedDictionary (IEqualityComparer<TKey> comparer)
+        public OrderedDictionary(IEqualityComparer<TKey> comparer)
         {
             //TODO: This check should become a code contract after Unity gets the .Net update.
             if (typeof(TKey) == typeof(int))
             {
-                throw new NotSupportedException (
+                throw new NotSupportedException(
                     "Integer-like type is not appropriate for keys in an ordered dictionary - accessing values by key or index would be confusing.");
             }
 
-            _fDictionary = new Dictionary<TKey, TValue> (comparer);
+            _fDictionary = new Dictionary<TKey, TValue>(comparer);
             _fKeys = new List<TKey>();
         }
 
@@ -90,13 +97,13 @@ namespace UnityCSCommon.Expansions
         /// </summary>
         public ICollection<TValue> Values
         {
-            get { return _fKeys.Select (key => _fDictionary[key]).ToArray(); }
+            get { return _fKeys.Select(key => _fDictionary[key]).ToArray(); }
         }
 
         /// <summary>
         /// The value at the given index.
         /// </summary>
-        public TValue this [int index]
+        public TValue this[int index]
         {
             get
             {
@@ -113,15 +120,15 @@ namespace UnityCSCommon.Expansions
         /// <summary>
         /// The value under the given key. New entries are added at the end of the order. Updating an existing entry does not change its position.
         /// </summary>
-        public TValue this [TKey key]
+        public TValue this[TKey key]
         {
             get { return _fDictionary[key]; }
             set
             {
-                if (!_fDictionary.ContainsKey (key))
+                if (!_fDictionary.ContainsKey(key))
                 {
                     // New entries are added at the end of the order.
-                    _fKeys.Add (key);
+                    _fKeys.Add(key);
                 }
 
                 _fDictionary[key] = value;
@@ -131,81 +138,81 @@ namespace UnityCSCommon.Expansions
         /// <summary>
         /// Find the position of an element by key. Returns -1 if the dictionary does not contain an element with the given key.
         /// </summary>
-        public int IndexOf (TKey key)
+        public int IndexOf(TKey key)
         {
-            return _fKeys.IndexOf (key);
+            return _fKeys.IndexOf(key);
         }
 
         /// <summary>
         /// Remove the element at the given index.
         /// </summary>
-        public void RemoveAt (int index)
+        public void RemoveAt(int index)
         {
             var key = _fKeys[index];
-            _fDictionary.Remove (key);
-            _fKeys.RemoveAt (index);
+            _fDictionary.Remove(key);
+            _fKeys.RemoveAt(index);
         }
 
         /// <summary>
         /// Test whether there is an element with the given key.
         /// </summary>
-        public bool ContainsKey (TKey key)
+        public bool ContainsKey(TKey key)
         {
-            return _fDictionary.ContainsKey (key);
+            return _fDictionary.ContainsKey(key);
         }
 
         /// <summary>
         /// Try to get a value from the dictionary, by key. Returns false if there is no element with the given key.
         /// </summary>
-        public bool TryGetValue (TKey key, out TValue value)
+        public bool TryGetValue(TKey key, out TValue value)
         {
-            return _fDictionary.TryGetValue (key, out value);
+            return _fDictionary.TryGetValue(key, out value);
         }
 
         /// <summary>
         /// Insert an element at the given index.
         /// </summary>
-        public void Insert (int index, TKey key, TValue value)
+        public void Insert(int index, TKey key, TValue value)
         {
             // Dictionary operation first, so exception thrown if key already exists.
-            _fDictionary.Add (key, value);
-            _fKeys.Insert (index, key);
+            _fDictionary.Add(key, value);
+            _fKeys.Insert(index, key);
         }
 
         /// <summary>
         /// Add an element to the dictionary.
         /// </summary>
-        public void Add (TKey key, TValue value)
+        public void Add(TKey key, TValue value)
         {
             // Dictionary operation first, so exception thrown if key already exists.
-            _fDictionary.Add (key, value);
-            _fKeys.Add (key);
+            _fDictionary.Add(key, value);
+            _fKeys.Add(key);
         }
 
         /// <summary>
         /// Add an element to the dictionary.
         /// </summary>
-        public void Add (KeyValuePair<TKey, TValue> pair)
+        public void Add(KeyValuePair<TKey, TValue> pair)
         {
-            Add (pair.Key, pair.Value);
+            Add(pair.Key, pair.Value);
         }
 
         /// <summary>
         /// Test whether the dictionary contains an element equal to that given.
         /// </summary>
-        public bool Contains (KeyValuePair<TKey, TValue> pair)
+        public bool Contains(KeyValuePair<TKey, TValue> pair)
         {
-            return _fDictionary.Contains (pair);
+            return _fDictionary.Contains(pair);
         }
 
         /// <summary>
         /// Remove a key-value pair from the dictionary. Return true if pair was successfully removed. Otherwise, if the pair was not found, return false.
         /// </summary>
-        public bool Remove (KeyValuePair<TKey, TValue> pair)
+        public bool Remove(KeyValuePair<TKey, TValue> pair)
         {
-            if (Contains (pair))
+            if (Contains(pair))
             {
-                Remove (pair.Key);
+                Remove(pair.Key);
                 return true;
             }
 
@@ -215,10 +222,11 @@ namespace UnityCSCommon.Expansions
         /// <summary>
         /// Remove the element with the given key key. If there is no element with the key, no exception is thrown.
         /// </summary>
-        public bool Remove (TKey key)
+        public bool Remove(TKey key)
         {
-            bool wasInDictionary = _fDictionary.Remove (key);
-            /*bool wasInKeys =*/ _fKeys.Remove (key);
+            bool wasInDictionary = _fDictionary.Remove(key);
+            /*bool wasInKeys =*/
+            _fKeys.Remove(key);
             //Contract.Assume(wasInDictionary == wasInKeys);
             return wasInDictionary;
         }
@@ -235,16 +243,16 @@ namespace UnityCSCommon.Expansions
         /// <summary>
         /// Copy the elements of the dictionary to an array, starting at at the given index.
         /// </summary>
-        public void CopyTo (KeyValuePair<TKey, TValue>[] array, int index)
+        public void CopyTo(KeyValuePair<TKey, TValue>[] array, int index)
         {
             if (array == null)
-                throw new ArgumentNullException ("array");
+                throw new ArgumentNullException("array");
 
             if (index < 0)
-                throw new ArgumentOutOfRangeException ("index", "Must be greater than or equal to zero.");
+                throw new ArgumentOutOfRangeException("index", "Must be greater than or equal to zero.");
 
             if (index + _fDictionary.Count > array.Length)
-                throw new ArgumentException ("Array is too small", "array");
+                throw new ArgumentException("Array is too small", "array");
 
             foreach (var pair in this)
             {
@@ -258,7 +266,7 @@ namespace UnityCSCommon.Expansions
             foreach (var key in _fKeys)
             {
                 var value = _fDictionary[key];
-                yield return new KeyValuePair<TKey, TValue> (key, value);
+                yield return new KeyValuePair<TKey, TValue>(key, value);
             }
         }
 

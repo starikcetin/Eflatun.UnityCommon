@@ -11,24 +11,31 @@ namespace UnityCSCommon.Expansions
     /// <typeparam name="TValue">The type of values.</typeparam>
     public interface IOrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
+        //
+        // I took this code somewhere on the internet and edited it, but I can't remember the original source.
+        // That being said, here are two of the possible candidates:
+        // https://gist.github.com/hickford/5137384
+        // https://stackoverflow.com/a/9844528/6301627
+        //
+
         /// <summary>
         /// The value of the element at the given index.
         /// </summary>
-        TValue this [int index] { get; set; }
+        TValue this[int index] { get; set; }
 
         /// <summary>
         /// Find the position of an element by key. Returns -1 if the dictionary does not contain an element with the given key.
         /// </summary>
-        int IndexOf (TKey key);
+        int IndexOf(TKey key);
 
         /// <summary>
         /// Insert an element at the given index.
         /// </summary>
-        void Insert (int index, TKey key, TValue value);
+        void Insert(int index, TKey key, TValue value);
 
         /// <summary>
         /// Remove the element at the given index.
         /// </summary>
-        void RemoveAt (int index);
+        void RemoveAt(int index);
     }
 }

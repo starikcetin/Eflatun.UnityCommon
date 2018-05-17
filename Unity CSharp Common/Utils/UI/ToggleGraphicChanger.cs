@@ -12,15 +12,15 @@ namespace UnityCSCommon.Utils.UI
         [SerializeField] private Graphic _onGraphic;
         [SerializeField] private Graphic _offGraphic;
 
-        void Start()
+        private void Start()
         {
-            GetComponent<Toggle>().onValueChanged.AddListener (ChangeGraphic);
+            GetComponent<Toggle>().onValueChanged.AddListener(ChangeGraphic);
         }
 
-        private void ChangeGraphic (bool value)
+        private void ChangeGraphic(bool value)
         {
-            _onGraphic.gameObject.SetActive (value);
-            _offGraphic.gameObject.SetActive (!value);
+            _onGraphic.gameObject.SetActive(value);
+            _offGraphic.gameObject.SetActive(!value);
         }
     }
 }

@@ -11,7 +11,8 @@ namespace UnityCSCommon.Utils.RandomUtils
         /// <summary>
         /// The internal <see cref="System.Random"/> class (in <see cref="System"/> namespace) that this instance uses.
         /// </summary>
-        public System.Random Random { get; set; }
+        public System.Random Random { get; private set; }
+
         public int Seed { get; private set; }
 
         public IntMethods Int { get; private set; }
@@ -24,31 +25,31 @@ namespace UnityCSCommon.Utils.RandomUtils
         /// <summary>
         /// Initializes the BetterRandom with the <see cref="seed"/>.
         /// </summary>
-        public BetterRandom (int seed)
+        public BetterRandom(int seed)
         {
-            Initialize (seed);
-            Int = new IntMethods (this);
-            Double = new DoubleMethods (this);
-            Float = new FloatMethods (this);
-            Vector2 = new Vector2Methods (this);
-            Vector3 = new Vector3Methods (this);
-            Angle = new AngleMethods (this);
+            Initialize(seed);
+            Int = new IntMethods(this);
+            Double = new DoubleMethods(this);
+            Float = new FloatMethods(this);
+            Vector2 = new Vector2Methods(this);
+            Vector3 = new Vector3Methods(this);
+            Angle = new AngleMethods(this);
         }
 
         public void Reset()
         {
-            Initialize (Seed);
+            Initialize(Seed);
         }
 
-        public void ChangeSeed (int newSeed)
+        public void ChangeSeed(int newSeed)
         {
-            Initialize (newSeed);
+            Initialize(newSeed);
         }
 
-        private void Initialize (int seed)
+        private void Initialize(int seed)
         {
             Seed = seed;
-            Random = new System.Random (seed);
+            Random = new System.Random(seed);
         }
 
         /// <summary>
@@ -56,15 +57,15 @@ namespace UnityCSCommon.Utils.RandomUtils
         /// </summary>
         public int RandomSign()
         {
-            return Int.FromRange (0, 2) * 2 - 1; //0*2 -1 = -1 | 1*2 -1 = 1
+            return Int.FromRange(0, 2) * 2 - 1; //0*2 -1 = -1 | 1*2 -1 = 1
         }
 
         /// <summary>
         /// Returns a random item from the list.
         /// </summary>
-        public T RandomItem<T> (IList<T> list)
+        public T RandomItem<T>(IList<T> list)
         {
-            int randomIndex = Int.FromRange (0, list.Count);
+            int randomIndex = Int.FromRange(0, list.Count);
             return list[randomIndex];
         }
     }

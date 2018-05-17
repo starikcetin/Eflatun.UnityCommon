@@ -2,9 +2,9 @@
 ##        Folders        ##
 ###########################
 
-Expansions:		For custom types that are not included in .Net and/or Mono. These types should be independent from Unity.
-Inspector:		For custom Editor and Inspector types that are Unity dependent.
-Utils:			For custom types that are Unity dependent.
+Expansions:     For custom types that are not included in .Net and/or Mono. These types should be independent from Unity.
+Inspector:      For custom Editor and Inspector types that are Unity dependent.
+Utils:          For custom types that are Unity dependent.
 
 -- Unity dependency: If your type uses any of the namespaces, classes, methods (etc.) Unity provides, that type is Unity dependent.
 
@@ -14,39 +14,39 @@ Utils:			For custom types that are Unity dependent.
 ##  Namespace Structure  ##
 ###########################
 
-UnityCSCommon					("Unity CS Common" Folder)
+UnityCSCommon                   ("Unity CS Common" Folder)
 |
-|---Expansions					("Expansions" Folder)
+|---Expansions                  ("Expansions" Folder)
 |
-|---Inspector					("Inspector" Folder)
-|	|
-|	|---PropertyAttributes		("Property Attributes" Folder)
+|---Inspector                   ("Inspector" Folder)
+|   |
+|   |---PropertyAttributes      ("Property Attributes" Folder)
 |
-|---Utils						("Utils" Folder)
-	|
-	|---RandomUtils				("Random Utilities" Folder)
-	|	|
-	|	|---Utility				("Utility Classes" Folder)
-	|
-	|---Common					("Common Functionalities" Folder)
-	|	|
-	|	|---Serialization		("Serialization" Folder)
-	|
-	|---GridBuilding			("Grid Building" Folder)
-	|
-	|---InspectorWrappers		("Inspector Functionality Wrappers" Folder)
-	|
-	|---Pooling					("Object Pooling" Folder)
-	|
-	|---Sampling				("Sampling Utilities" Folder)
-	|	|
-	|	|---Vector2Sampling		("Vector2 Sampling" Folder)
-	|
-	|---CodePatterns			("Code Patterns" Folder)
-	|
-	|---TrajectoryUtilities		("Trajectory Utilities" Folder)
-	|
-	|---UI						("UI" Folder)
+|---Utils                       ("Utils" Folder)
+    |
+    |---RandomUtils             ("Random Utilities" Folder)
+    |   |
+    |   |---Utility             ("Utility Classes" Folder)
+    |
+    |---Common                  ("Common Functionalities" Folder)
+    |   |
+    |   |---Serialization       ("Serialization" Folder)
+    |
+    |---GridBuilding            ("Grid Building" Folder)
+    |
+    |---InspectorWrappers       ("Inspector Functionality Wrappers" Folder)
+    |
+    |---Pooling                 ("Object Pooling" Folder)
+    |
+    |---Sampling                ("Sampling Utilities" Folder)
+    |   |
+    |   |---Vector2Sampling     ("Vector2 Sampling" Folder)
+    |
+    |---CodePatterns            ("Code Patterns" Folder)
+    |
+    |---TrajectoryUtilities     ("Trajectory Utilities" Folder)
+    |
+    |---UI                      ("UI" Folder)
 
 
 
@@ -57,5 +57,5 @@ UnityCSCommon					("Unity CS Common" Folder)
 -> You may prefer using this library as a subtree (or submodule) in your git repository.
 
 -> "Editor" folders are special folders that Unity use to identify editor-only scripts.
-   So all "Editor" folders in this framework are intended for that purpose.
-   Thus, do not use "Editor" as a custom folder name, consider using "Inspector" instead.
+    So all "Editor" folders in this framework are intended for that purpose.
+    Thus, do not use "Editor" as a custom folder name, consider using "Inspector" instead.

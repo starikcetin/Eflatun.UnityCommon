@@ -11,7 +11,7 @@ namespace UnityCSCommon.Utils.RandomUtils.Utility
     {
         private readonly BetterRandom _parent;
 
-        public Vector2Methods (BetterRandom parent)
+        public Vector2Methods(BetterRandom parent)
         {
             _parent = parent;
         }
@@ -20,7 +20,7 @@ namespace UnityCSCommon.Utils.RandomUtils.Utility
         /// <para> NonNegative range: (0, 0) (inclusive) -> (<see cref="float.MaxValue"/>, <see cref="float.MaxValue"/>) (exclusive) </para>
         /// <para> All range: (<see cref="float.MinValue"/>, <see cref="float.MinValue"/>) (inclusive) -> (<see cref="float.MaxValue"/>, <see cref="float.MaxValue"/>) (exclusive) </para>
         /// </summary>
-        public Vector2 Next (RandomRange rangeType = RandomRange.NonNegative)
+        public Vector2 Next(RandomRange rangeType = RandomRange.NonNegative)
         {
             var x = _parent.Float.NextUnl(rangeType);
             var y = _parent.Float.NextUnl(rangeType);
@@ -31,12 +31,12 @@ namespace UnityCSCommon.Utils.RandomUtils.Utility
         /// <summary>
         /// <para> Range: <paramref name="min"/> (inclusive) -> <paramref name="max"/> (exclusive) </para>
         /// </summary>
-        public Vector2 FromRange (Vector2 min, Vector2 max)
+        public Vector2 FromRange(Vector2 min, Vector2 max)
         {
-            var x = _parent.Float.FromRange (min.x, max.x);
-            var y = _parent.Float.FromRange (min.y, max.y);
+            var x = _parent.Float.FromRange(min.x, max.x);
+            var y = _parent.Float.FromRange(min.y, max.y);
 
-            return new Vector2 (x, y);
+            return new Vector2(x, y);
         }
 
         /// <summary>

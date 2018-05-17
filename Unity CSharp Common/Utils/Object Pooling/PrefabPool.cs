@@ -22,67 +22,67 @@ namespace UnityCSCommon.Utils.Pooling
         /// <param name="prefab">Prefab that this pool will use.</param>
         /// <param name="prePopulateAmount">Populates pool with given amount instantly.</param>
         /// <param name="autoPopulateAmount">The amount to populate this pool automatically when there are no inactive objects left.</param>
-        public PrefabPool (GameObject prefab, int prePopulateAmount, int autoPopulateAmount)
+        public PrefabPool(GameObject prefab, int prePopulateAmount, int autoPopulateAmount)
         {
             ActiveObjects = new List<GameObject>();
             InactiveObjects = new List<GameObject>();
             AutoPopulateAmount = autoPopulateAmount;
             Prefab = prefab;
 
-            Holder = new GameObject (string.Format ("Pool of {0}", prefab.name));
+            Holder = new GameObject(string.Format("Pool of {0}", prefab.name));
             Holder.transform.parent = PoolManager.Instance.gameObject.transform;
 
-            Populate (prePopulateAmount);
+            Populate(prePopulateAmount);
         }
 
         /// <summary>
         /// Spawn a GameObject and returns it.
         /// </summary>
-        public GameObject Spawn (Vector3 position, Quaternion rotation)
+        public GameObject Spawn(Vector3 position, Quaternion rotation)
         {
-            GameObject spawned = _Spawn (position, rotation);
-            NotifySpawn (spawned);
+            GameObject spawned = _Spawn(position, rotation);
+            NotifySpawn(spawned);
             return spawned;
         }
 
         /// <summary>
         /// Despawn a GameObject.
         /// </summary>
-        public void Despawn (GameObject gameObject)
+        public void Despawn(GameObject gameObject)
         {
-            _Despawn (gameObject);
-            NotifyDespawn (gameObject);
+            _Despawn(gameObject);
+            NotifyDespawn(gameObject);
         }
 
-        private GameObject _Spawn (Vector3 position, Quaternion rotation)
+        private GameObject _Spawn(Vector3 position, Quaternion rotation)
         {
             GameObject toSpawn = GetInactiveOrInstantiate();
             toSpawn.transform.parent = null;
             toSpawn.transform.position = position;
             toSpawn.transform.rotation = rotation;
-            toSpawn.SetActive (true);
+            toSpawn.SetActive(true);
 
-            InactiveObjects.Remove (toSpawn);
-            ActiveObjects.Add (toSpawn);
+            InactiveObjects.Remove(toSpawn);
+            ActiveObjects.Add(toSpawn);
 
             PopulateIfRequired();
 
             return toSpawn;
         }
 
-        private void _Despawn (GameObject toDespawn)
+        private void _Despawn(GameObject toDespawn)
         {
-            toDespawn.SetActive (false);
+            toDespawn.SetActive(false);
             toDespawn.transform.parent = Holder.transform;
 
-            ActiveObjects.Remove (toDespawn);
-            InactiveObjects.Add (toDespawn);
+            ActiveObjects.Remove(toDespawn);
+            InactiveObjects.Add(toDespawn);
         }
 
         /// <summary>
         /// Calls all <see cref="IPoolInteractions.OnSpawn"/> methods on given GameObject.
         /// </summary>
-        private static void NotifySpawn (GameObject spawned)
+        private static void NotifySpawn(GameObject spawned)
         {
             var interfaces = spawned.GetComponents<IPoolInteractions>();
             foreach (var item in interfaces)
@@ -94,7 +94,7 @@ namespace UnityCSCommon.Utils.Pooling
         /// <summary>
         /// Calls all <see cref="IPoolInteractions.OnDespawn"/> methods on given GameObject.
         /// </summary>
-        private static void NotifyDespawn (GameObject despawned)
+        private static void NotifyDespawn(GameObject despawned)
         {
             var interfaces = despawned.GetComponents<IPoolInteractions>();
             foreach (var item in interfaces)
@@ -110,7 +110,7 @@ namespace UnityCSCommon.Utils.Pooling
         {
             if (!InactiveObjects.Any()) //if there are no inactive objects left...
             {
-                Populate (AutoPopulateAmount); //...populate the pool.
+                Populate(AutoPopulateAmount); //...populate the pool.
             }
         }
 
@@ -123,10 +123,11 @@ namespace UnityCSCommon.Utils.Pooling
         }
 
         #region Maintenance
+
         /// <summary>
         /// Instantiates given amount of new GameObjects and adds them to the pool.
         /// </summary>
-        private void Populate (int amount)
+        private void Populate(int amount)
         {
             for (int i = 0; i < amount; i++)
             {
@@ -140,20 +141,20 @@ namespace UnityCSCommon.Utils.Pooling
         private GameObject PopulateSingle()
         {
             GameObject newObject = InstantiateSingle();
-            Bind (newObject, true);
+            Bind(newObject, true);
             return newObject;
         }
 
         /// <summary>
         /// Adds the given GameObject to this pool. If despawn is true, also despawns the object.
         /// </summary>
-        private void Bind (GameObject gameObject, bool despawn)
+        private void Bind(GameObject gameObject, bool despawn)
         {
             ActiveObjects.Add(gameObject);
 
             if (despawn)
             {
-                Despawn (gameObject);
+                Despawn(gameObject);
             }
         }
 
@@ -164,6 +165,7 @@ namespace UnityCSCommon.Utils.Pooling
         {
             return Object.Instantiate(Prefab);
         }
+
         #endregion Maintenance
     }
 }

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 namespace UnityCSCommon.Expansions
 {
     /// <summary>
-    /// A fast collection that consists of rows and columns, and cells that corresponds to intersection of these.
+    /// A fast collection that consists of rows and columns, and cells that corresponds to intersection of these. <para/>
+    /// This class does not handle hash collisions at all! Use it with caution.
     /// </summary>
+    ///
     /// <typeparam name="TRow">The type of rows.</typeparam>
     /// <typeparam name="TCol">The type of columns.</typeparam>
     /// <typeparam name="TCell">The type of cells (values).</typeparam>
@@ -27,23 +29,25 @@ namespace UnityCSCommon.Expansions
     public class DataTable<TRow, TCol, TCell> : IEnumerable<DataTableEntry<TRow, TCol, TCell>>
     {
         private static readonly TCell DefaultCellValue = default(TCell);
-        private readonly Dictionary<long, DataTableEntry<TRow, TCol, TCell>> _entries = new Dictionary<long, DataTableEntry<TRow, TCol, TCell>>();
+
+        private readonly Dictionary<long, DataTableEntry<TRow, TCol, TCell>> _entries =
+            new Dictionary<long, DataTableEntry<TRow, TCol, TCell>>();
 
         /// <summary>
         /// Sets the intersection of <paramref name="row"/> and <paramref name="col"/> to <paramref name="newCell"/>.
         /// </summary>
-        public void Set (TRow row, TCol col, TCell newCell)
+        public void Set(TRow row, TCol col, TCell newCell)
         {
-            long key = CalculateKey (row, col);
-            var newEntry = CreateEntry (row, col, newCell);
+            long key = CalculateKey(row, col);
+            var newEntry = CreateEntry(row, col, newCell);
 
-            if (_entries.ContainsKey (key))
+            if (_entries.ContainsKey(key))
             {
                 _entries[key] = newEntry;
             }
             else
             {
-                _entries.Add (key, newEntry);
+                _entries.Add(key, newEntry);
             }
         }
 
@@ -51,18 +55,18 @@ namespace UnityCSCommon.Expansions
         /// Returns the intersection of <paramref name="row"/> and <paramref name="col"/>. <para/>
         /// Throws a <see cref="KeyNotFoundException"/> if no such cell exists (i.e. it has never set).
         /// </summary>
-        public TCell Get (TRow row, TCol col)
+        public TCell Get(TRow row, TCol col)
         {
-            long key = CalculateKey (row, col);
+            long key = CalculateKey(row, col);
             DataTableEntry<TRow, TCol, TCell> value;
 
-            if (_entries.TryGetValue (key, out value))
+            if (_entries.TryGetValue(key, out value))
             {
                 return value.Cell;
             }
             else
             {
-                throw new KeyNotFoundException ("This cell is never set.");
+                throw new KeyNotFoundException("This cell is never set.");
             }
         }
 
@@ -71,12 +75,12 @@ namespace UnityCSCommon.Expansions
         /// Returns true if a cell is found, false otherwise (i.e. it has never set). <para/>
         /// Note: If return is false, the value of <paramref name="cell"/> will be the default value of <typeparamref name="TCell"/>.
         /// </summary>
-        public bool TryGet (TRow row, TCol col, out TCell cell)
+        public bool TryGet(TRow row, TCol col, out TCell cell)
         {
             long key = CalculateKey(row, col);
             DataTableEntry<TRow, TCol, TCell> value;
 
-            if (_entries.TryGetValue (key, out value))
+            if (_entries.TryGetValue(key, out value))
             {
                 cell = value.Cell;
                 return true;
@@ -88,45 +92,46 @@ namespace UnityCSCommon.Expansions
             }
         }
 
-        public TCell this [TRow row, TCol col]
+        public TCell this[TRow row, TCol col]
         {
-            get { return Get (row, col); }
-            set { Set (row, col, value); }
+            get { return Get(row, col); }
+            set { Set(row, col, value); }
         }
 
-        protected virtual long CalculateKey (TRow row, TCol col)
+        protected virtual long CalculateKey(TRow row, TCol col)
         {
             int rowHash = row.GetHashCode();
             int colHash = col.GetHashCode();
 
-            return Pair (rowHash, colHash);
+            return Pair(rowHash, colHash);
         }
 
-        protected static long Pair (int x, int y)
+        protected static long Pair(int x, int y)
         {
-            return SzudzikPairing (x, y);
+            return SzudzikPairing(x, y);
         }
 
-        private static long SzudzikPairing (int x, int y)
+        private static long SzudzikPairing(int x, int y)
         {
             // Szudzik's Elegant Pairing Function
-            return x >= y ? x*x + x + y : y*y + x;
+            return x >= y ? x * x + x + y : y * y + x;
         }
 
         // Cantor Pairing is no longer in use since Szudzik's Pairing gives better coverage.
         // But I am still keeping it in case we need it later.
-        private static long CantorPairing (int x, int y)
+        private static long CantorPairing(int x, int y)
         {
             // Cantor Pairing Function
-            return (x + y)*(x + y + 1)/2 + y;
+            return (x + y) * (x + y + 1) / 2 + y;
         }
 
-        private static DataTableEntry<TRow, TCol, TCell> CreateEntry (TRow row, TCol col, TCell cell)
+        private static DataTableEntry<TRow, TCol, TCell> CreateEntry(TRow row, TCol col, TCell cell)
         {
-            return new DataTableEntry<TRow, TCol, TCell> (row, col, cell);
+            return new DataTableEntry<TRow, TCol, TCell>(row, col, cell);
         }
 
         #region Implementation of IEnumerable
+
         public IEnumerator<DataTableEntry<TRow, TCol, TCell>> GetEnumerator()
         {
             return _entries.Values.GetEnumerator();
@@ -136,6 +141,7 @@ namespace UnityCSCommon.Expansions
         {
             return GetEnumerator();
         }
+
         #endregion
     }
 }

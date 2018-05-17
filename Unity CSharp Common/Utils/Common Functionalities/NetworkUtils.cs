@@ -16,7 +16,7 @@ namespace UnityCSCommon.Utils.Common
             try
             {
                 using (var client = new WebClient())
-                using (client.OpenRead ("http://www.example.com"))
+                using (client.OpenRead("http://www.example.com"))
                 {
                     return true;
                 }

@@ -9,18 +9,18 @@ namespace UnityCSCommon.Utils.UI
     /// </summary>
     public class TabView : MonoBehaviour
     {
-        [Header ("Highlighter")]
+        [Header("Highlighter")]
         [SerializeField] private RectTransform _highlighter;
         [SerializeField] private bool _highlightOnX, _highlightOnY;
 
-        [Header ("Tabs")]
+        [Header("Tabs")]
         [SerializeField] private List<HandleTabPair> _handleTabPairs;
 
-        void Awake()
+        private void Awake()
         {
             foreach (var pair in _handleTabPairs)
             {
-                pair.BindHandle (SwitchTab);
+                pair.BindHandle(SwitchTab);
             }
         }
 
@@ -28,28 +28,28 @@ namespace UnityCSCommon.Utils.UI
         /// Registers a new tab to this instance.
         /// Also binds handle to tab.
         /// </summary>
-        public void Register (Panel tab, EventButton handle)
+        public void Register(Panel tab, EventButton handle)
         {
-            var newPair = new HandleTabPair (tab, handle);
-            newPair.BindHandle (SwitchTab);
-            _handleTabPairs.Add (newPair);
+            var newPair = new HandleTabPair(tab, handle);
+            newPair.BindHandle(SwitchTab);
+            _handleTabPairs.Add(newPair);
         }
 
         /// <summary>
         /// Unregisters a tab from this instance.
         /// Also unbinds handle from tab.
         /// </summary>
-        public void Unregister (Panel tab)
+        public void Unregister(Panel tab)
         {
-            var pair = _handleTabPairs.Single (a => a.Tab == tab);
+            var pair = _handleTabPairs.Single(a => a.Tab == tab);
             pair.UnbindHandle();
-            _handleTabPairs.Remove (pair);
+            _handleTabPairs.Remove(pair);
         }
 
         /// <summary>
         /// Switches the active tab.
         /// </summary>
-        public void SwitchTab (Panel switchTo)
+        public void SwitchTab(Panel switchTo)
         {
             foreach (var pair in _handleTabPairs)
             {
@@ -61,7 +61,7 @@ namespace UnityCSCommon.Utils.UI
 
                     if (_highlightOnX || _highlightOnY)
                     {
-                        Highlight (pair.Handle);
+                        Highlight(pair.Handle);
                     }
                 }
                 else
@@ -71,7 +71,7 @@ namespace UnityCSCommon.Utils.UI
             }
         }
 
-        private void Highlight (EventButton handle)
+        private void Highlight(EventButton handle)
         {
             var position = new Vector2();
 

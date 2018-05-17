@@ -12,21 +12,21 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Sets the active state of this <paramref name="gameObject"/> and it's first level parent.
         /// </summary>
-        public static void SetActiveWithParent (this GameObject gameObject, bool value)
+        public static void SetActiveWithParent(this GameObject gameObject, bool value)
         {
-            gameObject.SetActive (value);
-            gameObject.transform.parent.gameObject.SetActive (value);
+            gameObject.SetActive(value);
+            gameObject.transform.parent.gameObject.SetActive(value);
         }
 
         /// <summary>
         /// Sets the active state of this <paramref name="gameObject"/> and it's first level children.
         /// </summary>
-        public static void SetActiveWithChildren (this GameObject gameObject, bool value)
+        public static void SetActiveWithChildren(this GameObject gameObject, bool value)
         {
-            gameObject.SetActive (value);
+            gameObject.SetActive(value);
             foreach (Transform child in gameObject.transform)
             {
-                child.gameObject.SetActive (value);
+                child.gameObject.SetActive(value);
             }
         }
 
@@ -36,12 +36,12 @@ namespace UnityCSCommon.Utils.Common
         /// <remarks>
         /// This method loops through the hierarchy, thus eliminating recursive calls.
         /// </remarks>
-        public static void SetActiveWithAncestors (this GameObject gameObject, bool value)
+        public static void SetActiveWithAncestors(this GameObject gameObject, bool value)
         {
-            Transform t = gameObject.transform;
+            var t = gameObject.transform;
             while (t != null)
             {
-                t.gameObject.SetActive (value);
+                t.gameObject.SetActive(value);
                 t = t.parent;
             }
         }
@@ -52,20 +52,20 @@ namespace UnityCSCommon.Utils.Common
         /// <remarks>
         /// This method keeps a list of all children hierarchy as it loops through, thus eliminating recursive calls.
         /// </remarks>
-        public static void SetActiveWithDescendants (this GameObject gameObject, bool value)
+        public static void SetActiveWithDescendants(this GameObject gameObject, bool value)
         {
-            Transform firstLevel = SetActiveTSCH (gameObject.transform, value);
+            Transform firstLevel = SetActiveTSCH(gameObject.transform, value);
             if (firstLevel.childCount == 0) return;
 
-            var queue = new List<Transform> { firstLevel };
+            var queue = new List<Transform> {firstLevel};
             while (queue.Count > 0)
             {
                 for (int i = queue.Count - 1; i >= 0; i--)
                 {
-                    Transform t = SetActiveTSCH (queue[i], value);
-                    queue.RemoveAt (i);
+                    Transform t = SetActiveTSCH(queue[i], value);
+                    queue.RemoveAt(i);
 
-                    if (t.childCount > 0) queue.AddRange (t.Cast<Transform>());
+                    if (t.childCount > 0) queue.AddRange(t.Cast<Transform>());
                 }
             }
         }
@@ -76,15 +76,15 @@ namespace UnityCSCommon.Utils.Common
         /// Continues until switching to a transform with no child or more than one child. <para/>
         /// Returns the transform it stopped.
         /// </summary>
-        private static Transform SetActiveTSCH (Transform beginWith, bool value)
+        private static Transform SetActiveTSCH(Transform beginWith, bool value)
         {
             Transform t = beginWith;
-            t.gameObject.SetActive (value);
+            t.gameObject.SetActive(value);
 
             while (t.childCount == 1)
             {
-                t = t.GetChild (0);
-                t.gameObject.SetActive (value);
+                t = t.GetChild(0);
+                t.gameObject.SetActive(value);
             }
 
             return t;

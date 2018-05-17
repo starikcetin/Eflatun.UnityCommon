@@ -13,11 +13,18 @@ namespace UnityCSCommon.Utils.CodePatterns
     /// </summary>
     public class SceneSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
+        //
+        // Original: http://wiki.unity3d.com/index.php/Singleton
+        // This is a heavily modified version.
+        //
+
         private static T _instance;
 
         private static readonly object Lock = new object();
 
-        protected SceneSingleton() { }
+        protected SceneSingleton()
+        {
+        }
 
         /// <summary>
         /// Returns the singleton instance of <see cref="T"/> for this scene. Please double check you are in the correct scene before calling this.
@@ -28,7 +35,9 @@ namespace UnityCSCommon.Utils.CodePatterns
             {
                 if (_applicationIsQuitting)
                 {
-                    Debug.LogWarning(string.Format("[SceneSingleton ({0})] Application is quitting! Returning null instead of '{1}'.", SceneManager.GetActiveScene().name, typeof(T)));
+                    Debug.LogWarning(string.Format(
+                        "[SceneSingleton ({0})] Application is quitting! Returning null instead of '{1}'.",
+                        SceneManager.GetActiveScene().name, typeof(T)));
                     return null;
                 }
 
@@ -36,23 +45,28 @@ namespace UnityCSCommon.Utils.CodePatterns
                 {
                     if (_instance == null)
                     {
-                        _instance = (T)FindObjectOfType(typeof(T));
+                        _instance = (T) FindObjectOfType(typeof(T));
 
                         if (FindObjectsOfType(typeof(T)).Length > 1)
                         {
-                            Debug.LogError(string.Format("[SceneSingleton ({0})] Something went really wrong - there should never be more than 1 singleton! Reopening the scene might fix it.", SceneManager.GetActiveScene().name));
+                            Debug.LogError(string.Format(
+                                "[SceneSingleton ({0})] Something went really wrong - there should never be more than 1 singleton! Reopening the scene might fix it.",
+                                SceneManager.GetActiveScene().name));
                         }
                         else if (_instance == null)
                         {
-                            GameObject container = new GameObject();
+                            var container = new GameObject();
                             _instance = container.AddComponent<T>();
                             container.name = string.Format("(scene singleton) {0}", typeof(T));
 
-                            Debug.Log(string.Format("[SceneSingleton ({0})] An instance of {1} is needed in the scene, so '{2}' was created.", SceneManager.GetActiveScene().name, typeof(T), container));
+                            Debug.Log(string.Format(
+                                "[SceneSingleton ({0})] An instance of {1} is needed in the scene, so '{2}' was created.",
+                                SceneManager.GetActiveScene().name, typeof(T), container));
                         }
                         else
                         {
-                            Debug.Log(string.Format("[SceneSingleton ({0})] Using instance already created: {1}", SceneManager.GetActiveScene().name, _instance.gameObject.name));
+                            Debug.Log(string.Format("[SceneSingleton ({0})] Using instance already created: {1}",
+                                SceneManager.GetActiveScene().name, _instance.gameObject.name));
                         }
                     }
 

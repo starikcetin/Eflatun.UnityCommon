@@ -6,12 +6,12 @@ namespace UnityCSCommon.Utils.UI
     /// <summary>
     /// Base class for button interactions.
     /// </summary>
-    [RequireComponent (typeof (Button))]
+    [RequireComponent(typeof(Button))]
     public abstract class ButtonBase : MonoBehaviour
     {
-        void Awake()
+        private void Awake()
         {
-            GetComponent<Button>().onClick.AddListener (OnClickListener);
+            GetComponent<Button>().onClick.AddListener(OnClickListener);
         }
 
         /// <summary>
