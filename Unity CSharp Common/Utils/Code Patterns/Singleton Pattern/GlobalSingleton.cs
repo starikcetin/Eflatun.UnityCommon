@@ -12,28 +12,33 @@ namespace UnityCSCommon.Utils.CodePatterns
     /// </summary>
     public class GlobalSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
+        //
+        // Original: http://wiki.unity3d.com/index.php/Singleton
+        // This is a heavily modified version.
+        //
+
         private static T _instance;
 
         private static readonly object Lock = new object();
 
-        protected GlobalSingleton() { }
+        protected GlobalSingleton()
+        {
+        }
 
         /// <summary>
         /// Returns the singleton instance of <see cref="T"/>.
         /// </summary>
         public static T Instance
         {
-            get
-            {
-                return Instance_Get();
-            }
+            get { return Instance_Get(); }
         }
 
         private static T Instance_Get()
         {
             if (_applicationIsQuitting)
             {
-                Debug.LogWarning(string.Format("[GlobalSingleton] Application is quitting! Returning null instead of '{0}'.", typeof(T)));
+                Debug.LogWarning(string.Format(
+                    "[GlobalSingleton] Application is quitting! Returning null instead of '{0}'.", typeof(T)));
                 return null;
             }
 
@@ -41,23 +46,28 @@ namespace UnityCSCommon.Utils.CodePatterns
             {
                 if (_instance == null)
                 {
-                    _instance = (T)FindObjectOfType(typeof(T));
+                    _instance = (T) FindObjectOfType(typeof(T));
 
                     if (FindObjectsOfType(typeof(T)).Length > 1)
                     {
-                        Debug.LogError(string.Format("[GlobalSingleton] There is more than one {0} in the scene! Reopening the scene might fix it.", typeof(T)));
+                        Debug.LogError(string.Format(
+                            "[GlobalSingleton] There is more than one {0} in the scene! Reopening the scene might fix it.",
+                            typeof(T)));
                     }
                     else if (_instance == null)
                     {
-                        GameObject newContainer = new GameObject();
+                        var newContainer = new GameObject();
                         _instance = newContainer.AddComponent<T>();
-                        newContainer.name = string.Format ("(global singleton) {0}", typeof(T));
+                        newContainer.name = string.Format("(global singleton) {0}", typeof(T));
 
-                        Debug.Log(string.Format("[GlobalSingleton] An instance of {0} is needed in the scene, so '{1}' was created.", typeof(T), newContainer));
+                        Debug.Log(string.Format(
+                            "[GlobalSingleton] An instance of {0} is needed in the scene, so '{1}' was created.",
+                            typeof(T), newContainer));
                     }
                     else
                     {
-                        Debug.Log(string.Format("[GlobalSingleton] Using instance already created: '{0}' on '{1}'.", typeof(T), _instance.gameObject));
+                        Debug.Log(string.Format("[GlobalSingleton] Using instance already created: '{0}' on '{1}'.",
+                            typeof(T), _instance.gameObject));
                     }
                 }
 
@@ -91,13 +101,15 @@ namespace UnityCSCommon.Utils.CodePatterns
             {
                 if (_instance != null)
                 {
-                    Debug.LogWarning(string.Format("[GlobalSingleton] Destroying duplicate of '{0}' on '{1}'.", typeof(T), gameObject));
+                    Debug.LogWarning(string.Format("[GlobalSingleton] Destroying duplicate of '{0}' on '{1}'.",
+                        typeof(T), gameObject));
                     DestroyImmediate(this, false);
                     return;
                 }
 
-                DontDestroyOnLoad (Instance_Get());
-                Debug.Log(string.Format("[GlobalSingleton] DontDestroyOnLoad called for '{0}' on '{1}'.", typeof(T), gameObject));
+                DontDestroyOnLoad(Instance_Get());
+                Debug.Log(string.Format("[GlobalSingleton] DontDestroyOnLoad called for '{0}' on '{1}'.", typeof(T),
+                    gameObject));
             }
         }
     }
