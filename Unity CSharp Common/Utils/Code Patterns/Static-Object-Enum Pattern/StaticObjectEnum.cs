@@ -44,44 +44,46 @@ namespace UnityCSCommon.Utils.CodePatterns
         public string Name { get; private set; }
 
         /// <remarks>
-        /// Here we have some magic going on. As a nature of static fields, they don't get initialized until the type is referenced.
-        /// This is usually not a problem, but when you access the class via a generic base class with the type parameter, the type
-        /// itself doesn't get referenced directly, so the static fields don't get initialized.
+        /// Here we have some magic going on. As a nature of static fields, they don't get initialized until the type
+        /// is referenced. This is usually not a problem, but when you access the class via a generic base class with
+        /// the type parameter, the type itself doesn't get referenced directly, so the static fields don't get
+        /// initialized.
         ///
-        /// In our case, the <see cref="UnityCSCommon.Utils.Common.StringUtils.CastSOE"/> method takes a type parameter to cast to.
-        /// And in there we call the Parse method via the generic base class using the type parameter. But since the type itself has
-        /// not yet referenced, none of the static fields was being initialized at the time we call Parse method. So the
-        /// <see cref="_all"/> list had no members in it.
+        /// In our case, the <see cref="UnityCSCommon.Utils.Common.StringUtils.CastSOE{T}"/> method takes a type
+        /// parameter to cast to. And in there we call the Parse method via the generic base class using the type
+        /// parameter. But since the type itself has not yet referenced, none of the static fields was being
+        /// initialized at the time we call Parse method. So the <see cref="_all"/> list had no members in it.
         ///
-        /// But here, we manually run the static constructor on the implementor type itself in the static constructor of base class.
-        /// So the fields of implementor type will get initialized when we reference the base generic type as if we are referencing
-        /// the implementor type itself.
+        /// But here, we manually run the static constructor on the implementor type itself in the static constructor
+        /// of base class. So the fields of implementor type will get initialized when we reference the base generic
+        /// type as if we are referencing the implementor type itself.
         /// </remarks>
         static StaticObjectEnum()
         {
-            RuntimeHelpers.RunClassConstructor (typeof (T).TypeHandle);
+            RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
         }
 
-        protected StaticObjectEnum (string name)
+        protected StaticObjectEnum(string name)
         {
-            if (_all.Any (a => a.Name == name))
+            if (_all.Any(a => a.Name == name))
             {
-                throw new ArgumentException ("An instance with the same name already exists!", "name");
+                throw new ArgumentException("An instance with the same name already exists!", "name");
             }
 
             Name = name;
-            _all.Add ((T)this);
+            _all.Add((T) this);
         }
 
         /// <summary>
         /// Returns the single instance of <typeparamref name="T"/> whose <see cref="Name"/> equals to <paramref name="name"/>.
         /// </summary>
-        public static T Parse (string name)
+        public static T Parse(string name)
         {
-            return _all.Single (a => a.Name == name);
+            return _all.Single(a => a.Name == name);
         }
 
         #region Overrides of Object
+
         /// <summary>
         /// Returns <see cref="Name"/> of this instance.
         /// </summary>
@@ -89,6 +91,7 @@ namespace UnityCSCommon.Utils.CodePatterns
         {
             return Name;
         }
+
         #endregion
     }
 }
