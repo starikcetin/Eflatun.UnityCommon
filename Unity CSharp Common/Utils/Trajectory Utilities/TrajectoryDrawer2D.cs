@@ -20,7 +20,7 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
 
         private LineRenderer _lineRenderer;
 
-        void Start()
+        private void Start()
         {
             _lineRenderer = gameObject.GetComponent<LineRenderer>();
 

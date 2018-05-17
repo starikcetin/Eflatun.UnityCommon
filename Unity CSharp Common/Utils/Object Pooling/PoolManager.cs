@@ -29,7 +29,7 @@ namespace UnityCSCommon.Utils.Pooling
             get { return _allPools; }
         }
 
-        void Awake()
+        private void Awake()
         {
             foreach (var item in _allPoolSetups)
             {
