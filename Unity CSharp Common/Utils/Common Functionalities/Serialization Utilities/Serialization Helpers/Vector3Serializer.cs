@@ -8,20 +8,20 @@ namespace UnityCSCommon.Utils.Common.Serialization
     [System.Serializable]
     public class Vector3Serializer
     {
-        public float x;
-        public float y;
-        public float z;
+        public float X;
+        public float Y;
+        public float Z;
 
         public void Fill(Vector3 v3)
         {
-            x = v3.x;
-            y = v3.y;
-            z = v3.z;
+            X = v3.x;
+            Y = v3.y;
+            Z = v3.z;
         }
 
         public Vector3 V3
         {
-            get { return new Vector3(x, y, z); }
+            get { return new Vector3(X, Y, Z); }
             set { Fill(value); }
         }
 
@@ -32,7 +32,7 @@ namespace UnityCSCommon.Utils.Common.Serialization
 
         public static implicit operator Vector3Serializer(Vector3 vector)
         {
-            var serializer = new Vector3Serializer { V3 = vector };
+            var serializer = new Vector3Serializer {V3 = vector};
             return serializer;
         }
     }

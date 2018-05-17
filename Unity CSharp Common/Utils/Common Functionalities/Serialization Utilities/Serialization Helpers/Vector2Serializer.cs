@@ -8,18 +8,18 @@ namespace UnityCSCommon.Utils.Common.Serialization
     [System.Serializable]
     public class Vector2Serializer
     {
-        public float x;
-        public float y;
+        public float X;
+        public float Y;
 
         public void Fill(Vector2 v2)
         {
-            x = v2.x;
-            y = v2.y;
+            X = v2.x;
+            Y = v2.y;
         }
 
         public Vector2 V2
         {
-            get { return new Vector2(x, y); }
+            get { return new Vector2(X, Y); }
             set { Fill(value); }
         }
 
