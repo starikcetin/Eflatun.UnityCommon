@@ -25,7 +25,7 @@ namespace UnityCSCommon.Utils.InspectorWrappers
         /// </summary>
         public string Name
         {
-            get { return LayerMask.LayerToName (_layerIndex); }
+            get { return LayerMask.LayerToName(_layerIndex); }
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace UnityCSCommon.Utils.InspectorWrappers
         /// Wraps around an integer field to represent an EXISTING Unity Layer. <para/>
         /// The property drawer draws a drop-down list of available layers to choose from.
         /// </summary>
-        public LayerWrapper (int layerIndex)
+        public LayerWrapper(int layerIndex)
         {
             _layerIndex = layerIndex;
         }
@@ -56,11 +56,12 @@ namespace UnityCSCommon.Utils.InspectorWrappers
         /// <summary>
         /// Set with layer index. Will throw an exception if layer is not in range of 0-31 (both inclusive).
         /// </summary>
-        public void Set (int layerIndex)
+        public void Set(int layerIndex)
         {
             if (layerIndex < 0 || layerIndex > 31)
             {
-                throw new ArgumentOutOfRangeException ("layerIndex", layerIndex, "A Unity Layer index must be in range of 0-31 (both inclusive).");
+                throw new ArgumentOutOfRangeException("layerIndex", layerIndex,
+                    "A Unity Layer index must be in range of 0-31 (both inclusive).");
             }
 
             _layerIndex = layerIndex;
@@ -69,13 +70,13 @@ namespace UnityCSCommon.Utils.InspectorWrappers
         /// <summary>
         /// Set with layer name. Will throw an exception if no layer found with given name.
         /// </summary>
-        public void Set (string layerName)
+        public void Set(string layerName)
         {
-            var layerIndex = LayerMask.NameToLayer (layerName);
+            var layerIndex = LayerMask.NameToLayer(layerName);
 
             if (layerIndex < 0 || layerIndex > 31)
             {
-                throw new ArgumentOutOfRangeException ("layerName", layerName, "No layer found with given name.");
+                throw new ArgumentOutOfRangeException("layerName", layerName, "No layer found with given name.");
             }
 
             _layerIndex = layerIndex;
