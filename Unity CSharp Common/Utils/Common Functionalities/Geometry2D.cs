@@ -21,7 +21,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Finds the closest <see cref="Vector2"/> in <paramref name="allTargets"/> on XY plane.
         /// </summary>
-        public static Vector2 FindClosest2D (this Vector2 origin, IList<Vector2> allTargets)
+        public static Vector2 FindClosest2D(this Vector2 origin, IList<Vector2> allTargets)
         {
             if (allTargets == null)
             {
@@ -35,7 +35,7 @@ namespace UnityCSCommon.Utils.Common
             }
 
             float closestDistance = Mathf.Infinity;
-            Vector2 closest = Vector2.zero;
+            var closest = Vector2.zero;
 
             foreach (var iteratingTarget in allTargets)
             {
@@ -54,7 +54,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Finds the closest <see cref="Transform"/> in <paramref name="allTargets"/> on XY plane.
         /// </summary>
-        public static Transform FindClosest2D (this Vector2 origin, IList<Transform> allTargets)
+        public static Transform FindClosest2D(this Vector2 origin, IList<Transform> allTargets)
         {
             if (allTargets == null)
             {
@@ -87,7 +87,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Finds the closest <see cref="GameObject"/> in <paramref name="allTargets"/> on XY plane.
         /// </summary>
-        public static GameObject FindClosest2D (this Vector2 origin, IList<GameObject> allTargets)
+        public static GameObject FindClosest2D(this Vector2 origin, IList<GameObject> allTargets)
         {
             if (allTargets == null)
             {
@@ -121,7 +121,7 @@ namespace UnityCSCommon.Utils.Common
         /// <para>Returns the 2D center of all the points given.</para>
         /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
         /// </summary>
-        public static Vector2 FindCenter2D (this IList<Vector2> points, bool weighted)
+        public static Vector2 FindCenter2D(this IList<Vector2> points, bool weighted)
         {
             switch (points.Count)
             {
@@ -131,13 +131,13 @@ namespace UnityCSCommon.Utils.Common
 
             if (weighted)
             {
-                return points.Aggregate (Vector2.zero, (current, point) => current + point) / points.Count;
+                return points.Aggregate(Vector2.zero, (current, point) => current + point) / points.Count;
             }
 
-            Bounds bound = new Bounds { center = points[0] };
+            var bound = new Bounds {center = points[0]};
             foreach (var point in points)
             {
-                bound.Encapsulate (point);
+                bound.Encapsulate(point);
             }
 
             return bound.center;
@@ -147,18 +147,18 @@ namespace UnityCSCommon.Utils.Common
         /// <para>Returns the 2D center of all the points given.</para>
         /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
         /// </summary>
-        public static Vector2 FindCenter2D (this IList<GameObject> gameObjects, bool weighted)
+        public static Vector2 FindCenter2D(this IList<GameObject> gameObjects, bool weighted)
         {
-            return gameObjects.FindCenter (weighted);
+            return gameObjects.FindCenter(weighted);
         }
 
         /// <summary>
         /// <para>Returns the 2D center of all the points given.</para>
         /// <para>If <paramref name="weighted"/> is true, center point will be closer to the area that points are denser; if false, center will be the geometric exact center of bounding box of points.</para>
         /// </summary>
-        public static Vector2 FindCenter2D (this IList<Transform> transforms, bool weighted)
+        public static Vector2 FindCenter2D(this IList<Transform> transforms, bool weighted)
         {
-            return transforms.FindCenter (weighted);
+            return transforms.FindCenter(weighted);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="radius">Magnitude of position vector.</param>
         /// <param name="angle">Positive rotation of position vector from +x (in radians).</param>
         /// <returns> Cartesian equivelant of given polar coordinates. </returns>
-        public static Vector2 PolarToCartesian (float radius, float angle)
+        public static Vector2 PolarToCartesian(float radius, float angle)
         {
             var x = radius * Mathf.Cos(angle);
             var y = radius * Mathf.Sin(angle);
@@ -181,7 +181,7 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="cartesian">Carteisan coordinates.</param>
         /// <param name="radius">Magnitude of position vector.</param>
         /// <param name="angle">Positive rotation of position vector from +x.</param>
-        public static void CartesianToPolar (this Vector2 cartesian, out float radius, out float angle)
+        public static void CartesianToPolar(this Vector2 cartesian, out float radius, out float angle)
         {
             radius = cartesian.magnitude;
             angle = Mathf.Atan2(cartesian.y, cartesian.x);
@@ -190,7 +190,7 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Returns the positive angle of <paramref name="vector2"/> in radians. This method takes +X axis as 0 degrees.
         /// </summary>
-        public static float Rotation (this Vector2 vector2)
+        public static float Rotation(this Vector2 vector2)
         {
             return Mathf.Atan2(vector2.y, vector2.x);
         }
@@ -198,22 +198,22 @@ namespace UnityCSCommon.Utils.Common
         /// <summary>
         /// Rotates the Vector2 by given angle (in radians).
         /// </summary>
-        public static Vector2 Rotate (this Vector2 v, float degrees)
+        public static Vector2 Rotate(this Vector2 v, float degrees)
         {
             float sin = Mathf.Sin(degrees);
             float cos = Mathf.Cos(degrees);
 
             float tx = v.x;
             float ty = v.y;
-            v.x = (cos*tx) - (sin*ty);
-            v.y = (sin*tx) + (cos*ty);
+            v.x = (cos * tx) - (sin * ty);
+            v.y = (sin * tx) + (cos * ty);
             return v;
         }
 
         /// <summary>
         /// Determines if AABBs represented with given parameters are overlapping.
         /// </summary>
-        public static bool IsOverlapping (Vector2 aMin, Vector2 aMax, Vector2 bMin, Vector2 bMax)
+        public static bool IsOverlapping(Vector2 aMin, Vector2 aMax, Vector2 bMin, Vector2 bMax)
         {
             return !(bMin.x > aMax.x || aMin.x > bMax.x || aMin.y > bMax.y || bMin.y > aMax.y);
         }
@@ -225,11 +225,13 @@ namespace UnityCSCommon.Utils.Common
         /// This method uses an algorithm that casts an imaginary ray counting amount of sides it intersects until it reaches the point.
         /// If the count is even, point is outside; if count is odd, point is inside.
         /// </remarks>
-        public static bool IsInPoly (this Vector2 point, IList<Vector2> verticesOfPolygon)
+        public static bool IsInPoly(this Vector2 point, IList<Vector2> verticesOfPolygon)
         {
+            //
             // Original raycast algorithm: http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
             // C# conversion:              http://stackoverflow.com/a/16391873/5504706
             // Reformatted by:             S. Tarık Çetin - cetinsamedtarik[at]gmail[dot]com
+            //
 
             //Get shared variables.
             var vertexCount = verticesOfPolygon.Count;
@@ -249,7 +251,7 @@ namespace UnityCSCommon.Utils.Common
                 var jy = verticesOfPolygon[j].y;
 
                 //Cast the ray.
-                if ((iy > py) != (jy > py) && px < (jx - ix)*(py - iy)/(jy - iy) + ix)
+                if ((iy > py) != (jy > py) && px < (jx - ix) * (py - iy) / (jy - iy) + ix)
                 {
                     inside = !inside;
                 }
@@ -265,7 +267,8 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="point2">The second point.</param>
         /// <param name="maxDistance">The maximum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
         /// <param name="includeMax">Should allow distance to be equal <paramref name="maxDistance"/>?</param>
-        public static bool TestDistanceLowerThan (this Vector2 point1, Vector2 point2, float maxDistance, bool includeMax)
+        public static bool TestDistanceLowerThan(this Vector2 point1, Vector2 point2, float maxDistance,
+            bool includeMax)
         {
             if (maxDistance < 0)
             {
@@ -290,7 +293,8 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="point2">The second point.</param>
         /// <param name="minDistance">The minimum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
         /// <param name="includeMin">Should allow distance to be equal <paramref name="minDistance"/>?</param>
-        public static bool TestDistanceGreaterThan (this Vector2 point1, Vector2 point2, float minDistance, bool includeMin)
+        public static bool TestDistanceGreaterThan(this Vector2 point1, Vector2 point2, float minDistance,
+            bool includeMin)
         {
             if (minDistance < 0)
             {
@@ -317,7 +321,8 @@ namespace UnityCSCommon.Utils.Common
         /// <param name="maxDistance">The maximum distance allowed between <paramref name="point1"/> and <paramref name="point2"/>.</param>
         /// <param name="includeMax">Should allow distance to be equal <paramref name="maxDistance"/>?</param>
         /// <param name="includeMin">Should allow distance to be equal <paramref name="minDistance"/>?</param>
-        public static bool TestDistanceInBetween (this Vector2 point1, Vector2 point2, float minDistance, float maxDistance, bool includeMin, bool includeMax)
+        public static bool TestDistanceInBetween(this Vector2 point1, Vector2 point2, float minDistance,
+            float maxDistance, bool includeMin, bool includeMax)
         {
             if (maxDistance < 0)
             {
@@ -332,7 +337,7 @@ namespace UnityCSCommon.Utils.Common
                 // Distance between two points can never be less than 0.
                 // If minDistance is less than zero any distance will be greater.
                 // In this case, the min condition will always be met, we just need to test the max.
-                return TestDistanceLowerThan (point1, point2, maxDistance, includeMax);
+                return TestDistanceLowerThan(point1, point2, maxDistance, includeMax);
             }
 
             float sqrDist = (point2 - point1).sqrMagnitude;

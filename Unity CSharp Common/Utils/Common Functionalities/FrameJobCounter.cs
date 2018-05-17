@@ -61,14 +61,14 @@ namespace UnityCSCommon.Utils.Common
             }
         }
 
-        public FrameJobCounter (int jobLimitPerFrame)
+        public FrameJobCounter(int jobLimitPerFrame)
         {
             JobLimitPerFrame = jobLimitPerFrame;
             JobCountThisFrame = 0;
         }
 
         /// <summary>
-        /// Call when a job is finished.
+        /// Call this when a job is finished.
         /// </summary>
         public void JobDone()
         {

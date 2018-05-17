@@ -21,7 +21,7 @@ namespace UnityCSCommon.Utils.Common
             _random = new Random(seed);
         }
 
-        public void ChangeSeed (int seed)
+        public void ChangeSeed(int seed)
         {
             _random = new Random(seed);
         }
@@ -30,7 +30,7 @@ namespace UnityCSCommon.Utils.Common
         /// <para>Returns a shuffled version of given list. Original doesn't change.</para>
         /// <para>(This method clones a new list and does shuffling operation on the clone; then returns the clone.)</para>
         /// </summary>
-        public List<T> SafeShuffle<T> (IList<T> original)
+        public List<T> SafeShuffle<T>(IList<T> original)
         {
             var newList = new List<T>(original);
             FisherYatesShuffle(newList);
@@ -41,19 +41,19 @@ namespace UnityCSCommon.Utils.Common
         /// <para>Shuffles the given list. Original changes.</para>
         /// <para>(This method does shuffling operation on the original list.)</para>
         /// </summary>
-        public void Shuffle (IList original)
+        public void Shuffle(IList original)
         {
             FisherYatesShuffle(original);
         }
 
-        private void FisherYatesShuffle (IList list)
+        private void FisherYatesShuffle(IList list)
         {
             int count = list.Count;
 
             for (int i = 0; i < count; i++)
             {
                 int randomIndex = _random.Next(count); //Get a random index.
-                list.Swap (i, randomIndex);            //Swap the items at i and random index.
+                list.Swap(i, randomIndex); //Swap the items at i and random index.
             }
         }
     }
