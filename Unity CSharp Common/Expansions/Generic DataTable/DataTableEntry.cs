@@ -24,7 +24,7 @@ namespace UnityCSCommon.Expansions
             get { return _cell; }
         }
 
-        public DataTableEntry (TRow row, TCol col, TCell cell)
+        public DataTableEntry(TRow row, TCol col, TCell cell)
         {
             _row = row;
             _col = col;
