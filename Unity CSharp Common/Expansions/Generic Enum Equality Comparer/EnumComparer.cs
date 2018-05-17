@@ -91,30 +91,30 @@ namespace UnityCSCommon.Expansions
 
         private static void assertTypeIsEnum()
         {
-            if (typeof (TEnum).IsEnum)
+            if (typeof(TEnum).IsEnum)
                 return;
             var message =
                 string.Format("The type parameter {0} is not an Enum. LcgEnumComparer supports Enums only.",
-                    typeof (TEnum));
+                    typeof(TEnum));
             throw new NotSupportedException(message);
         }
 
         private static void assertUnderlyingTypeIsSupported()
         {
-            var underlyingType = Enum.GetUnderlyingType(typeof (TEnum));
+            var underlyingType = Enum.GetUnderlyingType(typeof(TEnum));
             ICollection<Type> supportedTypes =
                 new[]
                 {
-                    typeof (byte), typeof (sbyte), typeof (short), typeof (ushort),
-                    typeof (int), typeof (uint), typeof (long), typeof (ulong)
+                    typeof(byte), typeof(sbyte), typeof(short), typeof(ushort),
+                    typeof(int), typeof(uint), typeof(long), typeof(ulong)
                 };
             if (supportedTypes.Contains(underlyingType))
                 return;
             var message =
                 string.Format("The underlying type of the type parameter {0} is {1}. " +
-                    "LcgEnumComparer only supports Enums with underlying type of " +
-                    "byte, sbyte, short, ushort, int, uint, long, or ulong.",
-                    typeof (TEnum), underlyingType);
+                              "LcgEnumComparer only supports Enums with underlying type of " +
+                              "byte, sbyte, short, ushort, int, uint, long, or ulong.",
+                    typeof(TEnum), underlyingType);
             throw new NotSupportedException(message);
         }
 
@@ -124,18 +124,18 @@ namespace UnityCSCommon.Expansions
             var yParam = Expression.Parameter(typeof(TEnum), "y");
             var equalExpression = Expression.Equal(xParam, yParam);
             return Expression.Lambda<Func<TEnum, TEnum, bool>>(equalExpression, new[]
-                { xParam, yParam }).Compile();
+                {xParam, yParam}).Compile();
         }
 
         private static Func<TEnum, int> generateGetHashCode()
         {
             var objParam = Expression.Parameter(typeof(TEnum), "obj");
-            var underlyingType = Enum.GetUnderlyingType(typeof (TEnum));
+            var underlyingType = Enum.GetUnderlyingType(typeof(TEnum));
             var convertExpression = Expression.Convert(objParam, underlyingType);
             var getHashCodeMethod = underlyingType.GetMethod("GetHashCode");
             var getHashCodeExpression = Expression.Call(convertExpression, getHashCodeMethod);
             return Expression.Lambda<Func<TEnum, int>>(getHashCodeExpression, new[]
-                { objParam }).Compile();
+                {objParam}).Compile();
         }
     }
 }
