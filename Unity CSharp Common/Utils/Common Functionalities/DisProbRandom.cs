@@ -4,6 +4,11 @@ using System.Linq;
 
 namespace UnityCSCommon.Utils.Common
 {
+    //
+    // Original Source: https://stackoverflow.com/a/9958717/6301627
+    // Slightly modified.
+    //
+
     /// <summary>
     /// Distributed Probability Random Number Generator (Just like a cheated/weighted dice)
     /// </summary>
@@ -38,7 +43,7 @@ namespace UnityCSCommon.Utils.Common
         private readonly int _n;
         private readonly bool _even;
 
-        public DisProbRandom (IEnumerable<int> probs, int seed)
+        public DisProbRandom(IEnumerable<int> probs, int seed)
         {
             // Raise an error if null
             if (probs == null) throw new ArgumentNullException("probs");
@@ -49,7 +54,7 @@ namespace UnityCSCommon.Utils.Common
             _random = new Random(seed);
             var small = new List<int>();
             var large = new List<int>();
-            var tmpprobs = probs.Select (p => (long)p).ToList();
+            var tmpprobs = probs.Select(p => (long) p).ToList();
 
             _n = tmpprobs.Count;
 
@@ -104,6 +109,7 @@ namespace UnityCSCommon.Utils.Common
                 else
                     large.Add(g);
             }
+
             foreach (var g in large)
                 _prob[g] = _total;
             foreach (var l in small)
