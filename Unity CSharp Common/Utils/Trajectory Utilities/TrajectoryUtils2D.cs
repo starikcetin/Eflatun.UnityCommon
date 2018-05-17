@@ -21,7 +21,8 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// <param name="gravity">Magnitude of gravity. This method assumes that gravity is directly downwards.</param>
         /// <param name="initVel">The initial velocity.</param>
         /// <returns>Sample positions from the trajectory in flight time order.</returns>
-        public static IList<Vector2> SampleTrajectory (float sampleTimePeriod, int resolution, float gravity, Vector2 initVel)
+        public static IList<Vector2> SampleTrajectory(float sampleTimePeriod, int resolution, float gravity,
+            Vector2 initVel)
         {
             var resultSamples = new List<Vector2>();
 
@@ -30,12 +31,12 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
                 return resultSamples;
             }
 
-            var sampleInterval = sampleTimePeriod/resolution;
+            var sampleInterval = sampleTimePeriod / resolution;
 
             for (var t = 0f; t <= sampleTimePeriod; t += sampleInterval)
             {
-                var sample = PositionAtTime (gravity, initVel, t);
-                resultSamples.Add (sample);
+                var sample = PositionAtTime(gravity, initVel, t);
+                resultSamples.Add(sample);
             }
 
             return resultSamples;
@@ -48,11 +49,11 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVel">Initial velocity of the object.</param>
         /// <param name="time">The time.</param>
-        public static Vector2 PositionAtTime (float gravity, Vector2 initVel, float time)
+        public static Vector2 PositionAtTime(float gravity, Vector2 initVel, float time)
         {
-            float finalX = XAtTime (initVel.x, time);
-            float finalY = YAtTime (gravity, initVel.y, time);
-            return new Vector2 (finalX, finalY);
+            float finalX = XAtTime(initVel.x, time);
+            float finalY = YAtTime(gravity, initVel.y, time);
+            return new Vector2(finalX, finalY);
         }
 
         /// <summary>
@@ -61,13 +62,13 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVel">Initial velocity of the object.</param>
-        public static Vector2 PositionAtMaxHeight (float gravity, Vector2 initVel)
+        public static Vector2 PositionAtMaxHeight(float gravity, Vector2 initVel)
         {
-            float maxHeight = MaxHeight (gravity, initVel.y);
-            float timeToReachMaxHeight = TimeAtMaxHeight (gravity, initVel.y);
-            float xAtMaxHeight = XAtTime (initVel.x, timeToReachMaxHeight);
+            float maxHeight = MaxHeight(gravity, initVel.y);
+            float timeToReachMaxHeight = TimeAtMaxHeight(gravity, initVel.y);
+            float xAtMaxHeight = XAtTime(initVel.x, timeToReachMaxHeight);
 
-            return new Vector2 (maxHeight, xAtMaxHeight);
+            return new Vector2(maxHeight, xAtMaxHeight);
         }
 
         /// <summary>
@@ -76,9 +77,9 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// </summary>
         /// <param name="initVelX">X component of initial velocity of object.</param>
         /// <param name="time">The time.</param>
-        public static float XAtTime (float initVelX, float time)
+        public static float XAtTime(float initVelX, float time)
         {
-            return initVelX*time;
+            return initVelX * time;
         }
 
         /// <summary>
@@ -88,9 +89,9 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVelY">Y component of initial velocity of object.</param>
         /// <param name="time">The time.</param>
-        public static float YAtTime (float gravity, float initVelY, float time)
+        public static float YAtTime(float gravity, float initVelY, float time)
         {
-            return initVelY*time - gravity*time*time/2;
+            return initVelY * time - gravity * time * time / 2;
         }
 
         /// <summary>
@@ -99,9 +100,9 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVelY">Y component of initial velocity of object.</param>
-        public static float MaxHeight (float gravity, float initVelY)
+        public static float MaxHeight(float gravity, float initVelY)
         {
-            return initVelY*initVelY / 2*gravity;
+            return initVelY * initVelY / 2 * gravity;
         }
 
         /// <summary>
@@ -109,9 +110,9 @@ namespace UnityCSCommon.Utils.TrajectoryUtilities
         /// </summary>
         /// <param name="gravity">Magnitude of gravity vector. Gravity vector is assumed to be downwards only.</param>
         /// <param name="initVelY">Y component of initial velocity of object.</param>
-        public static float TimeAtMaxHeight (float gravity, float initVelY)
+        public static float TimeAtMaxHeight(float gravity, float initVelY)
         {
-            return initVelY/gravity;
+            return initVelY / gravity;
         }
     }
 }
