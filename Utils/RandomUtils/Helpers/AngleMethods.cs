@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Random.Helpers
+namespace starikcetin.UnityCommon.Utils.RandomUtils.Helpers
 {
     /// <summary>
     /// Methods related to angles for <see cref="BetterRandom"/> class.

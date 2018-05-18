@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace starikcetin.UnityCommon.Utils.Random.Helpers
+namespace starikcetin.UnityCommon.Utils.RandomUtils.Helpers
 {
     /// <summary>
     /// Integer methods for <see cref="BetterRandom"/> class.

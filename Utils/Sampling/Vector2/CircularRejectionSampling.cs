@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using starikcetin.UnityCommon.Utils.Calculation;
-using starikcetin.UnityCommon.Utils.Random;
+using starikcetin.UnityCommon.Utils.RandomUtils;
 
 namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
 {

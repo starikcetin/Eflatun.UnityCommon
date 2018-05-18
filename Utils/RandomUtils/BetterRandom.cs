@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using starikcetin.UnityCommon.Utils.Random.Helpers;
+using starikcetin.UnityCommon.Utils.RandomUtils.Helpers;
 
-namespace starikcetin.UnityCommon.Utils.Random
+namespace starikcetin.UnityCommon.Utils.RandomUtils
 {
     /// <summary>
     /// A better Random class.
