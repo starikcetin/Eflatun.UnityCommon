@@ -32,7 +32,5 @@ desktop.ini
 ehthumbs.db
 Thumbs.db
 
-# Meta files in root 
-# This may be temporary, since it may become unnecessary or even harmful depending 
-# on how I decide to further manage distribution of this library for development and usage.
-/*.meta
+# All meta files
+*.meta
