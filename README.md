@@ -1,6 +1,6 @@
-# Unity CSharp Common Library #
+# starikcetin.UnityCommon #
 
-This library includes methods and custom types that can be shared across all Unity projects.
+This library includes common code that are shared across all of my Unity projects.
 
 
 Folders
