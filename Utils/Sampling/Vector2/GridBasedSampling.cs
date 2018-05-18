@@ -10,7 +10,7 @@ namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
     /// </summary>
     public class GridBasedSampling
     {
-        private readonly ListShuffle _listShuffler;
+        private readonly ListShuffler _listShuffler;
         private readonly List<UnityEngine.Vector2> _allNodes;
         private List<UnityEngine.Vector2> _availableNodes;
 
@@ -21,7 +21,7 @@ namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
         /// <param name="seed">Seed.</param>
         public GridBasedSampling(IList<UnityEngine.Vector2> grid, int seed)
         {
-            _listShuffler = new ListShuffle(seed);
+            _listShuffler = new ListShuffler(seed);
 
             _allNodes = new List<UnityEngine.Vector2>(grid);
             _listShuffler.Shuffle(_allNodes);

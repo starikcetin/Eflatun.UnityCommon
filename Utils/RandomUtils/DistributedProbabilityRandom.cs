@@ -12,10 +12,10 @@ namespace starikcetin.UnityCommon.Utils.RandomUtils
     /// <summary>
     /// Distributed Probability Random Number Generator (Just like a cheated/weighted dice)
     /// </summary>
-    public class DisProbRandom
+    public class DistributedProbabilityRandom
     {
         // Usage Example:
-        //  var disProbRandom = new DisProbRandom (new int[]{150,40,15,3});   // list of probabilities for each number: 0 is 150, 1 is 40, and so on.
+        //  var disProbRandom = new DistributedProbabilityRandom (new int[]{150,40,15,3});   // list of probabilities for each number: 0 is 150, 1 is 40, and so on.
         //  int number = disProbRandom.nextValue();                           // return a number from 0-3 according to given probabilities; the number can be an index to another array, if needed.
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace starikcetin.UnityCommon.Utils.RandomUtils
         /// the chances are 3/9, 4/9, and 2/9, since the
         /// probabilities add up to 9.
         /// </summary>
-        public DisProbRandom(int probs, int seed)
+        public DistributedProbabilityRandom(int probs, int seed)
         {
             _prob = new List<long>();
             _alias = new List<int>();
@@ -43,7 +43,7 @@ namespace starikcetin.UnityCommon.Utils.RandomUtils
         private readonly int _n;
         private readonly bool _even;
 
-        public DisProbRandom(IEnumerable<int> probs, int seed)
+        public DistributedProbabilityRandom(IEnumerable<int> probs, int seed)
         {
             // Raise an error if null
             if (probs == null) throw new ArgumentNullException("probs");

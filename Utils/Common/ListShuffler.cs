@@ -6,16 +6,16 @@ namespace starikcetin.UnityCommon.Utils.Common
     /// <summary>
     /// Includes methods to shuffle lists with seeding, using Fisher-Yates algorithm.
     /// </summary>
-    public class ListShuffle
+    public class ListShuffler
     {
         private System.Random _random;
 
-        public ListShuffle()
+        public ListShuffler()
         {
             _random = new System.Random();
         }
 
-        public ListShuffle(int seed)
+        public ListShuffler(int seed)
         {
             _random = new System.Random(seed);
         }

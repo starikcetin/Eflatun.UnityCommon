@@ -6,7 +6,7 @@ namespace starikcetin.UnityCommon.Utils.Calculation
     /// A class that includes standard mathematical functions for types that doesn't included in Unity's Mathf class; such as double and long.
     /// Also includes some other useful mathematical functions.
     /// </summary>
-    public static class Mathf2
+    public static class MathUtils
     {
         public const int LayerMaskAll = ~0;
         public const int LayerMaskNone = 0;
