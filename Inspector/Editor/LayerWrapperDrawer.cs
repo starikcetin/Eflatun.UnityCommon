@@ -8,7 +8,7 @@ namespace starikcetin.UnityCommon.Inspector.Editor
     /// Draws a drop-down list of all available layers to choose from.
     /// </summary>
     [CustomPropertyDrawer(typeof(LayerWrapper))]
-    public class LayerWrapperPropertyDrawer : PropertyDrawer
+    public class LayerWrapperDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
