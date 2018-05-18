@@ -1,4 +1,4 @@
-# starikcetin.UnityCommon #
+# Eflatun.UnityCommon #
 
 This library includes common code that are shared across all of my Unity projects.
 
@@ -20,7 +20,7 @@ Notes
 
 License
 ---
-MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Unity-CSharp-Common-Library/blob/master/LICENSE) file.
+MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Eflatun.UnityCommon/blob/master/LICENSE) file.
 
 Copyright (c) 2018 S. Tarık Çetin
 
