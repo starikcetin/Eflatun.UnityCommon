@@ -2,7 +2,21 @@
 
 This library includes methods and custom types that can be shared across all Unity projects.
 
-For details and contirubution refer to *Notes.txt* file in the "Unity CSharp Common" folder.
+
+Folders
+---
+- Expansions:     Independent of Unity.
+- Inspector:      Unity dependent, Editor and Inspector.
+- Utils:          Unity dependent.
+
+*If a type uses anything that Unity provides, than it is Unity dependent.*
+
+
+Notes
+---
+- You may prefer using this library as a subtree (or submodule) in your git repository.
+- *Editor* folders are special folders that Unity use to identify editor-only scripts. So all *Editor* folders in this framework are intended for that purpose. Thus, do not use *Editor* as a custom folder name, use *Inspector* instead.
+
 
 License
 ---
