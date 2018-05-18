@@ -1,8 +1,8 @@
 using System;
-using UnityCSCommon.Utils.Common;
+using starikcetin.UnityCommon.Utils.Calculation;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.RandomUtils.Utility
+namespace starikcetin.UnityCommon.Utils.Random.Helpers
 {
     /// <summary>
     /// Vector2 methods for <see cref="BetterRandom"/> class.

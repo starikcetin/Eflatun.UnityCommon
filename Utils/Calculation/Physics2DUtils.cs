@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Calculation
 {
     /// <summary>
     /// 2D physics utilities.

@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics.Contracts;
 using System.Linq;
+//using System.Diagnostics.Contracts;
 
-namespace UnityCSCommon.Expansions
+namespace starikcetin.UnityCommon.Expansions
 {
     /// <summary>
     /// A dictionary that remembers the order that keys were first inserted. <para/>

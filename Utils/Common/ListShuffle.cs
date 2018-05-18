@@ -1,29 +1,28 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Includes methods to shuffle lists with seeding, using Fisher-Yates algorithm.
     /// </summary>
     public class ListShuffle
     {
-        private Random _random;
+        private System.Random _random;
 
         public ListShuffle()
         {
-            _random = new Random();
+            _random = new System.Random();
         }
 
         public ListShuffle(int seed)
         {
-            _random = new Random(seed);
+            _random = new System.Random(seed);
         }
 
         public void ChangeSeed(int seed)
         {
-            _random = new Random(seed);
+            _random = new System.Random(seed);
         }
 
         /// <summary>

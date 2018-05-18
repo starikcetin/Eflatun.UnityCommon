@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using starikcetin.UnityCommon.Utils.Common;
 
-namespace UnityCSCommon.Utils.CodePatterns
+namespace starikcetin.UnityCommon.Utils.CodePatterns
 {
     /// <summary>
     /// Base class for types that follow Static-Object-Enum pattern. <para />
@@ -49,7 +50,7 @@ namespace UnityCSCommon.Utils.CodePatterns
         /// the type parameter, the type itself doesn't get referenced directly, so the static fields don't get
         /// initialized.
         ///
-        /// In our case, the <see cref="UnityCSCommon.Utils.Common.StringUtils.CastSOE{T}"/> method takes a type
+        /// In our case, the <see cref="StringUtils.CastSOE{T}"/> method takes a type
         /// parameter to cast to. And in there we call the Parse method via the generic base class using the type
         /// parameter. But since the type itself has not yet referenced, none of the static fields was being
         /// initialized at the time we call Parse method. So the <see cref="_all"/> list had no members in it.

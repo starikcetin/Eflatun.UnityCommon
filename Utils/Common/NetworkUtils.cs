@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Utilities for Networking.

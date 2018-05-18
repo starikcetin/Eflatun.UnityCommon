@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UnityCSCommon.Utils.CodePatterns
+namespace starikcetin.UnityCommon.Utils.CodePatterns
 {
     /// <summary>
     /// <para>Base class for a singleton MonoBehaviour that gets destroyed if current scene changes.</para>

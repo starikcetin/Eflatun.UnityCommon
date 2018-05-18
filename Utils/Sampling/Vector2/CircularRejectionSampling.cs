@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityCSCommon.Utils.Common;
-using UnityCSCommon.Utils.RandomUtils;
-using UnityEngine;
+using starikcetin.UnityCommon.Utils.Calculation;
+using starikcetin.UnityCommon.Utils.Random;
 
-namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
+namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
 {
     /// <summary>
     /// Rejection sampling for a circular area.
     /// </summary>
     public class CircularRejectionSampling
     {
-        private readonly Vector2 _origin;
+        private readonly UnityEngine.Vector2 _origin;
         private readonly float _radius;
         private readonly int _seed;
-        private readonly List<Vector2> _returnedSamples;
+        private readonly List<UnityEngine.Vector2> _returnedSamples;
 
         private BetterRandom _random;
 
@@ -25,13 +24,13 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="origin">Origin of the circle.</param>
         /// <param name="radius">Radius of the circle.</param>
         /// <param name="seed">Seed.</param>
-        public CircularRejectionSampling(Vector2 origin, float radius, int seed)
+        public CircularRejectionSampling(UnityEngine.Vector2 origin, float radius, int seed)
         {
             _origin = origin;
             _radius = radius;
             _seed = seed;
             _random = new BetterRandom(seed);
-            _returnedSamples = new List<Vector2>();
+            _returnedSamples = new List<UnityEngine.Vector2>();
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="minDist">Minimum distance from all previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMin(int maxTrials, float minDist, out Vector2 sample)
+        public bool TrySampleMin(int maxTrials, float minDist, out UnityEngine.Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
@@ -73,7 +72,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 }
             }
 
-            sample = Vector2.zero;
+            sample = UnityEngine.Vector2.zero;
             return false;
         }
 
@@ -85,7 +84,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMax(int maxTrials, float maxDist, out Vector2 sample)
+        public bool TrySampleMax(int maxTrials, float maxDist, out UnityEngine.Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
@@ -100,7 +99,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 }
             }
 
-            sample = Vector2.zero;
+            sample = UnityEngine.Vector2.zero;
             return false;
         }
 
@@ -113,7 +112,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
         /// <param name="sample">The sample.</param>
         /// <returns>True if a suitable sample is found, false otherwise.</returns>
-        public bool TrySampleMinMax(int maxTrials, float minDist, float maxDist, out Vector2 sample)
+        public bool TrySampleMinMax(int maxTrials, float minDist, float maxDist, out UnityEngine.Vector2 sample)
         {
             for (var trials = 0; trials < maxTrials; trials++)
             {
@@ -137,7 +136,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 }
             }
 
-            sample = Vector2.zero;
+            sample = UnityEngine.Vector2.zero;
             return false;
         }
 
@@ -147,9 +146,9 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="minDist">Minimum distance from all previous samples.</param>
-        public Vector2 SampleMin(int maxTrials, float minDist)
+        public UnityEngine.Vector2 SampleMin(int maxTrials, float minDist)
         {
-            Vector2 sample;
+            UnityEngine.Vector2 sample;
             if (TrySampleMin(maxTrials, minDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMin method.
@@ -165,9 +164,9 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
-        public Vector2 SampleMax(int maxTrials, float maxDist)
+        public UnityEngine.Vector2 SampleMax(int maxTrials, float maxDist)
         {
-            Vector2 sample;
+            UnityEngine.Vector2 sample;
             if (TrySampleMax(maxTrials, maxDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMax method.
@@ -184,9 +183,9 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxTrials">Maximum attempts to find a suitable sample.</param>
         /// <param name="minDist">Minimum distance from all previous samples.</param>
         /// <param name="maxDist">Maximum distance from at least one of the previous samples.</param>
-        public Vector2 SampleMinMax(int maxTrials, float minDist, float maxDist)
+        public UnityEngine.Vector2 SampleMinMax(int maxTrials, float minDist, float maxDist)
         {
-            Vector2 sample;
+            UnityEngine.Vector2 sample;
             if (TrySampleMinMax(maxTrials, minDist, maxDist, out sample))
             {
                 //The addition to returned samples is done in TrySampleMinMax method.
@@ -203,12 +202,12 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="amount">The amount of samples . The result may be lower than this number.</param>
         /// <param name="maxTrialsEach">Maximum attempts to find a suitable sample for each try.</param>
         /// <param name="minDist">Minimum distance of each sample from all previous samples.</param>
-        public List<Vector2> SampleMin(int amount, int maxTrialsEach, float minDist)
+        public List<UnityEngine.Vector2> SampleMin(int amount, int maxTrialsEach, float minDist)
         {
-            var samples = new List<Vector2>();
+            var samples = new List<UnityEngine.Vector2>();
             for (var i = 0; i < amount; i++)
             {
-                Vector2 sample;
+                UnityEngine.Vector2 sample;
                 if (TrySampleMin(maxTrialsEach, minDist, out sample))
                 {
                     //The addition to returned samples is done in TrySampleMin method.
@@ -226,12 +225,12 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="amount">The amount of samples. The result may be lower than this number.</param>
         /// <param name="maxTrialsEach">Maximum attempts to find a suitable sample for each try.</param>
         /// <param name="maxDist">Maximum distance of each sample from at least one of the previous samples.</param>
-        public List<Vector2> SampleMax(int amount, int maxTrialsEach, float maxDist)
+        public List<UnityEngine.Vector2> SampleMax(int amount, int maxTrialsEach, float maxDist)
         {
-            var samples = new List<Vector2>();
+            var samples = new List<UnityEngine.Vector2>();
             for (var i = 0; i < amount; i++)
             {
-                Vector2 sample;
+                UnityEngine.Vector2 sample;
                 if (TrySampleMax(maxTrialsEach, maxDist, out sample))
                 {
                     //The addition to returned samples is done in TrySampleMax method.
@@ -250,12 +249,12 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <param name="maxTrialsEach">Maximum attempts to find a suitable sample for each try.</param>
         /// <param name="minDist">Minimum distance of each sample from all previous samples.</param>
         /// <param name="maxDist">Maximum distance of each sample from at least one of the previous samples.</param>
-        public List<Vector2> SampleMinMax(int amount, int maxTrialsEach, float minDist, float maxDist)
+        public List<UnityEngine.Vector2> SampleMinMax(int amount, int maxTrialsEach, float minDist, float maxDist)
         {
-            var samples = new List<Vector2>();
+            var samples = new List<UnityEngine.Vector2>();
             for (var i = 0; i < amount; i++)
             {
-                Vector2 sample;
+                UnityEngine.Vector2 sample;
                 if (TrySampleMinMax(maxTrialsEach, minDist, maxDist, out sample))
                 {
                     //The addition to returned samples is done in TrySampleMinMax method.

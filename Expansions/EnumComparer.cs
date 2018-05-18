@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace UnityCSCommon.Expansions
+namespace starikcetin.UnityCommon.Expansions
 {
     // --------------------------
     // The code below is taken from:

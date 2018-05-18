@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI
 {
     /// <summary>
     /// A Button type that navigates between two panels when clicked.

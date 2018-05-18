@@ -1,8 +1,8 @@
 ﻿using System;
-using UnityCSCommon.Utils.CodePatterns;
+using starikcetin.UnityCommon.Utils.CodePatterns;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Provides utilities for strings.

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Utilities for C# Generic Lists.

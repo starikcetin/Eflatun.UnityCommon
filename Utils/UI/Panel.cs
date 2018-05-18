@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI
 {
     /// <summary>
     /// A component to identify and interfere with Panel gameObjects.

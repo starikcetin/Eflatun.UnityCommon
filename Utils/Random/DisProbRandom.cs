@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Random
 {
     //
     // Original Source: https://stackoverflow.com/a/9958717/6301627
@@ -33,10 +33,10 @@ namespace UnityCSCommon.Utils.Common
             _total = 0;
             _n = probs;
             _even = true;
-            _random = new Random(seed);
+            _random = new System.Random(seed);
         }
 
-        private readonly Random _random;
+        private readonly System.Random _random;
         private readonly List<long> _prob;
         private readonly List<int> _alias;
         private readonly long _total;
@@ -51,7 +51,7 @@ namespace UnityCSCommon.Utils.Common
             _alias = new List<int>();
             _total = 0;
             _even = false;
-            _random = new Random(seed);
+            _random = new System.Random(seed);
             var small = new List<int>();
             var large = new List<int>();
             var tmpprobs = probs.Select(p => (long) p).ToList();

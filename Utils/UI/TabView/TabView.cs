@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI.TabView
 {
     /// <summary>
     /// Manager for a tabbed UI view.

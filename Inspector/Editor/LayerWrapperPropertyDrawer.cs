@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.InspectorWrappers
+namespace starikcetin.UnityCommon.Inspector.Editor
 {
     /// <summary>
     /// Property drawer for <see cref="LayerWrapper"/> class. <para />

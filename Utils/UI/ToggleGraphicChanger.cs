@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI
 {
     /// <summary>
     /// Changes the graphic of <see cref="Toggle"/> depending on it's state.

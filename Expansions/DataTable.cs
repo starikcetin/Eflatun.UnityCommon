@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace UnityCSCommon.Expansions
+namespace starikcetin.UnityCommon.Expansions
 {
     /// <summary>
     /// A fast collection that consists of rows and columns, and cells that corresponds to intersection of these. <para/>

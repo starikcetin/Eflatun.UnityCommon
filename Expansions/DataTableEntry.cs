@@ -1,4 +1,4 @@
-namespace UnityCSCommon.Expansions
+namespace starikcetin.UnityCommon.Expansions
 {
     /// <summary>
     /// The value type of the internal dictionary of a <see cref="DataTable{TRow,TCol,TCell}"/> class.

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityCSCommon.Utils.Common;
-using UnityEngine;
+using starikcetin.UnityCommon.Utils.Common;
 
-namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
+namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
 {
     /// <summary>
     /// Grid based sampling of Vector2s.
@@ -12,22 +11,22 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
     public class GridBasedSampling
     {
         private readonly ListShuffle _listShuffler;
-        private readonly List<Vector2> _allNodes;
-        private List<Vector2> _availableNodes;
+        private readonly List<UnityEngine.Vector2> _allNodes;
+        private List<UnityEngine.Vector2> _availableNodes;
 
         /// <summary>
         /// Generates random Vector2 samples from a grid.
         /// </summary>
         /// <param name="grid">The grid to make sampling on.</param>
         /// <param name="seed">Seed.</param>
-        public GridBasedSampling(IList<Vector2> grid, int seed)
+        public GridBasedSampling(IList<UnityEngine.Vector2> grid, int seed)
         {
             _listShuffler = new ListShuffle(seed);
 
-            _allNodes = new List<Vector2>(grid);
+            _allNodes = new List<UnityEngine.Vector2>(grid);
             _listShuffler.Shuffle(_allNodes);
 
-            _availableNodes = new List<Vector2>(_allNodes);
+            _availableNodes = new List<UnityEngine.Vector2>(_allNodes);
         }
 
         /// <summary>
@@ -40,7 +39,7 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
                 _listShuffler.Shuffle(_allNodes);
             }
 
-            _availableNodes = new List<Vector2>(_allNodes);
+            _availableNodes = new List<UnityEngine.Vector2>(_allNodes);
         }
 
         /// <summary>
@@ -48,11 +47,11 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// </summary>
         /// <param name="sample">The sample node.</param>
         /// <returns>True if a node is found, returns false otherwise.</returns>
-        public bool TrySample(out Vector2 sample)
+        public bool TrySample(out UnityEngine.Vector2 sample)
         {
             if (_availableNodes.Count == 0)
             {
-                sample = Vector2.zero;
+                sample = UnityEngine.Vector2.zero;
                 return false;
             }
 
@@ -64,9 +63,9 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// <summary>
         /// Gets an available node. Throws an exception if no node is available.
         /// </summary>
-        public Vector2 Sample()
+        public UnityEngine.Vector2 Sample()
         {
-            Vector2 sample;
+            UnityEngine.Vector2 sample;
             if (TrySample(out sample))
             {
                 return sample;
@@ -79,9 +78,9 @@ namespace UnityCSCommon.Utils.Sampling.Vector2Sampling
         /// Tries to sample an amount of nodes. The result may be lower than <paramref name="amount"/>.
         /// </summary>
         /// <param name="amount">The amount of samples. The result may be lower.</param>
-        public List<Vector2> Sample(int amount)
+        public List<UnityEngine.Vector2> Sample(int amount)
         {
-            List<Vector2> nodes = _availableNodes.Take(amount).ToList();
+            List<UnityEngine.Vector2> nodes = _availableNodes.Take(amount).ToList();
             _availableNodes.RemoveAll(nodes.Contains);
             return nodes;
         }

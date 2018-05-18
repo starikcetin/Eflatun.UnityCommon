@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Utilities for <see cref="Enum"/>.

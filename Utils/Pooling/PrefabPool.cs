@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.Pooling
+namespace starikcetin.UnityCommon.Utils.Pooling
 {
     /// <summary>
     /// Pool for prefabs.

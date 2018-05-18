@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Calculation
 {
     //
     // Original source: http://csharphelper.com/blog/2014/07/find-the-convex-hull-of-a-set-of-points-in-c/

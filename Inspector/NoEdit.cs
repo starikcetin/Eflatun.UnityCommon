@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSCommon.Inspector.PropertyAttributes
+namespace starikcetin.UnityCommon.Inspector
 {
     /// <summary>
     /// Disables editing this variable in inspector.

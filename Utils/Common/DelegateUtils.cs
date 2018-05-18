@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityCSCommon.Utils.Common
+namespace starikcetin.UnityCommon.Utils.Common
 {
     //
     // These were written back in the day when Unity did not support the null-conditional operators.

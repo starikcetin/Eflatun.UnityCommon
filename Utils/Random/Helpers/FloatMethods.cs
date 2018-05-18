@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UnityCSCommon.Utils.RandomUtils.Utility
+namespace starikcetin.UnityCommon.Utils.Random.Helpers
 {
     /// <summary>
     /// Float methods for <see cref="BetterRandom"/> class.

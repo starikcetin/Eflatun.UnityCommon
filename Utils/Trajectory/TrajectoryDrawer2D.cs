@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityCSCommon.Utils.TrajectoryUtilities
+namespace starikcetin.UnityCommon.Utils.Trajectory
 {
     /// <summary>
     /// A component for drawing 2D trajectories on XY plane using <see cref="LineRenderer"/>.

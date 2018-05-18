@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI
 {
     /// <summary>
     /// A Button that quits the application when clicked.

@@ -1,7 +1,7 @@
 ﻿using System;
-using UnityCSCommon.Utils.Common;
+using starikcetin.UnityCommon.Utils.Common;
 
-namespace UnityCSCommon.Utils.UI
+namespace starikcetin.UnityCommon.Utils.UI
 {
     /// <summary>
     /// Has an <see cref="OnClick"/> event that will get invoked when button is clicked.

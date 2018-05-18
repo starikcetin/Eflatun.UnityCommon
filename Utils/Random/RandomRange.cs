@@ -1,4 +1,4 @@
-﻿namespace UnityCSCommon.Utils.RandomUtils
+﻿namespace starikcetin.UnityCommon.Utils.Random
 {
     /// <summary>
     /// Indicates the range of random value.
