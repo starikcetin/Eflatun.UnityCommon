@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using starikcetin.UnityCommon.Utils.Calculation;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Grid
+namespace starikcetin.UnityCommon.Utils.GridBuilding
 {
     /// <summary>
     /// Methods for generating symmetrical square grids.
