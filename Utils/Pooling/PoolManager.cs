@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Eflatun.UnityCommon.Expansions;
+using Eflatun.Expansions;
 using Eflatun.UnityCommon.Utils.CodePatterns;
 using UnityEngine;
 
