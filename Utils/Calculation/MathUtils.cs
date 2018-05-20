@@ -1,6 +1,6 @@
 using System;
 
-namespace starikcetin.UnityCommon.Utils.Calculation
+namespace Eflatun.UnityCommon.Utils.Calculation
 {
     /// <summary>
     /// A class that includes standard mathematical functions for types that doesn't included in Unity's Mathf class; such as double and long.

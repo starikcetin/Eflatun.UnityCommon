@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Inspector.Editor
+namespace Eflatun.UnityCommon.Inspector.Editor
 {
     /// <summary>
     /// Property drawer for <see cref="NoEdit"/> attribute.

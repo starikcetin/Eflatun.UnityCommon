@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using starikcetin.UnityCommon.Utils.Calculation;
-using starikcetin.UnityCommon.Utils.RandomUtils;
+using Eflatun.UnityCommon.Utils.Calculation;
+using Eflatun.UnityCommon.Utils.RandomUtils;
 
-namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
+namespace Eflatun.UnityCommon.Utils.Sampling.Vector2
 {
     /// <summary>
     /// Rejection sampling for a circular area.

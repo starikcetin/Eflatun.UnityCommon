@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace starikcetin.UnityCommon.Utils.RandomUtils
+namespace Eflatun.UnityCommon.Utils.RandomUtils
 {
     //
     // Original Source: https://stackoverflow.com/a/9958717/6301627

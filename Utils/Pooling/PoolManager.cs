@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using starikcetin.UnityCommon.Expansions;
-using starikcetin.UnityCommon.Utils.CodePatterns;
+using Eflatun.UnityCommon.Expansions;
+using Eflatun.UnityCommon.Utils.CodePatterns;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Pooling
+namespace Eflatun.UnityCommon.Utils.Pooling
 {
     public class PoolManager : SceneSingleton<PoolManager>
     {

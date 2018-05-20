@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace starikcetin.UnityCommon.Utils.Common
+namespace Eflatun.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Utilities for Networking.

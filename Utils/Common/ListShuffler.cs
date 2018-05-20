@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace starikcetin.UnityCommon.Utils.Common
+namespace Eflatun.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Includes methods to shuffle lists with seeding, using Fisher-Yates algorithm.

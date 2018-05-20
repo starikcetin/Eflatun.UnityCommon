@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Serialization.Helpers
+namespace Eflatun.UnityCommon.Utils.Serialization.Helpers
 {
     /// <summary>
     /// Serialization helper class for Vector3 type.

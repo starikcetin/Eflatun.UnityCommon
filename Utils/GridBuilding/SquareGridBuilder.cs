@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using starikcetin.UnityCommon.Utils.Calculation;
+using Eflatun.UnityCommon.Utils.Calculation;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.GridBuilding
+namespace Eflatun.UnityCommon.Utils.GridBuilding
 {
     /// <summary>
     /// Methods for generating symmetrical square grids.

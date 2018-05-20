@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using starikcetin.UnityCommon.Utils.Common;
+using Eflatun.UnityCommon.Utils.Common;
 
-namespace starikcetin.UnityCommon.Utils.Sampling.Vector2
+namespace Eflatun.UnityCommon.Utils.Sampling.Vector2
 {
     /// <summary>
     /// Grid based sampling of Vector2s.

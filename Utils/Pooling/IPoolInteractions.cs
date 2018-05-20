@@ -1,4 +1,4 @@
-namespace starikcetin.UnityCommon.Utils.Pooling
+namespace Eflatun.UnityCommon.Utils.Pooling
 {
     /// <summary>
     /// Includes essential methods for objects that will be pooled.

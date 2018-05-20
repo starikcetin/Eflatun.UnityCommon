@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace starikcetin.UnityCommon.Utils.RandomUtils.Helpers
+namespace Eflatun.UnityCommon.Utils.RandomUtils.Helpers
 {
     /// <summary>
     /// Double methods for <see cref="BetterRandom"/> class.

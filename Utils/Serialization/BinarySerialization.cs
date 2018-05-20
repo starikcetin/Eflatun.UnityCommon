@@ -1,7 +1,7 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace starikcetin.UnityCommon.Utils.Serialization
+namespace Eflatun.UnityCommon.Utils.Serialization
 {
     /// <summary>
     /// Utilities for serializing to byte arrays and deserializing from byte arrays.

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace starikcetin.UnityCommon.Inspector
+namespace Eflatun.UnityCommon.Inspector
 {
     /// <summary>
     /// Disables editing this variable in inspector.

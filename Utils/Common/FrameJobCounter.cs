@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Common
+namespace Eflatun.UnityCommon.Utils.Common
 {
     /// <summary>
     /// A job counter for jobs that has limits per frame.

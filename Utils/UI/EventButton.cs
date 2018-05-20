@@ -1,7 +1,7 @@
 ﻿using System;
-using starikcetin.UnityCommon.Utils.Common;
+using Eflatun.UnityCommon.Utils.Common;
 
-namespace starikcetin.UnityCommon.Utils.UI
+namespace Eflatun.UnityCommon.Utils.UI
 {
     /// <summary>
     /// Has an <see cref="OnClick"/> event that will get invoked when button is clicked.

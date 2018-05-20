@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Common
+namespace Eflatun.UnityCommon.Utils.Common
 {
     /// <summary>
     /// Utilities and extension methods for <see cref="GameObject"/>s.

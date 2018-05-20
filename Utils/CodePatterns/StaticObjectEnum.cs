@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using starikcetin.UnityCommon.Utils.Common;
+using Eflatun.UnityCommon.Utils.Common;
 
-namespace starikcetin.UnityCommon.Utils.CodePatterns
+namespace Eflatun.UnityCommon.Utils.CodePatterns
 {
     /// <summary>
     /// Base class for types that follow Static-Object-Enum pattern. <para />

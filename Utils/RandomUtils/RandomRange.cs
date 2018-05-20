@@ -1,4 +1,4 @@
-﻿namespace starikcetin.UnityCommon.Utils.RandomUtils
+﻿namespace Eflatun.UnityCommon.Utils.RandomUtils
 {
     /// <summary>
     /// Indicates the range of random value.

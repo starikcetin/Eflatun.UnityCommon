@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Utils.Trajectory
+namespace Eflatun.UnityCommon.Utils.Trajectory
 {
     /// <summary>
     /// Methods for 2D trajectory calculations and sampling on XY plane.

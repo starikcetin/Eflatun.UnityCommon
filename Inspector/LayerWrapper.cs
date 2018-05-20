@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace starikcetin.UnityCommon.Inspector
+namespace Eflatun.UnityCommon.Inspector
 {
     /// <summary>
     /// Wraps around an integer field to represent an EXISTING Unity Layer. <para/>
