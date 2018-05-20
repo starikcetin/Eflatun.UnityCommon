@@ -1,15 +1,17 @@
 # Eflatun.UnityCommon #
 
-This library includes common code that are shared across all of my Unity projects.
+This library includes common code that are shared across my Unity projects.
+
+
+Dependencies
+---
+- [Eflatun.Expansions](https://github.com/starikcetin/Eflatun.Expansions)
 
 
 Folders
 ---
-- Expansions:     Independent of Unity.
-- Inspector:      Unity dependent, Editor and Inspector.
-- Utils:          Unity dependent.
-
-*If a type uses anything that Unity provides, than it is Unity dependent.*
+- Inspector:      Editor and Inspector.
+- Utils:          Utilities, helpers, extensions, etc.
 
 
 Notes
