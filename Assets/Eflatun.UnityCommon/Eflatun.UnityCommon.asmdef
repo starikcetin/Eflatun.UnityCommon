@@ -1,3 +1,10 @@
-﻿{
-	"name": "Eflatun.UnityCommon"
+{
+    "name": "Eflatun.UnityCommon",
+    "references": [
+        "Eflatun.Expansions"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
 }
