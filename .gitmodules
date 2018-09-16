@@ -1,0 +1,4 @@
+[submodule "submodules/Eflatun.Expansions"]
+	path = submodules/Eflatun.Expansions
+	url = https://github.com/starikcetin/Eflatun.Expansions
+	branch = master
