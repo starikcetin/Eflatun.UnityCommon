@@ -1,0 +1,16 @@
+{
+    "name": "starikcetin.Eflatun.UnityCommon.Inspector.Editor",
+    "references": [
+        "GUID:9474b44b41c75ca4ba85a3a82e8376d9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": []
+}
