@@ -1,7 +1,6 @@
-This repository has UPM support. Use these for installing it directly in Unity:
+This repository has UPM support. Paste the following into your dependencies (Packages/manifest.json):
 
-1. https://github.com/mob-sakai/UpmGitExtension
-1. https://github.com/mob-sakai/GitDependencyResolverForUnity
+    "com.starikcetin.eflatun.unitycommon": "git+https://github.com/starikcetin/Eflatun.UnityCommon#0.0.1-upm",
 
 ----
 
