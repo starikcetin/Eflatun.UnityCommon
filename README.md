@@ -1,3 +1,10 @@
+This repository has UPM support. Use these for installing it directly in Unity:
+
+0. https://github.com/mob-sakai/UpmGitExtension
+1. https://github.com/mob-sakai/GitDependencyResolverForUnity
+
+----
+
 # Eflatun.UnityCommon #
 
 This library includes common code that are shared across my Unity projects.
