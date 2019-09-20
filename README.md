@@ -1,6 +1,8 @@
 This repository has UPM support. Paste the following into your dependencies (Packages/manifest.json):
 
-    "com.starikcetin.eflatun.unitycommon": "git+https://github.com/starikcetin/Eflatun.UnityCommon#0.0.1-upm",
+    "com.coffee.git-dependency-resolver": "https://github.com/mob-sakai/GitDependencyResolverForUnity.git#1.1.2",
+    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git#0.9.1",
+    "com.starikcetin.eflatun.tracking2d": "https://github.com/starikcetin/Eflatun.Tracking2D.git#0.0.3",
 
 ----
 
