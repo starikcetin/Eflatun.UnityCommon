@@ -1,7 +1,7 @@
 {
     "author": "starikcetin <cetinsamedtarik@gmail.com> (https://github.com/starikcetin)",
     "dependencies": {
-        "com.starikcetin.eflatun.expansions": "git+https://github.com/starikcetin/Eflatun.Expansions.git#0.1.0-upm"
+        "com.starikcetin.eflatun.expansions": "https://github.com/starikcetin/Eflatun.Expansions.git#0.1.0-upm"
     },
     "description": "This library includes common code that are shared across my Unity projects.",
     "displayName": "Eflatun.UnityCommon",
