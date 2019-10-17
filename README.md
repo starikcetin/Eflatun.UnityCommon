@@ -12,4 +12,4 @@ This repository has been split up into multiple repositories. Find them below:
 * [Eflatun.UI](https://github.com/starikcetin/Eflatun.UI)
 * [Eflatun.Common](https://github.com/starikcetin/Eflatun.Common)
 
-Note: All previous UPM releases are still there. But I don't guarantee they will work in the future.
+Note: All previous UPM releases of this repository still exist, but I can't guarantee they will work in the future. I suggest you switch to the new repositories listed above as soon as possible.
