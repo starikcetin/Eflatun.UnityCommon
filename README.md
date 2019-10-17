@@ -1,36 +1,15 @@
-This repository has UPM support. Paste the following into your dependencies (Packages/manifest.json):
+This repository is split up into multiple repositories. Find them below:
 
-    "com.coffee.git-dependency-resolver": "https://github.com/mob-sakai/GitDependencyResolverForUnity.git#1.1.2",
-    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git#0.9.1",
-    "com.starikcetin.eflatun.unitycommon": "https://github.com/starikcetin/Eflatun.UnityCommon.git#0.0.3",
+* Eflatun.Inspector https://github.com/starikcetin/Eflatun.Inspector
+* Eflatun.Calculation https://github.com/starikcetin/Eflatun.Calculation
+* Eflatun.CodePatterns https://github.com/starikcetin/Eflatun.CodePatterns
+* Eflatun.Gridbuilding https://github.com/starikcetin/Eflatun.GridBuilding
+* Eflatun.Pooling https://github.com/starikcetin/Eflatun.Pooling
+* Eflatun.RandomUtils https://github.com/starikcetin/Eflatun.RandomUtils
+* Eflatun.Sampling https://github.com/starikcetin/Eflatun.Sampling
+* Eflatun.Serialization https://github.com/starikcetin/Eflatun.Serialization
+* Eflatun.Trajectory https://github.com/starikcetin/Eflatun.Trajectory
+* Eflatun.UI https://github.com/starikcetin/Eflatun.UI
+* Eflatun.Common https://github.com/starikcetin/Eflatun.Common
 
-----
-
-# Eflatun.UnityCommon #
-
-This library includes common code that are shared across my Unity projects.
-
-
-Dependencies
----
-- [Eflatun.Expansions](https://github.com/starikcetin/Eflatun.Expansions)
-
-
-Folders
----
-- Inspector:      Editor and Inspector.
-- Utils:          Utilities, helpers, extensions, etc.
-
-
-Notes
----
-- You may prefer using this library as a subtree (or submodule) in your git repository.
-- *Editor* folders are special folders that Unity use to identify editor-only scripts. So all *Editor* folders in this framework are intended for that purpose. Thus, do not use *Editor* as a custom folder name, use *Inspector* instead.
-
-
-License
----
-MIT license. Refer to the [LICENSE](https://github.com/starikcetin/Eflatun.UnityCommon/blob/master/LICENSE) file.
-
-Copyright (c) 2018 S. Tarık Çetin
-
+Note: All previous UPM releases are still there. But I don't guarantee they will work in the future.
